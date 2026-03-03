@@ -6,9 +6,20 @@ import { users } from '@/lib/db/schema';
 
 const { users: usersTable } = schema;
 
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY || '', {
-  apiVersion: '2025-02-24.acacia',
-});
+// Lazy initialization - só cria o cliente quando necessário
+let stripeClient: Stripe | null = null;
+function getStripe(): Stripe {
+  if (!stripeClient) {
+    const apiKey = process.env.STRIPE_SECRET_KEY;
+    if (!apiKey) {
+      throw new Error('STRIPE_SECRET_KEY não configurada');
+    }
+    stripeClient = new Stripe(apiKey, {
+      apiVersion: '2025-02-24.acacia',
+    });
+  }
+  return stripeClient;
+}
 
 const PREMIUM_PRICE_ID = process.env.STRIPE_PREMIUM_PRICE_ID || 'price_premium_monthly';
 const PREMIUM_PRICE_CENTS = 2900;
@@ -47,7 +58,7 @@ export async function POST(request: NextRequest) {
     let customerId = user.stripeCustomerId;
 
     if (!customerId) {
-      const customer = await stripe.customers.create({
+      const customer = await getStripe().customers.create({
         email: user.email,
         metadata: {
           userId: user.id,
@@ -60,7 +71,7 @@ export async function POST(request: NextRequest) {
         .where(eq(usersTable.id, userId));
     }
 
-    const session = await stripe.checkout.sessions.create({
+    const session = await getStripe().checkout.sessions.create({
       customer: customerId,
       mode: 'subscription',
       payment_method_types: ['card'],

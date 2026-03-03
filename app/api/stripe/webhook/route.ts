@@ -5,9 +5,20 @@ import Stripe from 'stripe';
 
 const { users: usersTable } = schema;
 
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY || '', {
-  apiVersion: '2025-02-24.acacia',
-});
+// Lazy initialization - só cria o cliente quando necessário
+let stripeClient: Stripe | null = null;
+function getStripe(): Stripe {
+  if (!stripeClient) {
+    const apiKey = process.env.STRIPE_SECRET_KEY;
+    if (!apiKey) {
+      throw new Error('STRIPE_SECRET_KEY não configurada');
+    }
+    stripeClient = new Stripe(apiKey, {
+      apiVersion: '2025-02-24.acacia',
+    });
+  }
+  return stripeClient;
+}
 
 const WEBHOOK_SECRET = process.env.STRIPE_WEBHOOK_SECRET || '';
 
@@ -26,7 +37,7 @@ export async function POST(request: NextRequest) {
     let event: Stripe.Event;
 
     try {
-      event = stripe.webhooks.constructEvent(body, signature, WEBHOOK_SECRET);
+      event = getStripe().webhooks.constructEvent(body, signature, WEBHOOK_SECRET);
     } catch (err) {
       console.error('Webhook signature verification failed:', err);
       return NextResponse.json(
@@ -43,7 +54,7 @@ export async function POST(request: NextRequest) {
         const userId = session.metadata?.userId;
 
         if (userId) {
-          const subscription = await stripe.subscriptions.retrieve(
+          const subscription = await getStripe().subscriptions.retrieve(
             session.subscription as string
           );
 

@@ -1,0 +1,98 @@
+import { NextRequest, NextResponse } from 'next/server';
+import { getDb, schema } from '@/lib/db';
+import { eq } from 'drizzle-orm';
+import Stripe from 'stripe';
+import { users } from '@/lib/db/schema';
+
+const { users: usersTable } = schema;
+
+const stripe = new Stripe(process.env.STRIPE_SECRET_KEY || '', {
+  apiVersion: '2024-12-18.acacia',
+});
+
+const PREMIUM_PRICE_ID = process.env.STRIPE_PREMIUM_PRICE_ID || 'price_premium_monthly';
+const PREMIUM_PRICE_CENTS = 2900;
+const APP_URL = process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000';
+
+export async function POST(request: NextRequest) {
+  try {
+    const userId = request.cookies.get('userId')?.value;
+
+    if (!userId) {
+      return NextResponse.json(
+        { error: 'Usuário não autenticado' },
+        { status: 401 }
+      );
+    }
+
+    const db = getDb();
+    const user = await db.query.users.findFirst({
+      where: eq(usersTable.id, userId),
+    });
+
+    if (!user) {
+      return NextResponse.json(
+        { error: 'Usuário não encontrado' },
+        { status: 404 }
+      );
+    }
+
+    if (user.isPremium && user.premiumExpiresAt && new Date(user.premiumExpiresAt) > new Date()) {
+      return NextResponse.json(
+        { error: 'Você já é premium' },
+        { status: 400 }
+      );
+    }
+
+    let customerId = user.stripeCustomerId;
+
+    if (!customerId) {
+      const customer = await stripe.customers.create({
+        email: user.email,
+        metadata: {
+          userId: user.id,
+        },
+      });
+      customerId = customer.id;
+
+      await db.update(usersTable)
+        .set({ stripeCustomerId: customerId })
+        .where(eq(usersTable.id, userId));
+    }
+
+    const session = await stripe.checkout.sessions.create({
+      customer: customerId,
+      mode: 'subscription',
+      payment_method_types: ['card'],
+      line_items: [
+        {
+          price: PREMIUM_PRICE_ID,
+          quantity: 1,
+        },
+      ],
+      success_url: `${APP_URL}/premium?success=true`,
+      cancel_url: `${APP_URL}/premium?canceled=true`,
+      metadata: {
+        userId: user.id,
+      },
+      subscription_data: {
+        trial_period_days: 7,
+        metadata: {
+          userId: user.id,
+        },
+      },
+    });
+
+    return NextResponse.json({ url: session.url });
+  } catch (error) {
+    console.error('Error creating Stripe session:', error);
+    return NextResponse.json(
+      { error: 'Erro ao processar pagamento' },
+      { status: 500 }
+    );
+  }
+}
+
+export async function GET(request: NextRequest) {
+  return POST(request);
+}

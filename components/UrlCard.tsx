@@ -9,6 +9,7 @@ interface UrlCardProps {
   shortUrl: string;
   originalUrl: string;
   createdAt: string;
+  isPremium?: boolean;
 }
 
 export function UrlCard({ shortUrl, originalUrl, createdAt }: UrlCardProps) {

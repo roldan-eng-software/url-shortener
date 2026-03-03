@@ -4,7 +4,7 @@ import { eq, sql } from 'drizzle-orm';
 
 const { urls } = schema;
 
-export async function GET(
+export async function POST(
   request: NextRequest,
   { params }: { params: Promise<{ shortCode: string }> }
 ) {
@@ -13,7 +13,7 @@ export async function GET(
     const { shortCode } = await params;
 
     if (!shortCode || shortCode.length > 10) {
-      return NextResponse.redirect(new URL('/', request.url), 301);
+      return NextResponse.json({ error: 'Invalid short code' }, { status: 400 });
     }
 
     const urlRecord = await db.query.urls.findFirst({
@@ -21,20 +21,24 @@ export async function GET(
     });
 
     if (!urlRecord) {
-      return NextResponse.redirect(new URL('/', request.url), 301);
+      return NextResponse.json({ error: 'URL not found' }, { status: 404 });
     }
 
     if (urlRecord.expiresAt && new Date(urlRecord.expiresAt) < new Date()) {
-      return NextResponse.redirect(new URL('/', request.url), 301);
+      return NextResponse.json({ error: 'URL expired' }, { status: 410 });
     }
 
+    // Increment click counter
     await db.update(urls)
       .set({ clicks: sql`${urls.clicks} + 1` })
       .where(eq(urls.id, urlRecord.id));
 
-    return NextResponse.redirect(urlRecord.originalUrl, 301);
+    return NextResponse.json({ 
+      success: true, 
+      originalUrl: urlRecord.originalUrl 
+    });
   } catch (error) {
-    console.error('Error redirecting:', error);
-    return NextResponse.redirect(new URL('/', request.url), 301);
+    console.error('Error recording click:', error);
+    return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
   }
 }

@@ -1,11 +1,9 @@
-import type { Metadata } from 'next';
-import Link from 'next/link';
-import { Navbar } from '@/components/Navbar';
+'use client';
 
-export const metadata: Metadata = {
-  title: 'Planos Premium - URLEncurta | Recursos Avançados',
-  description: 'Descubra os planos Premium do URLEncurta. URLs customizadas, estatísticas avançadas, QR codes e muito mais.',
-};
+import { useState, useEffect } from 'react';
+import Link from 'next/link';
+import { useRouter, useSearchParams } from 'next/navigation';
+import { Navbar } from '@/components/Navbar';
 
 const plans = [
   {
@@ -26,13 +24,14 @@ const plans = [
       'Exportação de dados'
     ],
     cta: 'Atual',
-    popular: false
+    popular: false,
+    action: 'current'
   },
   {
     name: 'Premium',
-    price: 'R$ 19,90',
+    price: 'R$ 29,90',
     period: '/mês',
-    description: 'O maispopular',
+    description: 'O mais popular',
     features: [
       'Tudo do Grátis',
       'URLs customizadas',
@@ -45,7 +44,8 @@ const plans = [
     ],
     notIncluded: [],
     cta: 'Começar Agora',
-    popular: true
+    popular: true,
+    action: 'checkout'
   },
   {
     name: 'Empresarial',
@@ -64,15 +64,86 @@ const plans = [
     ],
     notIncluded: [],
     cta: 'Falar com Consultor',
-    popular: false
+    popular: false,
+    action: 'contact'
   }
 ];
 
 export default function PremiumPage() {
+  const router = useRouter();
+  const searchParams = useSearchParams();
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isPremium, setIsPremium] = useState(false);
+  const [loading, setLoading] = useState<string | null>(null);
+
+  const success = searchParams.get('success');
+  const canceled = searchParams.get('canceled');
+
+  useEffect(() => {
+    const checkAuth = async () => {
+      try {
+        const res = await fetch('/api/auth/check-premium');
+        const data = await res.json();
+        setIsLoggedIn(!!data.userId);
+        setIsPremium(data.isPremium || false);
+      } catch (err) {
+        console.error('Error checking auth:', err);
+      }
+    };
+    checkAuth();
+  }, []);
+
+  const handleCheckout = async () => {
+    if (!isLoggedIn) {
+      router.push('/login?redirect=/premium');
+      return;
+    }
+
+    setLoading('checkout');
+    try {
+      const res = await fetch('/api/stripe/checkout', { method: 'POST' });
+      const data = await res.json();
+      
+      if (data.url) {
+        window.location.href = data.url;
+      } else {
+        alert(data.error || 'Erro ao processar pagamento');
+      }
+    } catch (err) {
+      console.error('Checkout error:', err);
+      alert('Erro ao processar pagamento');
+    } finally {
+      setLoading(null);
+    }
+  };
+
+  const handlePlanAction = (action: string) => {
+    if (action === 'checkout') {
+      handleCheckout();
+    } else if (action === 'contact') {
+      alert('Entre em contato pelo email: suporte@urlencurta.com.br');
+    }
+  };
+
   return (
     <>
       <Navbar />
       <div className="min-h-screen bg-gradient-to-br from-primary/5 to-background">
+        {(success || canceled) && (
+          <div className="container mx-auto px-4 max-w-6xl pt-4">
+            {success && (
+              <div className="p-4 bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800 rounded-xl text-green-700 dark:text-green-400 text-center">
+                Pagamento iniciado com sucesso! Verifique seu email para confirmar a assinatura.
+              </div>
+            )}
+            {canceled && (
+              <div className="p-4 bg-yellow-50 dark:bg-yellow-900/20 border border-yellow-200 dark:border-yellow-800 rounded-xl text-yellow-700 dark:text-yellow-400 text-center">
+                Pagamento cancelado. Tente novamente quando quiser.
+              </div>
+            )}
+          </div>
+        )}
+        
         <section className="py-16 md:py-24">
           <div className="container mx-auto px-4 max-w-6xl">
             <div className="text-center mb-16">
@@ -128,16 +199,17 @@ export default function PremiumPage() {
                     ))}
                   </ul>
                   
-                  <Link
-                    href="/"
-                    className={`block w-full py-3 text-center font-semibold rounded-xl transition-all ${
+                  <button
+                    onClick={() => handlePlanAction(plan.action)}
+                    disabled={loading === 'checkout'}
+                    className={`block w-full py-3 text-center font-semibold rounded-xl transition-all disabled:opacity-50 disabled:cursor-not-allowed ${
                       plan.popular
                         ? 'bg-primary text-white hover:bg-primary-hover'
                         : 'bg-gray-100 text-gray-900 hover:bg-gray-200'
                     }`}
                   >
-                    {plan.cta}
-                  </Link>
+                    {loading === 'checkout' ? 'Processando...' : plan.cta}
+                  </button>
                 </div>
               ))}
             </div>
@@ -145,7 +217,7 @@ export default function PremiumPage() {
             <div className="text-center mt-12">
               <p className="text-secondary">
                 Precisa de um plano personalizado?{' '}
-                <a href="#" className="text-primary font-medium hover:underline">
+                <a href="mailto:suporte@urlencurta.com.br" className="text-primary font-medium hover:underline">
                   Fale conosco
                 </a>
               </p>

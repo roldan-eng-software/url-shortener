@@ -166,9 +166,20 @@ export function CTAPremium() {
                 </svg>
               </button>
               
-              <p className="text-white/60 text-sm mt-6">
-                Pagamento único. Acesso imediato.
-              </p>
+              {!isLoggedIn && (
+                <div className="mt-4 inline-flex items-center gap-2 px-4 py-2 bg-white/10 rounded-xl">
+                  <svg className="w-4 h-4 text-white/80" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+                  </svg>
+                  <span className="text-white/80 text-sm">Entre ou crie uma conta para assinar</span>
+                </div>
+              )}
+              
+              {isLoggedIn && (
+                <p className="text-white/60 text-sm mt-6">
+                  Pagamento único. Acesso imediato.
+                </p>
+              )}
             </div>
           </div>
         </div>

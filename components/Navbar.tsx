@@ -92,23 +92,23 @@ export function Navbar() {
                 {getThemeIcon()}
               </button>
               
-              {isPremium ? (
+              {isLoggedIn ? (
                 <Link
                   href="/login"
                   className="px-5 py-2.5 text-white font-semibold rounded-xl transition-all duration-300 hover:scale-[1.02]"
-                  style={{ background: 'linear-gradient(135deg, #F59E0B 0%, #EF4444 100%)' }}
+                  style={{ background: isPremium ? 'linear-gradient(135deg, #F59E0B 0%, #EF4444 100%)' : 'linear-gradient(135deg, #6366F1 0%, #8B5CF6 100%)' }}
                 >
                   <span className="flex items-center gap-2">
-                    <span>⭐ Entrar</span>
+                    <span>{isPremium ? '⭐' : '👤'} Minha Conta</span>
                   </span>
                 </Link>
               ) : (
                 <Link
-                  href="/premium"
+                  href="/login"
                   className="px-5 py-2.5 text-white font-semibold rounded-xl transition-all duration-300 hover:scale-[1.02]"
                   style={{ background: 'linear-gradient(135deg, #6366F1 0%, #8B5CF6 100%)' }}
                 >
-                  Upgrade Premium
+                  Entrar
                 </Link>
               )}
             </div>
@@ -158,16 +158,16 @@ export function Navbar() {
                   Premium
                 </Link>
                 <Link
-                  href={isPremium ? "/login" : "/premium"}
+                  href="/login"
                   className="px-5 py-3 text-white font-semibold rounded-xl text-center transition-all duration-300 hover:scale-[1.02]"
                   style={{ 
-                    background: isPremium 
+                    background: isLoggedIn && isPremium
                       ? 'linear-gradient(135deg, #F59E0B 0%, #EF4444 100%)' 
                       : 'linear-gradient(135deg, #6366F1 0%, #8B5CF6 100%)' 
                   }}
                   onClick={() => setIsMenuOpen(false)}
                 >
-                  {isPremium ? '⭐ Entrar' : 'Upgrade Premium'}
+                  {isLoggedIn ? (isPremium ? '⭐ Minha Conta' : '👤 Minha Conta') : 'Entrar'}
                 </Link>
               </div>
             </div>

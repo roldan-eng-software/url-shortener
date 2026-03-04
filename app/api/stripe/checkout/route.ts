@@ -22,7 +22,7 @@ function getStripe(): Stripe {
 }
 
 const PREMIUM_PRICE_ID = process.env.STRIPE_PREMIUM_PRICE_ID || 'price_premium_monthly';
-const PREMIUM_PRICE_CENTS = 2900;
+const PREMIUM_PRICE_CENTS = 2990;
 const APP_URL = process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000';
 
 export async function POST(request: NextRequest) {

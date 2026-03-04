@@ -116,9 +116,9 @@ export function CTAPremium() {
                 Plano Premium
               </div>
               
-              <h2 className="text-3xl md:text-4xl font-bold text-white mb-2">
-                R$29/mês
-              </h2>
+            <h2 className="text-3xl md:text-4xl font-bold text-white mb-2">
+              R$ 29,90/mês
+            </h2>
               <p className="text-white/80 text-lg mb-8 max-w-xl mx-auto">
                 Desbloqueie todo o poder do URLEncurta com recursos exclusivos
               </p>

@@ -94,12 +94,12 @@ export function Navbar() {
               
               {isPremium ? (
                 <Link
-                  href="/premium"
+                  href="/login"
                   className="px-5 py-2.5 text-white font-semibold rounded-xl transition-all duration-300 hover:scale-[1.02]"
                   style={{ background: 'linear-gradient(135deg, #F59E0B 0%, #EF4444 100%)' }}
                 >
                   <span className="flex items-center gap-2">
-                    <span>⭐ Premium</span>
+                    <span>⭐ Entrar</span>
                   </span>
                 </Link>
               ) : (
@@ -158,7 +158,7 @@ export function Navbar() {
                   Premium
                 </Link>
                 <Link
-                  href="/premium"
+                  href={isPremium ? "/login" : "/premium"}
                   className="px-5 py-3 text-white font-semibold rounded-xl text-center transition-all duration-300 hover:scale-[1.02]"
                   style={{ 
                     background: isPremium 
@@ -167,7 +167,7 @@ export function Navbar() {
                   }}
                   onClick={() => setIsMenuOpen(false)}
                 >
-                  {isPremium ? '⭐ Você é Premium' : 'Upgrade Premium'}
+                  {isPremium ? '⭐ Entrar' : 'Upgrade Premium'}
                 </Link>
               </div>
             </div>

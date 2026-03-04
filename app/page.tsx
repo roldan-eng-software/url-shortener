@@ -131,6 +131,19 @@ export default function Home() {
       <Stats totalUrls={stats.totalUrls} totalClicks={stats.totalClicks} />
       <CTAPremium />
       <FAQ />
+      <footer className="py-8 text-center bg-gray-100 dark:bg-gray-900">
+        <p className="text-gray-600 dark:text-gray-400">
+          Desenvolvido por:{' '}
+          <a
+            href="https://roldan-eng-software.github.io/roldan-page/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300 font-medium"
+          >
+            Roldan Eng Software
+          </a>
+        </p>
+      </footer>
     </div>
   );
 }

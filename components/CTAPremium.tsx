@@ -80,7 +80,7 @@ export function CTAPremium() {
                 </>
               ) : (
                 <>
-                  🎁 Experimente 7 dias grátis
+                  🚀 Assinar Premium
                 </>
               )}
               <svg className="ml-2 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -89,7 +89,7 @@ export function CTAPremium() {
             </button>
             
             <p className="text-white/60 text-sm mt-6">
-              Cancele a qualquer momento. Sem compromisso.
+              Pagamento único. Acesso imediato.
             </p>
           </div>
         </div>

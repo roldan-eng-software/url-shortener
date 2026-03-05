@@ -109,12 +109,12 @@ export function StatsModal({ isOpen, onClose, linkId }: StatsModalProps) {
               <div className="p-4 bg-primary/5 border border-primary/20 rounded-xl">
                 <div className="flex items-center gap-4">
                   <div className="w-14 h-14 rounded-xl bg-primary/10 flex items-center justify-center">
-                    <span className="text-2xl font-bold text-primary">{stats.totalClicks}</span>
+                    <span className="text-2xl font-bold text-primary">{stats.totalClicks ?? 0}</span>
                   </div>
                   <div>
                     <p className="text-sm text-text">Total de cliques</p>
                     <p className="text-xs text-text/70">
-                      Criado em {new Date(stats.createdAt).toLocaleDateString('pt-BR')}
+                      Criado em {stats.createdAt ? new Date(stats.createdAt).toLocaleDateString('pt-BR') : '-'}
                     </p>
                   </div>
                 </div>
@@ -128,7 +128,7 @@ export function StatsModal({ isOpen, onClose, linkId }: StatsModalProps) {
                     </svg>
                     Por País
                   </h4>
-                  {stats.topCountries.length > 0 ? (
+                  {(stats.topCountries && stats.topCountries.length > 0) ? (
                     <div className="space-y-2">
                       {stats.topCountries.map((item, i) => (
                         <div key={i} className="flex items-center justify-between">
@@ -152,7 +152,7 @@ export function StatsModal({ isOpen, onClose, linkId }: StatsModalProps) {
                     </svg>
                     Por Dispositivo
                   </h4>
-                  {stats.topDevices.length > 0 ? (
+                  {(stats.topDevices && stats.topDevices.length > 0) ? (
                     <div className="space-y-2">
                       {stats.topDevices.map((item, i) => (
                         <div key={i} className="flex items-center justify-between">
@@ -177,7 +177,7 @@ export function StatsModal({ isOpen, onClose, linkId }: StatsModalProps) {
                   </svg>
                   Referências
                 </h4>
-                {stats.topReferrers.length > 0 ? (
+                {(stats.topReferrers && stats.topReferrers.length > 0) ? (
                   <div className="space-y-2 max-h-40 overflow-y-auto">
                     {stats.topReferrers.map((item, i) => (
                       <div key={i} className="flex items-center justify-between">

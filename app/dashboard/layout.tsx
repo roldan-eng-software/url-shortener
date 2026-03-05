@@ -132,12 +132,13 @@ export default function DashboardLayout({
               
               <button
                 onClick={handleLogout}
-                className="p-2 text-text hover:text-red-500 hover:bg-red-50 dark:hover:bg-red-900/20 rounded-lg transition-all"
+                className="flex items-center gap-2 px-3 py-2 text-sm text-text hover:text-red-500 hover:bg-red-50 dark:hover:bg-red-900/20 rounded-lg transition-all"
                 title="Sair"
               >
                 <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
                 </svg>
+                <span className="hidden sm:inline">Sair</span>
               </button>
             </div>
           </div>

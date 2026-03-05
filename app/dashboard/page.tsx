@@ -7,11 +7,11 @@ import { EditModal } from '@/components/dashboard/EditModal';
 
 interface UserLink {
   id: string;
-  original_url: string;
-  short_code: string;
-  custom_alias: string | null;
-  clicks_total: number;
-  created_at: string;
+  original_url?: string | null;
+  short_code?: string | null;
+  custom_alias?: string | null;
+  clicks_total?: number | null;
+  created_at?: string | null;
 }
 
 export default function DashboardPage() {
@@ -94,11 +94,18 @@ export default function DashboardPage() {
     }
   };
 
-  const filteredLinks = links.filter(link => 
-    link.original_url.toLowerCase().includes(searchQuery.toLowerCase()) ||
-    link.short_code.toLowerCase().includes(searchQuery.toLowerCase()) ||
-    (link.custom_alias && link.custom_alias.toLowerCase().includes(searchQuery.toLowerCase()))
-  );
+  const filteredLinks = links.filter(link => {
+    const originalUrl = link.original_url || '';
+    const shortCode = link.short_code || '';
+    const customAlias = link.custom_alias || '';
+    const query = searchQuery.toLowerCase();
+    
+    return (
+      originalUrl.toLowerCase().includes(query) ||
+      shortCode.toLowerCase().includes(query) ||
+      customAlias.toLowerCase().includes(query)
+    );
+  });
 
   const totalClicks = links.reduce((acc, link) => acc + (link.clicks_total || 0), 0);
 
@@ -211,11 +218,11 @@ export default function DashboardPage() {
             <DashboardLinkCard
               key={link.id}
               id={link.id}
-              shortCode={link.short_code}
-              originalUrl={link.original_url}
+              shortCode={link.short_code || ''}
+              originalUrl={link.original_url || ''}
               customAlias={link.custom_alias}
-              clicksTotal={link.clicks_total}
-              createdAt={link.created_at}
+              clicksTotal={link.clicks_total ?? 0}
+              createdAt={link.created_at || new Date().toISOString()}
               onEdit={handleEdit}
               onDelete={handleDelete}
             />

@@ -94,12 +94,12 @@ export function Navbar() {
               
               {isLoggedIn ? (
                 <Link
-                  href="/login"
+                  href={isPremium ? "/dashboard" : "/login"}
                   className="px-5 py-2.5 text-white font-semibold rounded-xl transition-all duration-300 hover:scale-[1.02]"
                   style={{ background: isPremium ? 'linear-gradient(135deg, #F59E0B 0%, #EF4444 100%)' : 'linear-gradient(135deg, #6366F1 0%, #8B5CF6 100%)' }}
                 >
                   <span className="flex items-center gap-2">
-                    <span>{isPremium ? '⭐' : '👤'} Minha Conta</span>
+                    <span>{isPremium ? '📊' : '👤'} {isPremium ? 'Dashboard' : 'Minha Conta'}</span>
                   </span>
                 </Link>
               ) : (
@@ -158,7 +158,7 @@ export function Navbar() {
                   Premium
                 </Link>
                 <Link
-                  href="/login"
+                  href={isLoggedIn && isPremium ? "/dashboard" : "/login"}
                   className="px-5 py-3 text-white font-semibold rounded-xl text-center transition-all duration-300 hover:scale-[1.02]"
                   style={{ 
                     background: isLoggedIn && isPremium
@@ -167,7 +167,7 @@ export function Navbar() {
                   }}
                   onClick={() => setIsMenuOpen(false)}
                 >
-                  {isLoggedIn ? (isPremium ? '⭐ Minha Conta' : '👤 Minha Conta') : 'Entrar'}
+                  {isLoggedIn ? (isPremium ? '📊 Dashboard' : '👤 Minha Conta') : 'Entrar'}
                 </Link>
               </div>
             </div>

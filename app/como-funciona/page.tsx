@@ -1,6 +1,5 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
-import { Navbar } from '@/components/Navbar';
 
 export const metadata: Metadata = {
   title: 'Como Encurtar URLs - Tutorial Completo | URLEncurta',
@@ -66,7 +65,6 @@ const benefits = [
 export default function ComoFuncionaPage() {
   return (
     <>
-      <Navbar />
       <div className="min-h-screen bg-gradient-to-br from-primary/5 to-background">
         <section className="py-16 md:py-24">
           <div className="container mx-auto px-4 max-w-4xl">

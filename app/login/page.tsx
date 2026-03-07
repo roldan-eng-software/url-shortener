@@ -3,9 +3,11 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
+import { useAuth } from '@/context/AuthContext';
 
 export default function LoginPage() {
   const router = useRouter();
+  const { checkAuth } = useAuth();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
@@ -42,6 +44,8 @@ export default function LoginPage() {
         return;
       }
 
+      // Atualiza o estado global de autenticação antes do redirect
+      await checkAuth();
       router.push('/');
     } catch (err) {
       setError('Erro ao conectar com o servidor');

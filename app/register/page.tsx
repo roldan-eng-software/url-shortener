@@ -3,10 +3,11 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { Navbar } from '@/components/Navbar';
+import { useAuth } from '@/context/AuthContext';
 
 export default function RegisterPage() {
   const router = useRouter();
+  const { checkAuth } = useAuth();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
@@ -54,6 +55,8 @@ export default function RegisterPage() {
         return;
       }
 
+      // Atualiza o estado global de autenticação antes do redirect
+      await checkAuth();
       router.push('/');
     } catch (err) {
       setError('Erro ao conectar com o servidor');
@@ -64,7 +67,6 @@ export default function RegisterPage() {
 
   return (
     <>
-      <Navbar />
       <div className="min-h-screen bg-gradient-to-br from-primary/5 to-background flex items-center justify-center py-12 px-4">
         <div className="w-full max-w-md">
           <div className="text-center mb-8">

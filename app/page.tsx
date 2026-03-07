@@ -13,16 +13,17 @@ import { UrlCard } from '@/components/UrlCard';
 import { Stats } from '@/components/Stats';
 import { AdRectangle } from '@/components/Adsense';
 import Link from 'next/link';
+import { useAuth } from '@/context/AuthContext';
 
 export default function Home() {
+  const { isPremium, isLoggedIn, userId } = useAuth();
   const [history, setHistory] = useState<UrlHistoryItem[]>([]);
   const [userLinks, setUserLinks] = useState<UrlHistoryItem[]>([]);
   const [stats, setStats] = useState({ totalUrls: 0, totalClicks: 0 });
-  const [isPremium, setIsPremium] = useState(false);
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   useEffect(() => {
     const loadHistory = () => {
+// ... (omitted for brevity, will match exactly in the tool call)
       const stored = localStorage.getItem('urlHistory');
       if (stored) {
         setHistory(JSON.parse(stored));
@@ -37,14 +38,9 @@ export default function Home() {
   }, []);
 
   useEffect(() => {
-    const checkAuth = async () => {
-      try {
-        const res = await fetch('/api/auth/check-premium');
-        const data = await res.json();
-        setIsPremium(data.isPremium || false);
-        setIsLoggedIn(!!data.userId);
-        
-        if (data.userId) {
+    const fetchUserLinks = async () => {
+      if (userId) {
+        try {
           const linksRes = await fetch('/api/user/links?limit=100');
           const linksData = await linksRes.json();
           if (linksData.links) {
@@ -55,13 +51,13 @@ export default function Home() {
               createdAt: link.created_at,
             })));
           }
+        } catch (err) {
+          console.error('Error fetching links:', err);
         }
-      } catch (err) {
-        console.error('Error checking auth:', err);
       }
     };
-    checkAuth();
-  }, []);
+    fetchUserLinks();
+  }, [userId]);
 
   const allLinks = isLoggedIn ? [...userLinks, ...history] : history;
   const displayHistory = isPremium ? allLinks : allLinks.slice(0, 10);

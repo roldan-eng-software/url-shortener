@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react';
 import { UrlResult } from './UrlResult';
 import Link from 'next/link';
+import { useAuth } from '@/context/AuthContext';
 
 export function UrlForm() {
   const [url, setUrl] = useState('');
@@ -14,22 +15,9 @@ export function UrlForm() {
     shortUrl: string;
     originalUrl: string;
   } | null>(null);
-  const [isPremium, setIsPremium] = useState(false);
+  const { isPremium } = useAuth();
   const [showCustomAlias, setShowCustomAlias] = useState(false);
   const [aliasLocked, setAliasLocked] = useState(false);
-
-  useEffect(() => {
-    const checkPremium = async () => {
-      try {
-        const res = await fetch('/api/auth/check-premium');
-        const data = await res.json();
-        setIsPremium(data.isPremium || false);
-      } catch (err) {
-        console.error('Error checking premium:', err);
-      }
-    };
-    checkPremium();
-  }, []);
 
   useEffect(() => {
     if (!isPremium) {

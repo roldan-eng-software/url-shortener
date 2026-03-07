@@ -3,26 +3,12 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { useTheme } from '@/lib/useTheme';
+import { useAuth } from '@/context/AuthContext';
 
 export function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const { theme, cycleTheme, mounted } = useTheme();
-  const [isPremium, setIsPremium] = useState(false);
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-
-  useEffect(() => {
-    const checkAuth = async () => {
-      try {
-        const res = await fetch('/api/auth/check-premium');
-        const data = await res.json();
-        setIsPremium(data.isPremium || false);
-        setIsLoggedIn(!!data.userId);
-      } catch (err) {
-        console.error('Error checking auth:', err);
-      }
-    };
-    checkAuth();
-  }, []);
+  const { isLoggedIn, isPremium, logout } = useAuth();
 
   const getThemeIcon = () => {
     if (!mounted) {

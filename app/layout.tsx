@@ -4,6 +4,7 @@ import { Navbar } from '@/components/Navbar';
 import { Footer } from '@/components/Footer';
 import { GoogleAnalytics } from '@/components/GoogleAnalytics';
 import { CookieBanner } from '@/components/CookieBanner';
+import { AuthProvider } from '@/context/AuthContext';
 
 export const metadata: Metadata = {
   title: 'URLEncurta - Encurtador de URLs Grátis | Links Curtos e Seguros',
@@ -73,12 +74,14 @@ export default function RootLayout({
             `,
           }}
         />
-        <Navbar />
-        <main className="container mx-auto px-4 py-8 max-w-6xl flex-1">
-          {children}
-        </main>
-        <Footer />
-        <CookieBanner />
+        <AuthProvider>
+          <Navbar />
+          <main className="container mx-auto px-4 py-8 max-w-6xl flex-1">
+            {children}
+          </main>
+          <Footer />
+          <CookieBanner />
+        </AuthProvider>
       </body>
     </html>
   );

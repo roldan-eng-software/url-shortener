@@ -1,9 +1,8 @@
 'use client';
 
-import { useState, useEffect } from 'react';
-import Link from 'next/link';
+import { useState } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
-import { Navbar } from '@/components/Navbar';
+import { useAuth } from '@/context/AuthContext';
 
 const plans = [
   {
@@ -72,26 +71,11 @@ const plans = [
 export default function PremiumPage() {
   const router = useRouter();
   const searchParams = useSearchParams();
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [isPremium, setIsPremium] = useState(false);
+  const { isLoggedIn, isPremium } = useAuth();
   const [loading, setLoading] = useState<string | null>(null);
 
   const success = searchParams.get('success');
   const canceled = searchParams.get('canceled');
-
-  useEffect(() => {
-    const checkAuth = async () => {
-      try {
-        const res = await fetch('/api/auth/check-premium');
-        const data = await res.json();
-        setIsLoggedIn(!!data.userId);
-        setIsPremium(data.isPremium || false);
-      } catch (err) {
-        console.error('Error checking auth:', err);
-      }
-    };
-    checkAuth();
-  }, []);
 
   const handleCheckout = async () => {
     if (!isLoggedIn) {
@@ -127,7 +111,6 @@ export default function PremiumPage() {
 
   return (
     <>
-      <Navbar />
       <div className="min-h-screen bg-gradient-to-br from-primary/5 to-background">
         {(success || canceled) && (
           <div className="container mx-auto px-4 max-w-6xl pt-4">

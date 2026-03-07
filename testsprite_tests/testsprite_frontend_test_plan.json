@@ -1,0 +1,532 @@
+[
+  {
+    "id": "TC001",
+    "title": "Validation error shown for an invalid URL format",
+    "description": "Verifies the form rejects an invalid URL and shows a visible validation message.",
+    "category": "URL Shortening",
+    "priority": "High",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /"
+      },
+      {
+        "type": "action",
+        "description": "Type \"not-a-url\" into \"URL input field\""
+      },
+      {
+        "type": "action",
+        "description": "Click on \"Shorten\" button"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify text \"invalid\" is visible"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify element \"Shortened URL result\" is not visible"
+      }
+    ]
+  },
+  {
+    "id": "TC002",
+    "title": "Validation error shown when URL input is empty",
+    "description": "Verifies the form prevents submission when the URL field is blank.",
+    "category": "URL Shortening",
+    "priority": "High",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify element \"URL input field\" is visible"
+      },
+      {
+        "type": "action",
+        "description": "Click on \"Shorten\" button"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify text \"required\" is visible"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify element \"Shortened URL result\" is not visible"
+      }
+    ]
+  },
+  {
+    "id": "TC003",
+    "title": "Repeated shortening updates the displayed result",
+    "description": "Verifies submitting a second valid URL updates the visible shortened URL result.",
+    "category": "URL Shortening",
+    "priority": "Medium",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /"
+      },
+      {
+        "type": "action",
+        "description": "Type \"https://example.com/first\" into \"URL input field\""
+      },
+      {
+        "type": "action",
+        "description": "Click on \"Shorten\" button"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify element \"Shortened URL result\" is visible"
+      },
+      {
+        "type": "action",
+        "description": "Type \"https://example.com/second\" into \"URL input field\""
+      },
+      {
+        "type": "action",
+        "description": "Click on \"Shorten\" button"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify element \"Shortened URL result\" is visible"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify text \"second\" is not visible"
+      }
+    ]
+  },
+  {
+    "id": "TC004",
+    "title": "Register a new account successfully and proceed to login page",
+    "description": "Verifies a new user can register and is prompted to log in afterward.",
+    "category": "User Authentication",
+    "priority": "High",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /register"
+      },
+      {
+        "type": "action",
+        "description": "Type \"new.user+e2e@example.com\" into the email input field"
+      },
+      {
+        "type": "action",
+        "description": "Type \"ValidPassw0rd!\" into the password input field"
+      },
+      {
+        "type": "action",
+        "description": "Click the register button"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify text \"Success\" is visible"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify text \"login\" is visible"
+      },
+      {
+        "type": "action",
+        "description": "Click on the \"Login\" link"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify URL contains \"/login\""
+      }
+    ]
+  },
+  {
+    "id": "TC005",
+    "title": "Login fails with non-existent user",
+    "description": "Verifies the app rejects login for an email that is not registered.",
+    "category": "User Authentication",
+    "priority": "Medium",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /login"
+      },
+      {
+        "type": "action",
+        "description": "Type \"no.such.user.987654@example.com\" into the email input field"
+      },
+      {
+        "type": "action",
+        "description": "Type \"SomePassw0rd!\" into the password input field"
+      },
+      {
+        "type": "action",
+        "description": "Click the login button"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify text \"invalid\" is visible"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify text \"credentials\" is visible"
+      }
+    ]
+  },
+  {
+    "id": "TC006",
+    "title": "Registration validation: missing email prevents account creation",
+    "description": "Verifies the registration form shows a validation error when email is blank.",
+    "category": "User Authentication",
+    "priority": "Medium",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /register"
+      },
+      {
+        "type": "action",
+        "description": "Type \"ValidPassw0rd!\" into the password input field"
+      },
+      {
+        "type": "action",
+        "description": "Click the register button"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify text \"email\" is visible"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify text \"required\" is visible"
+      }
+    ]
+  },
+  {
+    "id": "TC007",
+    "title": "Registration validation: weak/short password is rejected",
+    "description": "Verifies the registration form rejects an obviously too-short password and shows a helpful error.",
+    "category": "User Authentication",
+    "priority": "Low",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /register"
+      },
+      {
+        "type": "action",
+        "description": "Type \"weak.pass.user@example.com\" into the email input field"
+      },
+      {
+        "type": "action",
+        "description": "Type \"123\" into the password input field"
+      },
+      {
+        "type": "action",
+        "description": "Click the register button"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify text \"password\" is visible"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify text \"too\" is visible"
+      }
+    ]
+  },
+  {
+    "id": "TC008",
+    "title": "Login and view dashboard URL list",
+    "description": "Verifies an authenticated user can log in and see the dashboard with a list area for shortened URLs.",
+    "category": "Dashboard URL Management",
+    "priority": "High",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /login"
+      },
+      {
+        "type": "action",
+        "description": "Type \"{{LOGIN_USER}}\" into the email input field"
+      },
+      {
+        "type": "action",
+        "description": "Type \"{{LOGIN_PASSWORD}}\" into the password input field"
+      },
+      {
+        "type": "action",
+        "description": "Click the login button"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify URL contains \"/dashboard\""
+      },
+      {
+        "type": "assertion",
+        "description": "Verify text \"Dashboard\" is visible"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify element \"List of shortened URLs\" is visible"
+      }
+    ]
+  },
+  {
+    "id": "TC009",
+    "title": "Create a new short URL from the dashboard and see it in the list",
+    "description": "Verifies a user can start from the dashboard, create a new short URL, and see it appear in the dashboard list.",
+    "category": "Dashboard URL Management",
+    "priority": "High",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /login"
+      },
+      {
+        "type": "action",
+        "description": "Type \"{{LOGIN_USER}}\" into the email input field"
+      },
+      {
+        "type": "action",
+        "description": "Type \"{{LOGIN_PASSWORD}}\" into the password input field"
+      },
+      {
+        "type": "action",
+        "description": "Click the login button"
+      },
+      {
+        "type": "action",
+        "description": "Click \"Create New URL\""
+      },
+      {
+        "type": "assertion",
+        "description": "Verify URL contains \"/dashboard\""
+      },
+      {
+        "type": "action",
+        "description": "Type \"https://example.com/some/long/path\" into the long URL input field"
+      },
+      {
+        "type": "action",
+        "description": "Click the shorten button"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify text \"https://example.com/some/long/path\" is visible"
+      }
+    ]
+  },
+  {
+    "id": "TC010",
+    "title": "Invalid short code shows Not Found or invalid-code message",
+    "description": "Visiting a non-existent short URL shows a visible Not Found or invalid short code error page instead of redirecting.",
+    "category": "URL Redirect",
+    "priority": "High",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /this-short-code-should-not-exist-999999"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify text \"Not Found\" is visible"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify text \"invalid\" is visible"
+      }
+    ]
+  },
+  {
+    "id": "TC011",
+    "title": "Invalid short code does not redirect away from the app",
+    "description": "An invalid short URL keeps the user on the app domain and does not navigate to an external destination.",
+    "category": "URL Redirect",
+    "priority": "High",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /definitely-invalid-code-abc-123-xyz"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify URL contains \"/definitely-invalid-code-abc-123-xyz\""
+      },
+      {
+        "type": "assertion",
+        "description": "Verify text \"Not Found\" is visible"
+      }
+    ]
+  },
+  {
+    "id": "TC012",
+    "title": "Empty/too-short short code path shows Not Found",
+    "description": "Visiting an obviously malformed short code (very short) shows a Not Found or error message.",
+    "category": "URL Redirect",
+    "priority": "Medium",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /x"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify text \"Not Found\" is visible"
+      }
+    ]
+  },
+  {
+    "id": "TC013",
+    "title": "Short code with URL-unsafe characters is handled gracefully",
+    "description": "Visiting a short code containing encoded/special characters results in a safe Not Found/error page rather than a crash or blank screen.",
+    "category": "URL Redirect",
+    "priority": "Medium",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /%40%40%40"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify text \"Not Found\" is visible"
+      }
+    ]
+  },
+  {
+    "id": "TC014",
+    "title": "Error page explains the short code is invalid (user-friendly messaging)",
+    "description": "The invalid short code page provides an explanation that the code is invalid or not found.",
+    "category": "URL Redirect",
+    "priority": "Low",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /nope-nope-nope-0000"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify text \"short code\" is visible"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify text \"invalid\" is visible"
+      }
+    ]
+  },
+  {
+    "id": "TC015",
+    "title": "Access Premium page and view available plans",
+    "description": "Verifies the Premium page loads and premium plan information is visible to a public user.",
+    "category": "Premium Subscription",
+    "priority": "High",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /premium"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify page title contains \"Premium\""
+      },
+      {
+        "type": "assertion",
+        "description": "Verify text \"Premium\" is visible"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify text \"plan\" is visible"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify an element \"Subscribe\" is visible"
+      }
+    ]
+  },
+  {
+    "id": "TC016",
+    "title": "Start subscription flow from a plan CTA and reach checkout/payment step",
+    "description": "Verifies clicking a plan subscribe CTA leads to a visible checkout/payment step (page or modal).",
+    "category": "Premium Subscription",
+    "priority": "High",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /premium"
+      },
+      {
+        "type": "action",
+        "description": "Click on \"Subscribe\""
+      },
+      {
+        "type": "assertion",
+        "description": "Verify text \"Checkout\" is visible"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify text \"Payment\" is visible"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify an element \"Pay\" is visible"
+      }
+    ]
+  },
+  {
+    "id": "TC017",
+    "title": "Attempt payment with empty required fields shows validation messaging",
+    "description": "Verifies the payment step prevents submission when required information is missing and shows a visible error.",
+    "category": "Premium Subscription",
+    "priority": "High",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /premium"
+      },
+      {
+        "type": "action",
+        "description": "Click on \"Subscribe\""
+      },
+      {
+        "type": "action",
+        "description": "Click on \"Pay\""
+      },
+      {
+        "type": "assertion",
+        "description": "Verify text \"required\" is visible"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify an element \"Pay\" is visible"
+      }
+    ]
+  },
+  {
+    "id": "TC018",
+    "title": "Premium page CTA remains usable after scrolling through plan details",
+    "description": "Verifies that users can scroll through premium plan content and still initiate subscription from a visible CTA.",
+    "category": "Premium Subscription",
+    "priority": "Low",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /premium"
+      },
+      {
+        "type": "action",
+        "description": "Scroll to the bottom of the page"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify text \"Premium\" is visible"
+      },
+      {
+        "type": "action",
+        "description": "Click on \"Subscribe\""
+      },
+      {
+        "type": "assertion",
+        "description": "Verify text \"Payment\" is visible"
+      }
+    ]
+  }
+]

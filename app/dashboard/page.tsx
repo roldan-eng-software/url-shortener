@@ -2,6 +2,19 @@
 
 import { useState, useEffect, useCallback } from 'react';
 import Link from 'next/link';
+import {
+  BarChart3,
+  CalendarClock,
+  CopyPlus,
+  Crown,
+  Link2,
+  MousePointerClick,
+  Plus,
+  Search,
+  Sparkles,
+  Target,
+  TrendingUp,
+} from 'lucide-react';
 import { DashboardLinkCard } from '@/components/dashboard/DashboardLinkCard';
 import { EditModal } from '@/components/dashboard/EditModal';
 
@@ -113,84 +126,201 @@ export default function DashboardPage() {
   });
 
   const totalClicks = links.reduce((acc, link) => acc + (link.clicks_total || 0), 0);
+  const averageClicks = links.length > 0 ? Math.round(totalClicks / links.length) : 0;
+  const linksWithoutClicks = links.filter((link) => (link.clicks_total || 0) === 0).length;
+  const topLink = links.reduce<UserLink | null>((best, link) => {
+    if (!best) return link;
+    return (link.clicks_total || 0) > (best.clicks_total || 0) ? link : best;
+  }, null);
+  const newestLink = links[0];
+
+  const statCards = [
+    {
+      label: 'Links ativos',
+      value: links.length.toLocaleString('pt-BR'),
+      helper: `${filteredLinks.length} na busca atual`,
+      icon: Link2,
+      tone: 'bg-primary/10 text-primary',
+    },
+    {
+      label: 'Cliques totais',
+      value: totalClicks.toLocaleString('pt-BR'),
+      helper: `${averageClicks.toLocaleString('pt-BR')} por link`,
+      icon: MousePointerClick,
+      tone: 'bg-green-500/10 text-green-600',
+    },
+    {
+      label: 'Melhor link',
+      value: topLink ? (topLink.clicks_total || 0).toLocaleString('pt-BR') : '0',
+      helper: topLink?.short_code ? `/${topLink.short_code}` : 'Aguardando dados',
+      icon: TrendingUp,
+      tone: 'bg-blue-500/10 text-blue-600',
+    },
+    {
+      label: 'Sem cliques',
+      value: linksWithoutClicks.toLocaleString('pt-BR'),
+      helper: linksWithoutClicks ? 'Divulgue novamente' : 'Boa tração',
+      icon: Target,
+      tone: 'bg-amber-500/10 text-amber-600',
+    },
+  ];
 
   return (
     <div>
-      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-8">
+      <div className="flex flex-col gap-4 mb-8 lg:flex-row lg:items-center lg:justify-between">
         <div>
-          <h1 className="text-2xl font-bold text-title">Meus Links</h1>
-          <p className="text-text">Gerencie seus links encurtados</p>
+          <div className="mb-2 inline-flex items-center gap-2 rounded-full bg-primary/10 px-3 py-1 text-xs font-bold uppercase tracking-[0.12em] text-primary">
+            <Crown className="h-3.5 w-3.5" />
+            Dashboard Premium
+          </div>
+          <h1 className="text-3xl font-bold text-title">Central de performance</h1>
+          <p className="text-text">Gerencie, copie, analise e priorize os links que trazem clientes.</p>
         </div>
         
         <Link
           href="/dashboard/new"
-          className="inline-flex items-center justify-center gap-2 px-5 py-2.5 text-white font-semibold rounded-xl transition-all hover:scale-[1.02] bg-primary hover:bg-primary-hover"
+          className="inline-flex items-center justify-center gap-2 rounded-xl bg-primary px-5 py-3 font-semibold text-white transition-all hover:scale-[1.02] hover:bg-primary-hover"
         >
-          <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
-          </svg>
+          <Plus className="h-5 w-5" />
           Novo Link
         </Link>
       </div>
 
-      <div className="grid sm:grid-cols-3 gap-4 mb-8">
-        <div className="p-5 bg-surface border border-border rounded-2xl">
-          <div className="flex items-center gap-3">
-            <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center">
-              <svg className="w-6 h-6 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1" />
-              </svg>
+      <div className="mb-8 grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
+        {statCards.map((card) => {
+          const Icon = card.icon;
+
+          return (
+            <div key={card.label} className="rounded-2xl border border-border bg-surface p-5">
+              <div className="flex items-start justify-between gap-4">
+                <div>
+                  <p className="text-sm text-text">{card.label}</p>
+                  <p className="mt-1 text-3xl font-bold text-title">{card.value}</p>
+                  <p className="mt-1 text-xs font-medium text-text-secondary">{card.helper}</p>
+                </div>
+                <div className={`flex h-11 w-11 items-center justify-center rounded-xl ${card.tone}`}>
+                  <Icon className="h-5 w-5" />
+                </div>
+              </div>
             </div>
-            <div>
-              <p className="text-sm text-text">Total de Links</p>
-              <p className="text-2xl font-bold text-title">{links.length}</p>
+          );
+        })}
+      </div>
+
+      <div className="mb-8 grid gap-4 lg:grid-cols-[1.2fr_0.8fr]">
+        <div className="rounded-2xl border border-border bg-surface p-5">
+          <div className="flex items-start gap-3">
+            <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-primary/10 text-primary">
+              <Sparkles className="h-5 w-5" />
+            </div>
+            <div className="min-w-0">
+              <h2 className="text-lg font-bold text-title">Próxima melhor ação</h2>
+              {links.length === 0 ? (
+                <p className="mt-1 text-sm text-text">
+                  Crie um link com alias de campanha e compartilhe no WhatsApp, Instagram e anúncios.
+                </p>
+              ) : linksWithoutClicks > 0 ? (
+                <p className="mt-1 text-sm text-text">
+                  Existem {linksWithoutClicks} links sem clique. Reposte os principais canais e troque o texto da chamada.
+                </p>
+              ) : (
+                <p className="mt-1 text-sm text-text">
+                  Seus links já têm tração. Abra as estatísticas do melhor link e replique o canal que mais converte.
+                </p>
+              )}
+              <div className="mt-4 flex flex-wrap gap-2">
+                <Link
+                  href="/dashboard/new"
+                  className="inline-flex items-center gap-2 rounded-xl bg-primary px-4 py-2 text-sm font-bold text-white transition hover:bg-primary-hover"
+                >
+                  <CopyPlus className="h-4 w-4" />
+                  Criar campanha
+                </Link>
+                {topLink?.id && (
+                  <button
+                    type="button"
+                    onClick={() => setSearchQuery(topLink.short_code || topLink.custom_alias || '')}
+                    className="inline-flex items-center gap-2 rounded-xl border border-border px-4 py-2 text-sm font-bold text-title transition hover:border-primary/50 hover:text-primary"
+                  >
+                    <BarChart3 className="h-4 w-4" />
+                    Ver melhor link
+                  </button>
+                )}
+              </div>
             </div>
           </div>
         </div>
 
-        <div className="p-5 bg-surface border border-border rounded-2xl">
+        <div className="rounded-2xl border border-border bg-surface p-5">
           <div className="flex items-center gap-3">
-            <div className="w-12 h-12 rounded-xl bg-green-500/10 flex items-center justify-center">
-              <svg className="w-6 h-6 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
-              </svg>
+            <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-title text-white">
+              <CalendarClock className="h-5 w-5" />
             </div>
             <div>
-              <p className="text-sm text-text">Total de Cliques</p>
-              <p className="text-2xl font-bold text-title">{totalClicks.toLocaleString('pt-BR')}</p>
+              <h2 className="text-lg font-bold text-title">Link mais recente</h2>
+              <p className="text-sm text-text">
+                {newestLink?.short_code ? `/${newestLink.short_code}` : 'Nenhum link criado ainda'}
+              </p>
             </div>
           </div>
-        </div>
-
-        <div className="p-5 bg-surface border border-border rounded-2xl sm:col-span-1">
-          <div className="flex items-center gap-3">
-            <div className="w-12 h-12 rounded-xl bg-yellow-500/10 flex items-center justify-center">
-              <svg className="w-6 h-6 text-yellow-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z" />
-              </svg>
-            </div>
-            <div>
-              <p className="text-sm text-text">Status</p>
-              <p className="text-2xl font-bold text-title">Premium</p>
-            </div>
-          </div>
+          <p className="mt-4 break-all text-sm text-text">
+            {newestLink?.original_url || 'Crie seu primeiro link para iniciar o histórico de campanhas.'}
+          </p>
         </div>
       </div>
 
-      <div className="mb-6">
+      <div className="mb-6 rounded-2xl border border-border bg-surface p-4">
         <div className="relative">
-          <svg className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-text/50" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-          </svg>
+          <Search className="absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-text/50" />
           <input
             type="text"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            placeholder="Buscar links..."
-            className="w-full pl-12 pr-4 py-3 bg-surface border border-border rounded-xl text-title placeholder:text-text/50 focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary transition-all"
+            placeholder="Buscar por URL, alias ou código curto..."
+            className="w-full rounded-xl border border-border bg-background py-3 pl-12 pr-4 text-title placeholder:text-text/50 transition-all focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/50"
           />
         </div>
+        <div className="mt-3 flex flex-wrap gap-2">
+          <button
+            type="button"
+            onClick={() => setSearchQuery('')}
+            className="rounded-lg bg-border/50 px-3 py-1.5 text-xs font-semibold text-text transition hover:text-title"
+          >
+            Todos
+          </button>
+          <button
+            type="button"
+            onClick={() => {
+              const zeroClickLink = links.find((link) => (link.clicks_total || 0) === 0);
+              setSearchQuery(zeroClickLink?.short_code || '');
+            }}
+            disabled={!linksWithoutClicks}
+            className="rounded-lg bg-border/50 px-3 py-1.5 text-xs font-semibold text-text transition hover:text-title disabled:cursor-not-allowed disabled:opacity-50"
+          >
+            Sem cliques
+          </button>
+          {topLink?.short_code && (
+            <button
+              type="button"
+              onClick={() => setSearchQuery(topLink.short_code || '')}
+              className="rounded-lg bg-primary/10 px-3 py-1.5 text-xs font-semibold text-primary transition hover:bg-primary/20"
+            >
+              Melhor link
+            </button>
+          )}
+        </div>
+      </div>
+
+      <div className="mb-4 flex items-center justify-between gap-3">
+        <div>
+          <h2 className="text-lg font-bold text-title">Links da conta</h2>
+          <p className="text-sm text-text">
+            {filteredLinks.length.toLocaleString('pt-BR')} de {links.length.toLocaleString('pt-BR')} links exibidos
+          </p>
+        </div>
+        <Link href="/dashboard/new" className="hidden text-sm font-bold text-primary hover:text-primary-hover sm:inline-flex">
+          Criar novo
+        </Link>
       </div>
 
       {loading ? (

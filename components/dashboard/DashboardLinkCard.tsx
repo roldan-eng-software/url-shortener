@@ -1,6 +1,17 @@
 'use client';
 
 import { useState } from 'react';
+import {
+  BarChart3,
+  Check,
+  Copy,
+  Edit3,
+  ExternalLink,
+  Link2,
+  MousePointerClick,
+  QrCode,
+  Trash2,
+} from 'lucide-react';
 import { truncate, cn } from '@/lib/utils';
 import { QrCodeModal } from '../QrCodeModal';
 import { StatsModal } from './StatsModal';
@@ -36,6 +47,7 @@ export function DashboardLinkCard({
     : `${typeof window !== 'undefined' ? window.location.origin : ''}/${shortCode}`;
 
   const displayClicks = clicksTotal ?? 0;
+  const createdLabel = new Date(createdAt).toLocaleDateString('pt-BR');
 
   const handleCopy = async () => {
     try {
@@ -61,76 +73,94 @@ export function DashboardLinkCard({
 
   return (
     <>
-      <div className="p-5 bg-surface border border-border rounded-2xl hover:shadow-glow transition-all duration-300">
-        <div className="flex flex-col gap-3">
-          <div className="flex items-start justify-between gap-2">
-            <div className="flex-1 min-w-0">
-              <p className="text-xs text-text mb-1">Original:</p>
-              <p className="text-sm text-title break-all" title={originalUrl}>
+      <div className="rounded-2xl border border-border bg-surface p-5 transition-all duration-300 hover:border-primary/30 hover:shadow-glow">
+        <div className="flex flex-col gap-4">
+          <div className="flex flex-col gap-4 lg:flex-row lg:items-start lg:justify-between">
+            <div className="min-w-0 flex-1">
+              <div className="mb-2 flex flex-wrap items-center gap-2">
+                <span className="inline-flex items-center gap-1.5 rounded-full bg-primary/10 px-3 py-1 text-xs font-bold text-primary">
+                  <Link2 className="h-3.5 w-3.5" />
+                  /{customAlias || shortCode}
+                </span>
+                {displayClicks === 0 && (
+                  <span className="rounded-full bg-amber-500/10 px-3 py-1 text-xs font-bold text-amber-700 dark:text-amber-300">
+                    Repostar
+                  </span>
+                )}
+              </div>
+              <p className="text-xs font-medium uppercase tracking-[0.08em] text-text-secondary">Destino</p>
+              <p className="mt-1 break-all text-sm text-title" title={originalUrl}>
                 {truncate(originalUrl, 60)}
               </p>
             </div>
+            <div className="flex shrink-0 flex-wrap gap-2">
+              <button
+                onClick={handleCopy}
+                className={cn(
+                  'inline-flex items-center gap-2 rounded-xl px-3 py-2 text-sm font-bold transition-all duration-300',
+                  copied
+                    ? 'bg-success text-white'
+                    : 'bg-primary text-white hover:bg-primary-hover'
+                )}
+                title="Copiar link curto"
+              >
+                {copied ? <Check className="h-4 w-4" /> : <Copy className="h-4 w-4" />}
+                {copied ? 'Copiado' : 'Copiar'}
+              </button>
+              <a
+                href={shortUrl}
+                target="_blank"
+                rel="noreferrer"
+                className="inline-flex items-center justify-center rounded-xl border border-border px-3 py-2 text-text transition hover:border-primary/50 hover:text-primary"
+                title="Abrir link curto"
+              >
+                <ExternalLink className="h-4 w-4" />
+              </a>
+            </div>
           </div>
           
-          <div className="flex items-center justify-between gap-2 pt-2 border-t border-border/50">
-            <div className="flex-1 min-w-0">
-              <p className="text-xs text-text mb-1">Encurtada:</p>
-              <p className="text-sm font-bold text-primary break-all">{shortUrl}</p>
-            </div>
-            <button
-              onClick={handleCopy}
-              className={cn(
-                'px-3 py-1.5 text-sm font-semibold rounded-lg transition-all duration-300 shrink-0',
-                copied
-                  ? 'bg-success text-white'
-                  : 'bg-primary/10 text-primary hover:bg-primary/20 hover:scale-[1.02]'
-              )}
-            >
-              {copied ? 'OK!' : 'Copiar'}
-            </button>
+          <div className="rounded-xl border border-border/70 bg-background px-4 py-3">
+            <p className="text-xs font-medium uppercase tracking-[0.08em] text-text-secondary">Link curto</p>
+            <p className="mt-1 break-all text-sm font-bold text-primary">{shortUrl}</p>
           </div>
 
-          <div className="flex items-center justify-between gap-2 pt-2">
-            <div className="flex items-center gap-4">
-              <div className="flex items-center gap-1.5">
-                <svg className="w-4 h-4 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
-                </svg>
-                <span className="text-sm font-semibold text-title">{displayClicks}</span>
+          <div className="flex flex-col gap-3 border-t border-border/50 pt-3 sm:flex-row sm:items-center sm:justify-between">
+            <div className="flex flex-wrap items-center gap-3 text-sm">
+              <div className="inline-flex items-center gap-1.5 rounded-lg bg-primary/10 px-2.5 py-1.5 font-semibold text-primary">
+                <MousePointerClick className="h-4 w-4" />
+                {displayClicks.toLocaleString('pt-BR')} cliques
               </div>
-              <p className="text-xs text-text">
-                {new Date(createdAt).toLocaleDateString('pt-BR')}
-              </p>
+              <p className="text-xs font-medium text-text">Criado em {createdLabel}</p>
             </div>
             
-            <div className="flex items-center gap-1">
+            <div className="flex items-center gap-1.5">
               <button
                 onClick={() => setShowStatsModal(true)}
-                className="p-2 text-text hover:text-primary hover:bg-primary/10 rounded-lg transition-all duration-300"
+                className="rounded-lg p-2 text-text transition-all duration-300 hover:bg-primary/10 hover:text-primary"
                 title="Ver estatísticas"
               >
-                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
-                </svg>
+                <BarChart3 className="h-4 w-4" />
+              </button>
+              <button
+                onClick={() => setShowQrModal(true)}
+                className="rounded-lg p-2 text-text transition-all duration-300 hover:bg-primary/10 hover:text-primary"
+                title="Gerar QR Code"
+              >
+                <QrCode className="h-4 w-4" />
               </button>
               <button
                 onClick={() => onEdit(id, originalUrl, customAlias || '')}
-                className="p-2 text-text hover:text-primary hover:bg-primary/10 rounded-lg transition-all duration-300"
+                className="rounded-lg p-2 text-text transition-all duration-300 hover:bg-primary/10 hover:text-primary"
                 title="Editar link"
               >
-                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
-                </svg>
+                <Edit3 className="h-4 w-4" />
               </button>
               <button
                 onClick={() => setShowDeleteConfirm(true)}
-                className="p-2 text-text hover:text-red-500 hover:bg-red-50 dark:hover:bg-red-900/20 rounded-lg transition-all duration-300"
+                className="rounded-lg p-2 text-text transition-all duration-300 hover:bg-red-50 hover:text-red-500 dark:hover:bg-red-900/20"
                 title="Excluir link"
               >
-                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
-                </svg>
+                <Trash2 className="h-4 w-4" />
               </button>
             </div>
           </div>

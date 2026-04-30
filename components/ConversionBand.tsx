@@ -39,6 +39,9 @@ export function ConversionBand() {
             <div className="mt-4 grid gap-3 sm:grid-cols-2">
               <a
                 href="#encurtar"
+                data-track="cta_click"
+                data-track-category="home"
+                data-track-label="conversion_band_create_link"
                 className="inline-flex items-center justify-center gap-2 rounded-xl bg-white px-5 py-3 font-bold text-title transition-all hover:scale-[1.02]"
               >
                 Criar meu link
@@ -46,6 +49,9 @@ export function ConversionBand() {
               </a>
               <Link
                 href="/premium"
+                data-track="cta_click"
+                data-track-category="home"
+                data-track-label="conversion_band_premium"
                 className="inline-flex items-center justify-center gap-2 rounded-xl border border-white/20 px-5 py-3 font-bold text-white transition-all hover:bg-white/10"
               >
                 Ver premium

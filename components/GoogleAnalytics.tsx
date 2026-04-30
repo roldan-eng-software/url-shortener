@@ -2,7 +2,7 @@
 
 import Script from 'next/script';
 
-const GA_MEASUREMENT_ID = 'G-ZRN8PG2KZX';
+export const GA_MEASUREMENT_ID = process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID || 'G-ZRN8PG2KZX';
 
 type Gtag = (
   command: 'config' | 'event' | 'js',
@@ -17,6 +17,8 @@ declare global {
 }
 
 export function GoogleAnalytics() {
+  if (!GA_MEASUREMENT_ID) return null;
+
   return (
     <>
       <Script
@@ -46,6 +48,15 @@ export function trackEvent(category: string, action: string, label?: string, val
       event_category: category,
       event_label: label,
       value: value
+    });
+  }
+}
+
+export function trackConversionEvent(action: string, params?: Record<string, string | number | boolean | undefined>) {
+  if (typeof window !== 'undefined' && window.gtag) {
+    window.gtag('event', action, {
+      event_category: 'conversion',
+      ...params,
     });
   }
 }

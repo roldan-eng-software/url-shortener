@@ -3,20 +3,50 @@ import './globals.css';
 import { Navbar } from '@/components/Navbar';
 import { Footer } from '@/components/Footer';
 import { GoogleAnalytics } from '@/components/GoogleAnalytics';
+import { ConversionTracker } from '@/components/ConversionTracker';
 import { CookieBanner } from '@/components/CookieBanner';
 import { AuthProvider } from '@/context/AuthContext';
+import { JsonLd } from '@/components/JsonLd';
 
 export const metadata: Metadata = {
-  title: 'URLEncurta - Encurtador de URLs Grátis | Links Curtos e Seguros',
+  metadataBase: new URL('https://urlencurta.com'),
+  applicationName: 'URLEncurta',
+  title: {
+    default: 'URLEncurta - Encurtador de URLs Grátis | Links Curtos e Seguros',
+    template: '%s | URLEncurta',
+  },
   description: 'Encurte suas URLs gratuitamente com URLEncurta. Links curtos, seguros e com estatísticas detalhadas. Comece agora mesmo - rápido, simples e gratuito.',
   keywords: ['encurtar url', 'url shortener', 'link curto', 'encurtador de links', 'bitly gratis', 'encurtador de url brasileiro', 'urls curtas'],
   authors: [{ name: 'URLEncurta' }],
+  creator: 'URLEncurta',
+  publisher: 'URLEncurta',
+  category: 'technology',
+  formatDetection: {
+    email: false,
+    address: false,
+    telephone: false,
+  },
   openGraph: {
     title: 'URLEncurta - Encurte suas URLs em segundos',
     description: 'Transforme URLs longas em links curtos e fáceis de compartilhar. 100% grátis e seguro.',
+    url: 'https://urlencurta.com',
     type: 'website',
     locale: 'pt_BR',
     siteName: 'URLEncurta',
+    images: [
+      {
+        url: '/android-chrome-512x512.png',
+        width: 512,
+        height: 512,
+        alt: 'URLEncurta',
+      },
+    ],
+  },
+  twitter: {
+    card: 'summary',
+    title: 'URLEncurta - Encurte suas URLs em segundos',
+    description: 'Transforme URLs longas em links curtos e fáceis de compartilhar.',
+    images: ['/android-chrome-512x512.png'],
   },
   robots: {
     index: true,
@@ -53,6 +83,7 @@ export default function RootLayout({
         <link rel="apple-touch-icon" sizes="192x192" href="/android-chrome-192x192.png" />
         <link rel="apple-touch-icon" sizes="512x512" href="/android-chrome-512x512.png" />
         <link rel="manifest" href="/site.webmanifest" />
+        <JsonLd />
         <script
           async
           src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6076119895678197"
@@ -76,6 +107,7 @@ export default function RootLayout({
         />
         <AuthProvider>
           <Navbar />
+          <ConversionTracker />
           <main className="container mx-auto px-4 py-8 max-w-6xl flex-1">
             {children}
           </main>

@@ -5,6 +5,7 @@ import { UrlResult } from './UrlResult';
 import Link from 'next/link';
 import { useAuth } from '@/context/AuthContext';
 import { Clipboard, Crown, Link2, Loader2, Wand2 } from 'lucide-react';
+import { trackConversionEvent } from './GoogleAnalytics';
 
 const exampleUrls = [
   'https://wa.me/5511999999999',
@@ -67,6 +68,10 @@ export function UrlForm() {
       }
 
       setResult(data);
+      trackConversionEvent('short_link_created', {
+        link_type: isPremium ? 'premium' : 'free',
+        custom_alias: Boolean(payload.customCode),
+      });
       setUrl('');
       setCustomCode('');
 
@@ -143,6 +148,9 @@ export function UrlForm() {
           <button
             type="submit"
             disabled={loading}
+            data-track="form_submit"
+            data-track-category="url"
+            data-track-label="home_shortener"
             className="inline-flex min-h-[52px] items-center justify-center gap-2 rounded-xl bg-success px-6 py-3 font-bold text-white transition-all duration-300 hover:scale-[1.02] hover:brightness-105 disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:scale-100"
           >
             {loading ? (
@@ -221,6 +229,9 @@ export function UrlForm() {
             </p>
             <Link
               href="/premium"
+              data-track="cta_click"
+              data-track-category="url"
+              data-track-label="alias_locked_upgrade"
               className="px-3 py-1.5 text-xs font-bold text-white bg-gradient-to-r from-yellow-500 to-orange-500 rounded-lg hover:scale-105 transition-transform"
             >
               Upgrade

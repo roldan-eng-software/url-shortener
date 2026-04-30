@@ -38,6 +38,9 @@ export function Hero() {
             <div className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-3 mb-8">
               <a
                 href="#encurtar"
+                data-track="cta_click"
+                data-track-category="home"
+                data-track-label="hero_create_link"
                 className="inline-flex w-full sm:w-auto items-center justify-center gap-2 rounded-xl bg-primary px-6 py-3 font-bold text-white transition-all hover:bg-primary-hover hover:scale-[1.02]"
               >
                 <Zap className="h-5 w-5" />
@@ -45,6 +48,9 @@ export function Hero() {
               </a>
               <Link
                 href="/premium"
+                data-track="cta_click"
+                data-track-category="home"
+                data-track-label="hero_premium"
                 className="inline-flex w-full sm:w-auto items-center justify-center gap-2 rounded-xl border border-border bg-surface px-6 py-3 font-bold text-title transition-all hover:border-primary/50 hover:text-primary"
               >
                 <BarChart3 className="h-5 w-5" />

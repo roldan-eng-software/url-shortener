@@ -2,6 +2,7 @@
 
 import { FormEvent, useState } from 'react';
 import { ArrowRight, CheckCircle2, Loader2, Mail, Phone, UserRound } from 'lucide-react';
+import { trackConversionEvent } from './GoogleAnalytics';
 
 const interestOptions = [
   { value: 'premium', label: 'Quero assinar o Premium' },
@@ -60,6 +61,10 @@ export function LeadCaptureForm() {
       }
 
       setSuccess(data.message || 'Recebemos seus dados.');
+      trackConversionEvent('lead_created', {
+        lead_interest: form.interest,
+        lead_source: 'home_conversion_band',
+      });
       setForm(initialState);
     } catch {
       setError('Erro ao conectar com o servidor. Tente novamente.');
@@ -166,6 +171,9 @@ export function LeadCaptureForm() {
       <button
         type="submit"
         disabled={loading}
+        data-track="form_submit"
+        data-track-category="lead"
+        data-track-label="home_conversion_band"
         className="mt-5 inline-flex w-full items-center justify-center gap-2 rounded-xl bg-primary px-5 py-3 font-bold text-white transition hover:bg-primary-hover disabled:cursor-not-allowed disabled:opacity-60"
       >
         {loading ? <Loader2 className="h-5 w-5 animate-spin" /> : <ArrowRight className="h-5 w-5" />}

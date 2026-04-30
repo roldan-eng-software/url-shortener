@@ -21,6 +21,7 @@ import {
   X,
 } from 'lucide-react';
 import { useAuth } from '@/context/AuthContext';
+import { trackConversionEvent } from '@/components/GoogleAnalytics';
 
 const premiumFeatures = [
   { icon: Link2, text: 'Aliases personalizados para campanhas e marca' },
@@ -75,6 +76,9 @@ export default function PremiumPage() {
     setError('');
 
     if (!isLoggedIn) {
+      trackConversionEvent('checkout_login_required', {
+        source: 'premium_page',
+      });
       router.push('/login?redirect=/premium');
       return;
     }
@@ -89,6 +93,11 @@ export default function PremiumPage() {
         return;
       }
 
+      trackConversionEvent('checkout_started', {
+        source: 'premium_page',
+        value: 29.9,
+        currency: 'BRL',
+      });
       window.location.href = data.url;
     } catch {
       setError('Erro ao conectar com o checkout');
@@ -137,6 +146,9 @@ export default function PremiumPage() {
               <button
                 onClick={handleCheckout}
                 disabled={loading}
+                data-track="checkout_click"
+                data-track-category="premium"
+                data-track-label="hero_trial"
                 className="inline-flex items-center justify-center gap-2 rounded-xl bg-primary px-6 py-3.5 font-bold text-white transition hover:scale-[1.02] hover:bg-primary-hover disabled:cursor-not-allowed disabled:opacity-60"
               >
                 {loading ? <Loader2 className="h-5 w-5 animate-spin" /> : <Sparkles className="h-5 w-5" />}
@@ -144,6 +156,9 @@ export default function PremiumPage() {
               </button>
               <a
                 href="mailto:suporte@urlencurta.com.br?subject=Plano%20Empresarial%20URLEncurta"
+                data-track="sales_contact_click"
+                data-track-category="premium"
+                data-track-label="hero_enterprise"
                 className="inline-flex items-center justify-center gap-2 rounded-xl border border-border px-6 py-3.5 font-bold text-title transition hover:border-primary/50 hover:text-primary"
               >
                 <Users className="h-5 w-5" />
@@ -204,6 +219,9 @@ export default function PremiumPage() {
             <button
               onClick={handleCheckout}
               disabled={loading}
+              data-track="checkout_click"
+              data-track-category="premium"
+              data-track-label="pricing_card"
               className="mt-7 inline-flex w-full items-center justify-center gap-2 rounded-xl bg-primary px-6 py-3.5 font-bold text-white transition hover:bg-primary-hover disabled:cursor-not-allowed disabled:opacity-60"
             >
               {loading ? <Loader2 className="h-5 w-5 animate-spin" /> : <ArrowRight className="h-5 w-5" />}
@@ -264,6 +282,9 @@ export default function PremiumPage() {
           <button
             onClick={handleCheckout}
             disabled={loading}
+            data-track="checkout_click"
+            data-track-category="premium"
+            data-track-label="bottom_band"
             className="inline-flex items-center justify-center gap-2 rounded-xl bg-white px-6 py-3.5 font-bold text-title transition hover:scale-[1.02] disabled:cursor-not-allowed disabled:opacity-60"
           >
             {loading ? <Loader2 className="h-5 w-5 animate-spin" /> : <ArrowRight className="h-5 w-5" />}

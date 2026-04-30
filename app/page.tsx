@@ -25,7 +25,6 @@ export default function Home() {
   const { isPremium, isLoggedIn, userId } = useAuth();
   const [history, setHistory] = useState<UrlHistoryItem[]>([]);
   const [userLinks, setUserLinks] = useState<UrlHistoryItem[]>([]);
-  const [stats, setStats] = useState({ totalUrls: 0, totalClicks: 0 });
 
   useEffect(() => {
     const loadHistory = () => {
@@ -129,7 +128,7 @@ export default function Home() {
         </section>
       )}
       
-      <Stats totalUrls={stats.totalUrls} totalClicks={stats.totalClicks} />
+      <Stats totalUrls={allLinks.length} totalClicks={0} />
       <CTAPremium />
       <FAQ />
       <footer className="py-8 text-center bg-gray-100 dark:bg-gray-900">

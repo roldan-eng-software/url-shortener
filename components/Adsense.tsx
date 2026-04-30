@@ -2,6 +2,12 @@
 
 import { useEffect, useState } from 'react';
 
+declare global {
+  interface Window {
+    adsbygoogle?: Array<Record<string, unknown>>;
+  }
+}
+
 interface AdSenseProps {
   adSlot: string;
   adClient?: string;
@@ -13,15 +19,12 @@ export function AdSense({
   adClient = 'ca-pub-6076119895678197',
   layout = 'display' 
 }: AdSenseProps) {
-  const [adLoaded, setAdLoaded] = useState(false);
   const [adError, setAdError] = useState(false);
 
   useEffect(() => {
     if (typeof window !== 'undefined') {
       try {
-        ((window as any).adsbygoogle = (window as any).adsbygoogle || []).push({
-          callback: () => setAdLoaded(true)
-        });
+        (window.adsbygoogle = window.adsbygoogle || []).push({});
       } catch (err) {
         console.error('AdSense error:', err);
         setAdError(true);

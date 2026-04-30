@@ -94,7 +94,7 @@ export default function DashboardPage() {
       
       setLinks(links.filter(link => link.id !== id));
       showToast('success', 'Link excluído com sucesso');
-    } catch (err) {
+    } catch {
       showToast('error', 'Erro ao excluir link');
     }
   };

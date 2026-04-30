@@ -95,7 +95,7 @@ export function CTAPremium() {
       setConfirmPassword('');
       
       handleCheckout();
-    } catch (err) {
+    } catch {
       setError('Erro ao conectar com o servidor');
     } finally {
       setAuthLoading(false);

@@ -4,6 +4,18 @@ import Script from 'next/script';
 
 const GA_MEASUREMENT_ID = 'G-ZRN8PG2KZX';
 
+type Gtag = (
+  command: 'config' | 'event' | 'js',
+  target: string | Date,
+  params?: Record<string, string | number | boolean | undefined>
+) => void;
+
+declare global {
+  interface Window {
+    gtag?: Gtag;
+  }
+}
+
 export function GoogleAnalytics() {
   return (
     <>
@@ -29,8 +41,8 @@ export function GoogleAnalytics() {
 }
 
 export function trackEvent(category: string, action: string, label?: string, value?: number) {
-  if (typeof window !== 'undefined' && (window as any).gtag) {
-    (window as any).gtag('event', action, {
+  if (typeof window !== 'undefined' && window.gtag) {
+    window.gtag('event', action, {
       event_category: category,
       event_label: label,
       value: value
@@ -39,8 +51,8 @@ export function trackEvent(category: string, action: string, label?: string, val
 }
 
 export function trackConversion(conversionId: string, conversionLabel: string) {
-  if (typeof window !== 'undefined' && (window as any).gtag) {
-    (window as any).gtag('event', 'conversion', {
+  if (typeof window !== 'undefined' && window.gtag) {
+    window.gtag('event', 'conversion', {
       send_to: `${conversionId}/${conversionLabel}`
     });
   }

@@ -71,7 +71,7 @@ const plans = [
 export default function PremiumPage() {
   const router = useRouter();
   const searchParams = useSearchParams();
-  const { isLoggedIn, isPremium } = useAuth();
+  const { isLoggedIn } = useAuth();
   const [loading, setLoading] = useState<string | null>(null);
 
   const success = searchParams.get('success');

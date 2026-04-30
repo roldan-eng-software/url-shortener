@@ -1,4 +1,3 @@
-import { cookies } from 'next/headers';
 import { NextRequest, NextResponse } from 'next/server';
 import { createHmac, timingSafeEqual } from 'crypto';
 import { eq } from 'drizzle-orm';
@@ -87,10 +86,6 @@ export function clearAuthCookie(response: NextResponse) {
 
 export function getUserIdFromRequest(request: NextRequest) {
   return verifySessionToken(request.cookies.get(SESSION_COOKIE)?.value);
-}
-
-export function getUserIdFromCookies() {
-  return verifySessionToken(cookies().get(SESSION_COOKIE)?.value);
 }
 
 export async function getAuthUserFromRequest(request: NextRequest): Promise<AuthUser | null> {

@@ -1,4 +1,3 @@
-import Link from 'next/link';
 import { UrlForm } from '@/components/UrlForm';
 
 export function Hero() {

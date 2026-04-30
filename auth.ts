@@ -7,7 +7,12 @@ import { loginSchema } from '@/lib/validation';
 
 const { users } = schema;
 
+function getAuthSecret() {
+  return process.env.AUTH_SECRET || process.env.NEXTAUTH_SECRET || 'development-only-auth-secret';
+}
+
 export const { handlers, auth, signIn, signOut } = NextAuth({
+  secret: getAuthSecret(),
   session: {
     strategy: 'jwt',
   },

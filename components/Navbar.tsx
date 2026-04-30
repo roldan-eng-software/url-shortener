@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import Link from 'next/link';
 import { useTheme } from '@/lib/useTheme';
 import { useAuth } from '@/context/AuthContext';
@@ -8,7 +8,7 @@ import { useAuth } from '@/context/AuthContext';
 export function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const { theme, cycleTheme, mounted } = useTheme();
-  const { isLoggedIn, isPremium, logout } = useAuth();
+  const { isLoggedIn, isPremium } = useAuth();
 
   const getThemeIcon = () => {
     if (!mounted) {

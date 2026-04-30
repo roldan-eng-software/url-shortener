@@ -17,16 +17,20 @@ npx vercel link
 3. Configure as variáveis em Project Settings > Environment Variables:
 
 ```text
-NEXT_PUBLIC_APP_URL=https://urlencurta.com.br
+NEXT_PUBLIC_APP_URL=https://www.urlencurta.com.br
 NEXT_PUBLIC_GA_MEASUREMENT_ID=G-XXXXXXXXXX
 AUTH_SECRET=<openssl rand -base64 32>
 NEXTAUTH_SECRET=<mesmo valor do AUTH_SECRET>
-NEXTAUTH_URL=https://urlencurta.com.br
+NEXTAUTH_URL=https://www.urlencurta.com.br
 DATABASE_URL=<postgres ssl connection string>
 STRIPE_SECRET_KEY=<stripe secret key>
 STRIPE_WEBHOOK_SECRET=<stripe webhook secret>
 STRIPE_PREMIUM_PRICE_ID=<stripe price id>
 ```
+
+Use sempre o domínio canônico de produção nessas variáveis. Se a Vercel redireciona
+`https://urlencurta.com.br` para `https://www.urlencurta.com.br`, configure as
+variáveis com `https://www.urlencurta.com.br`. Não deixe `localhost` em Production.
 
 4. Puxe as variáveis para desenvolvimento local:
 
@@ -64,19 +68,22 @@ npx vercel --prod
 Depois confira o deployment no painel da Vercel e valide:
 
 ```text
-https://urlencurta.com.br
-https://urlencurta.com.br/premium/success
-https://urlencurta.com.br/robots.txt
-https://urlencurta.com.br/sitemap.xml
+https://www.urlencurta.com.br
+https://www.urlencurta.com.br/premium/success
+https://www.urlencurta.com.br/robots.txt
+https://www.urlencurta.com.br/sitemap.xml
 ```
 
 ## Webhook Stripe
 
-No painel da Stripe, aponte o webhook para:
+No painel da Stripe, aponte o webhook para a URL final, sem redirecionamento:
 
 ```text
-https://urlencurta.com.br/api/stripe/webhook
+https://www.urlencurta.com.br/api/stripe/webhook
 ```
+
+Se preferir usar o domínio sem `www`, primeiro ajuste o domínio canônico na Vercel
+para que ele não redirecione. O Stripe deve receber `200`, não `307`.
 
 Eventos necessários:
 
@@ -87,3 +94,13 @@ customer.subscription.deleted
 ```
 
 Copie o Signing secret para `STRIPE_WEBHOOK_SECRET` no Vercel.
+
+Para testar localmente, use o Stripe CLI em vez de configurar o webhook do painel
+para `localhost`:
+
+```bash
+stripe listen --forward-to localhost:3000/api/stripe/webhook
+```
+
+Depois copie o `whsec_...` mostrado pelo CLI para `STRIPE_WEBHOOK_SECRET` no
+`.env.local`.

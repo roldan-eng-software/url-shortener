@@ -22,7 +22,18 @@ function getStripe(): Stripe {
 }
 
 const PREMIUM_PRICE_ID = process.env.STRIPE_PREMIUM_PRICE_ID || 'price_premium_monthly';
-const APP_URL = process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000';
+
+function getAppUrl(request: NextRequest) {
+  if (process.env.NEXT_PUBLIC_APP_URL) {
+    return process.env.NEXT_PUBLIC_APP_URL.replace(/\/$/, '');
+  }
+
+  const url = new URL(request.url);
+  const protocol = request.headers.get('x-forwarded-proto') || url.protocol.replace(':', '');
+  const host = request.headers.get('x-forwarded-host') || request.headers.get('host') || url.host;
+
+  return `${protocol}://${host}`;
+}
 
 export async function POST(request: NextRequest) {
   try {
@@ -74,6 +85,7 @@ export async function POST(request: NextRequest) {
         .where(eq(usersTable.id, authUser.id));
     }
 
+    const appUrl = getAppUrl(request);
     const session = await getStripe().checkout.sessions.create({
       customer: customerId,
       mode: 'subscription',
@@ -84,8 +96,8 @@ export async function POST(request: NextRequest) {
           quantity: 1,
         },
       ],
-      success_url: `${APP_URL}/premium/success?session_id={CHECKOUT_SESSION_ID}`,
-      cancel_url: `${APP_URL}/premium?canceled=true`,
+      success_url: `${appUrl}/premium/success?session_id={CHECKOUT_SESSION_ID}`,
+      cancel_url: `${appUrl}/premium?canceled=true`,
       metadata: {
         userId: user.id,
       },

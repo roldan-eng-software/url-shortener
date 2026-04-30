@@ -8,8 +8,10 @@ import { CookieBanner } from '@/components/CookieBanner';
 import { AuthProvider } from '@/context/AuthContext';
 import { JsonLd } from '@/components/JsonLd';
 
+const siteUrl = process.env.NEXT_PUBLIC_APP_URL || 'https://urlencurta.com.br';
+
 export const metadata: Metadata = {
-  metadataBase: new URL('https://urlencurta.com'),
+  metadataBase: new URL(siteUrl),
   applicationName: 'URLEncurta',
   title: {
     default: 'URLEncurta - Encurtador de URLs Grátis | Links Curtos e Seguros',
@@ -29,7 +31,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'URLEncurta - Encurte suas URLs em segundos',
     description: 'Transforme URLs longas em links curtos e fáceis de compartilhar. 100% grátis e seguro.',
-    url: 'https://urlencurta.com',
+    url: siteUrl,
     type: 'website',
     locale: 'pt_BR',
     siteName: 'URLEncurta',
@@ -60,7 +62,7 @@ export const metadata: Metadata = {
     },
   },
   alternates: {
-    canonical: 'https://urlencurta.com',
+    canonical: siteUrl,
   },
   other: {
     'geo.region': 'BR',

@@ -8,7 +8,13 @@ import { loginSchema } from '@/lib/validation';
 const { users } = schema;
 
 function getAuthSecret() {
-  return process.env.AUTH_SECRET || process.env.NEXTAUTH_SECRET || 'development-only-auth-secret';
+  const secret = process.env.AUTH_SECRET || process.env.NEXTAUTH_SECRET;
+
+  if (!secret && process.env.NODE_ENV === 'production') {
+    throw new Error('AUTH_SECRET or NEXTAUTH_SECRET is required in production');
+  }
+
+  return secret || 'development-only-auth-secret';
 }
 
 export const { handlers, auth, signIn, signOut } = NextAuth({

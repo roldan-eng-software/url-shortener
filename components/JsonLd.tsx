@@ -1,30 +1,32 @@
+const siteUrl = process.env.NEXT_PUBLIC_APP_URL || 'https://urlencurta.com.br';
+
 const structuredData = {
   '@context': 'https://schema.org',
   '@graph': [
     {
       '@type': 'Organization',
-      '@id': 'https://urlencurta.com/#organization',
+      '@id': `${siteUrl}/#organization`,
       name: 'URLEncurta',
-      url: 'https://urlencurta.com',
-      logo: 'https://urlencurta.com/android-chrome-512x512.png',
+      url: siteUrl,
+      logo: `${siteUrl}/android-chrome-512x512.png`,
     },
     {
       '@type': 'WebSite',
-      '@id': 'https://urlencurta.com/#website',
-      url: 'https://urlencurta.com',
+      '@id': `${siteUrl}/#website`,
+      url: siteUrl,
       name: 'URLEncurta',
       inLanguage: 'pt-BR',
       publisher: {
-        '@id': 'https://urlencurta.com/#organization',
+        '@id': `${siteUrl}/#organization`,
       },
     },
     {
       '@type': 'SoftwareApplication',
-      '@id': 'https://urlencurta.com/#app',
+      '@id': `${siteUrl}/#app`,
       name: 'URLEncurta',
       applicationCategory: 'BusinessApplication',
       operatingSystem: 'Web',
-      url: 'https://urlencurta.com',
+      url: siteUrl,
       offers: {
         '@type': 'Offer',
         price: '29.90',

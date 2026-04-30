@@ -13,6 +13,11 @@ export const authSchema = z.object({
   password: passwordSchema,
 });
 
+export const loginSchema = z.object({
+  email: emailSchema.transform((email) => email.toLowerCase()),
+  password: z.string().min(1, 'Senha é obrigatória').max(128, 'Senha deve ter no máximo 128 caracteres'),
+});
+
 export const createUrlSchema = z.object({
   originalUrl: z
     .string()

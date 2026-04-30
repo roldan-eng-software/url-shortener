@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
+import { signIn } from 'next-auth/react';
 import { useAuth } from '@/context/AuthContext';
 
 export default function LoginPage() {
@@ -31,23 +32,21 @@ export default function LoginPage() {
     setLoading(true);
 
     try {
-      const res = await fetch('/api/auth/login', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email, password }),
+      const res = await signIn('credentials', {
+        email,
+        password,
+        redirect: false,
       });
 
-      const data = await res.json();
-
-      if (!res.ok) {
-        setError(data.error || 'Erro ao entrar');
+      if (res?.error) {
+        setError('Credenciais inválidas');
         return;
       }
 
-      // Atualiza o estado global de autenticação antes do redirect
       await checkAuth();
       router.push('/');
-    } catch (err) {
+      router.refresh();
+    } catch {
       setError('Erro ao conectar com o servidor');
     } finally {
       setLoading(false);

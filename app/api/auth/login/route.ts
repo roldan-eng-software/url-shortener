@@ -1,8 +1,9 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getDb, schema } from '@/lib/db';
 import { eq } from 'drizzle-orm';
-import { authSchema, getZodErrorMessage } from '@/lib/validation';
-import { assertSameOrigin, hashPassword, needsPasswordRehash, setAuthCookie, verifyPassword } from '@/lib/auth';
+import { getZodErrorMessage, loginSchema } from '@/lib/validation';
+import { assertSameOrigin, setAuthCookie } from '@/lib/auth';
+import { hashPassword, needsPasswordRehash, verifyPassword } from '@/lib/password';
 import { isRateLimited } from '@/lib/rate-limit';
 
 const { users: usersTable } = schema;
@@ -21,7 +22,7 @@ export async function POST(request: NextRequest) {
     }
 
     const db = getDb();
-    const parsed = authSchema.safeParse(await request.json());
+    const parsed = loginSchema.safeParse(await request.json());
     if (!parsed.success) {
       return NextResponse.json(
         { error: getZodErrorMessage(parsed.error) },

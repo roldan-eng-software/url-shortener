@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
+import { signIn } from 'next-auth/react';
 import { useAuth } from '@/context/AuthContext';
 
 export default function RegisterPage() {
@@ -28,8 +29,8 @@ export default function RegisterPage() {
       return;
     }
 
-    if (password.length < 6) {
-      setError('A senha deve ter pelo menos 6 caracteres');
+    if (password.length < 8) {
+      setError('A senha deve ter pelo menos 8 caracteres');
       return;
     }
 
@@ -55,10 +56,15 @@ export default function RegisterPage() {
         return;
       }
 
-      // Atualiza o estado global de autenticação antes do redirect
+      await signIn('credentials', {
+        email,
+        password,
+        redirect: false,
+      });
       await checkAuth();
       router.push('/');
-    } catch (err) {
+      router.refresh();
+    } catch {
       setError('Erro ao conectar com o servidor');
     } finally {
       setLoading(false);
@@ -116,7 +122,7 @@ export default function RegisterPage() {
                   className="w-full px-4 py-3 rounded-xl bg-background border border-border text-title placeholder:text-text-secondary focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all"
                   required
                 />
-                <p className="text-xs text-text-secondary mt-1">Mínimo de 6 caracteres</p>
+                <p className="text-xs text-text-secondary mt-1">Mínimo de 8 caracteres</p>
               </div>
 
               <div>

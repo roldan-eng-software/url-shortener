@@ -1,5 +1,3 @@
-'use client';
-
 interface StatsProps {
   totalUrls: number;
   totalClicks: number;

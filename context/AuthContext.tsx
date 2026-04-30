@@ -1,6 +1,7 @@
 'use client';
 
 import React, { createContext, useContext, useState, useEffect, useCallback } from 'react';
+import { signOut } from 'next-auth/react';
 
 interface AuthContextType {
   isLoggedIn: boolean;
@@ -43,6 +44,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
   const logout = async () => {
     try {
+      await signOut({ redirect: false });
       await fetch('/api/auth/logout', { method: 'POST' });
       setIsLoggedIn(false);
       setIsPremium(false);

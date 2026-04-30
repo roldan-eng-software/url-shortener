@@ -2,7 +2,8 @@ import { NextRequest, NextResponse } from 'next/server';
 import { getDb, schema } from '@/lib/db';
 import { eq } from 'drizzle-orm';
 import { authSchema, getZodErrorMessage } from '@/lib/validation';
-import { assertSameOrigin, hashPassword, setAuthCookie } from '@/lib/auth';
+import { assertSameOrigin, setAuthCookie } from '@/lib/auth';
+import { hashPassword } from '@/lib/password';
 import { isRateLimited } from '@/lib/rate-limit';
 
 const { users: usersTable } = schema;

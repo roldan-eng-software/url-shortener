@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import Image from 'next/image';
 import { generateQrCodeDataUrl } from '@/lib/qr';
 import { cn } from '@/lib/utils';
 
@@ -113,9 +114,12 @@ export function QrCodeModal({ isOpen, onClose, url }: QrCodeModalProps) {
               </div>
             ) : (
               <div className="p-4 bg-white border-2 border-gray-100 rounded-xl">
-                <img 
-                  src={qrCodeUrl} 
-                  alt="QR Code" 
+                <Image
+                  src={qrCodeUrl}
+                  alt="QR Code"
+                  width={260}
+                  height={260}
+                  unoptimized
                   className="w-[260px] h-[260px] rounded-lg"
                 />
               </div>

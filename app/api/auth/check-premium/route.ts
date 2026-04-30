@@ -1,32 +1,18 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { getDb, schema } from '@/lib/db';
-import { eq } from 'drizzle-orm';
-import { users } from '@/lib/db/schema';
+import { getAuthUserFromRequest } from '@/lib/auth';
 
-const { users: usersTable } = schema;
+export const dynamic = 'force-dynamic';
 
 export async function GET(request: NextRequest) {
   try {
-    const userId = request.cookies.get('userId')?.value;
-
-    if (!userId) {
-      return NextResponse.json({ isPremium: false, userId: null });
-    }
-
-    const db = getDb();
-    const user = await db.query.users.findFirst({
-      where: eq(usersTable.id, userId),
-    });
+    const user = await getAuthUserFromRequest(request);
 
     if (!user) {
       return NextResponse.json({ isPremium: false, userId: null });
     }
 
-    const isPremium = user.isPremium && 
-      (!user.premiumExpiresAt || new Date(user.premiumExpiresAt) > new Date());
-
     return NextResponse.json({
-      isPremium,
+      isPremium: user.isPremium,
       userId: user.id,
       email: user.email,
     });

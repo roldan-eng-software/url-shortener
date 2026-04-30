@@ -1,25 +1,12 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   images: {
-    domains: ['urlencurta.com.br'],
-  },
-  async headers() {
-    return [
+    remotePatterns: [
       {
-        source: '/:shortCode*',
-        headers: [
-          {
-            key: 'Cache-Control',
-            value: 'no-store, must-revalidate',
-          },
-        ],
+        protocol: 'https',
+        hostname: 'urlencurta.com.br',
       },
-    ];
-  },
-  async rewrites() {
-    return [
-      { source: '/sitemap.xml', destination: '/api/sitemap' }
-    ];
+    ],
   },
 };
 

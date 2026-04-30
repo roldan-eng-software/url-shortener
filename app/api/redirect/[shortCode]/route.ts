@@ -1,24 +1,18 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { getDb, schema } from '@/lib/db';
-import { eq, sql } from 'drizzle-orm';
-
-const { urls } = schema;
+import { incrementLinkClicks } from '@/lib/data/links';
 
 export async function POST(
   request: NextRequest,
   { params }: { params: Promise<{ shortCode: string }> }
 ) {
   try {
-    const db = getDb();
     const { shortCode } = await params;
 
     if (!shortCode || shortCode.length > 10) {
       return NextResponse.json({ error: 'Invalid short code' }, { status: 400 });
     }
 
-    const urlRecord = await db.query.urls.findFirst({
-      where: eq(urls.shortCode, shortCode),
-    });
+    const urlRecord = await incrementLinkClicks(shortCode);
 
     if (!urlRecord) {
       return NextResponse.json({ error: 'URL not found' }, { status: 404 });
@@ -27,11 +21,6 @@ export async function POST(
     if (urlRecord.expiresAt && new Date(urlRecord.expiresAt) < new Date()) {
       return NextResponse.json({ error: 'URL expired' }, { status: 410 });
     }
-
-    // Increment click counter
-    await db.update(urls)
-      .set({ clicks: sql`${urls.clicks} + 1` })
-      .where(eq(urls.id, urlRecord.id));
 
     return NextResponse.json({ 
       success: true, 

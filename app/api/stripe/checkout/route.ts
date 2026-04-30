@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { getDb, schema } from '@/lib/db';
 import { eq } from 'drizzle-orm';
 import Stripe from 'stripe';
-import { users } from '@/lib/db/schema';
+import { assertSameOrigin, getAuthUserFromRequest } from '@/lib/auth';
 
 const { users: usersTable } = schema;
 
@@ -27,9 +27,13 @@ const APP_URL = process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000';
 
 export async function POST(request: NextRequest) {
   try {
-    const userId = request.cookies.get('userId')?.value;
+    if (!assertSameOrigin(request)) {
+      return NextResponse.json({ error: 'Origem inválida' }, { status: 403 });
+    }
 
-    if (!userId) {
+    const authUser = await getAuthUserFromRequest(request);
+
+    if (!authUser) {
       return NextResponse.json(
         { error: 'Usuário não autenticado' },
         { status: 401 }
@@ -38,7 +42,7 @@ export async function POST(request: NextRequest) {
 
     const db = getDb();
     const user = await db.query.users.findFirst({
-      where: eq(usersTable.id, userId),
+      where: eq(usersTable.id, authUser.id),
     });
 
     if (!user) {
@@ -68,7 +72,7 @@ export async function POST(request: NextRequest) {
 
       await db.update(usersTable)
         .set({ stripeCustomerId: customerId })
-        .where(eq(usersTable.id, userId));
+        .where(eq(usersTable.id, authUser.id));
     }
 
     const session = await getStripe().checkout.sessions.create({
@@ -102,8 +106,4 @@ export async function POST(request: NextRequest) {
       { status: 500 }
     );
   }
-}
-
-export async function GET(request: NextRequest) {
-  return POST(request);
 }

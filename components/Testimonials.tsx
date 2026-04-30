@@ -49,7 +49,7 @@ export function Testimonials() {
                 ))}
               </div>
               <p className="text-text text-sm sm:text-base mb-4 sm:mb-6">
-                "{testimonial.content}"
+                &ldquo;{testimonial.content}&rdquo;
               </p>
               <div className="flex items-center gap-3">
                 <div className="w-10 h-10 sm:w-12 sm:h-12 bg-primary/10 text-primary rounded-full flex items-center justify-center font-bold text-sm sm:text-base">

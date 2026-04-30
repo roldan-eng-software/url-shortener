@@ -1,6 +1,9 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getDb, schema } from '@/lib/db';
 import { eq } from 'drizzle-orm';
+import { assertSameOrigin, getAuthUserFromRequest } from '@/lib/auth';
+import { getZodErrorMessage, updateUserLinkSchema } from '@/lib/validation';
+import { findLinkByShortCode } from '@/lib/data/links';
 
 const { userLinks: userLinksTable } = schema;
 
@@ -9,19 +12,35 @@ export async function PUT(
   { params }: { params: Promise<{ id: string }> }
 ) {
   try {
-    const userId = request.cookies.get('userId')?.value;
+    if (!assertSameOrigin(request)) {
+      return NextResponse.json({ error: 'Origem inválida' }, { status: 403 });
+    }
+
+    const authUser = await getAuthUserFromRequest(request);
     
-    if (!userId) {
+    if (!authUser) {
       return NextResponse.json(
         { error: 'Unauthorized' },
         { status: 401 }
       );
     }
 
+    if (!authUser.isPremium) {
+      return NextResponse.json({ error: 'Recurso exclusivo para usuários Premium' }, { status: 403 });
+    }
+
     const db = getDb();
     const { id } = await params;
-    const body = await request.json();
-    const { originalUrl, customAlias } = body;
+    const parsed = updateUserLinkSchema.safeParse(await request.json());
+
+    if (!parsed.success) {
+      return NextResponse.json(
+        { error: getZodErrorMessage(parsed.error) },
+        { status: 400 }
+      );
+    }
+
+    const { originalUrl, customAlias } = parsed.data;
 
     const existingLink = await db.query.userLinks.findFirst({
       where: eq(userLinksTable.id, id),
@@ -34,19 +53,15 @@ export async function PUT(
       );
     }
 
-    if (existingLink.userId !== userId) {
+    if (existingLink.userId !== authUser.id) {
       return NextResponse.json(
         { error: 'Acesso negado' },
         { status: 403 }
       );
     }
 
-    if (customAlias && customAlias.trim()) {
-      const normalizedAlias = customAlias.trim().toLowerCase();
-      
-      const aliasExists = await db.query.userLinks.findFirst({
-        where: eq(userLinksTable.customAlias, normalizedAlias),
-      });
+    if (customAlias) {
+      const aliasExists = await findLinkByShortCode(customAlias);
 
       if (aliasExists && aliasExists.id !== id) {
         return NextResponse.json(
@@ -59,7 +74,8 @@ export async function PUT(
     const [updatedLink] = await db.update(userLinksTable)
       .set({
         ...(originalUrl && { originalUrl }),
-        ...(customAlias !== undefined && { customAlias: customAlias?.trim() || null }),
+        ...(customAlias !== undefined && { customAlias }),
+        ...(customAlias && { shortCode: customAlias }),
       })
       .where(eq(userLinksTable.id, id))
       .returning();
@@ -88,13 +104,21 @@ export async function DELETE(
   { params }: { params: Promise<{ id: string }> }
 ) {
   try {
-    const userId = request.cookies.get('userId')?.value;
+    if (!assertSameOrigin(request)) {
+      return NextResponse.json({ error: 'Origem inválida' }, { status: 403 });
+    }
+
+    const authUser = await getAuthUserFromRequest(request);
     
-    if (!userId) {
+    if (!authUser) {
       return NextResponse.json(
         { error: 'Unauthorized' },
         { status: 401 }
       );
+    }
+
+    if (!authUser.isPremium) {
+      return NextResponse.json({ error: 'Recurso exclusivo para usuários Premium' }, { status: 403 });
     }
 
     const db = getDb();
@@ -111,7 +135,7 @@ export async function DELETE(
       );
     }
 
-    if (existingLink.userId !== userId) {
+    if (existingLink.userId !== authUser.id) {
       return NextResponse.json(
         { error: 'Acesso negado' },
         { status: 403 }

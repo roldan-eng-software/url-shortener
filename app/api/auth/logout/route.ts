@@ -1,15 +1,13 @@
-import { NextResponse } from 'next/server';
+import { NextRequest, NextResponse } from 'next/server';
+import { assertSameOrigin, clearAuthCookie } from '@/lib/auth';
 
-export async function POST() {
+export async function POST(request: NextRequest) {
+  if (!assertSameOrigin(request)) {
+    return NextResponse.json({ error: 'Origem inválida' }, { status: 403 });
+  }
+
   const response = NextResponse.json({ success: true });
-  
-  response.cookies.set('userId', '', {
-    httpOnly: true,
-    secure: process.env.NODE_ENV === 'production',
-    sameSite: 'lax',
-    maxAge: 0,
-    path: '/',
-  });
+  clearAuthCookie(response);
 
   return response;
 }

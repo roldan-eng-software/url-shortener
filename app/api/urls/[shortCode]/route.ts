@@ -1,15 +1,11 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { getDb, schema } from '@/lib/db';
-import { eq, sql } from 'drizzle-orm';
-
-const { urls } = schema;
+import { incrementLinkClicks } from '@/lib/data/links';
 
 export async function GET(
   request: NextRequest,
   { params }: { params: Promise<{ shortCode: string }> }
 ) {
   try {
-    const db = getDb();
     const { shortCode } = await params;
 
     if (!shortCode || shortCode.length > 10) {
@@ -19,9 +15,7 @@ export async function GET(
       );
     }
 
-    const urlRecord = await db.query.urls.findFirst({
-      where: eq(urls.shortCode, shortCode),
-    });
+    const urlRecord = await incrementLinkClicks(shortCode);
 
     if (!urlRecord) {
       return NextResponse.json(
@@ -37,13 +31,9 @@ export async function GET(
       );
     }
 
-    await db.update(urls)
-      .set({ clicks: sql`${urls.clicks} + 1` })
-      .where(eq(urls.id, urlRecord.id));
-
     return NextResponse.json({
       originalUrl: urlRecord.originalUrl,
-      clicks: urlRecord.clicks + 1,
+      clicks: urlRecord.clicks,
     });
   } catch (error) {
     console.error('Error getting URL:', error);

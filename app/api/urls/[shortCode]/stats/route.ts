@@ -1,20 +1,14 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { getDb, schema } from '@/lib/db';
-import { eq } from 'drizzle-orm';
-
-const { urls } = schema;
+import { findLinkByShortCode } from '@/lib/data/links';
 
 export async function GET(
   request: NextRequest,
   { params }: { params: Promise<{ shortCode: string }> }
 ) {
   try {
-    const db = getDb();
     const { shortCode } = await params;
 
-    const urlRecord = await db.query.urls.findFirst({
-      where: eq(urls.shortCode, shortCode),
-    });
+    const urlRecord = await findLinkByShortCode(shortCode);
 
     if (!urlRecord) {
       return NextResponse.json(

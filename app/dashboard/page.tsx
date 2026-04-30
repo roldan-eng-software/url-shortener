@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import Link from 'next/link';
 import { DashboardLinkCard } from '@/components/dashboard/DashboardLinkCard';
 import { EditModal } from '@/components/dashboard/EditModal';
@@ -22,11 +22,7 @@ export default function DashboardPage() {
   const [searchQuery, setSearchQuery] = useState('');
   const [toast, setToast] = useState<{ type: 'success' | 'error'; message: string } | null>(null);
 
-  useEffect(() => {
-    loadLinks();
-  }, []);
-
-  const loadLinks = async () => {
+  const loadLinks = useCallback(async () => {
     try {
       const res = await fetch('/api/user/links?limit=100');
       const data = await res.json();
@@ -37,7 +33,11 @@ export default function DashboardPage() {
     } finally {
       setLoading(false);
     }
-  };
+  }, []);
+
+  useEffect(() => {
+    loadLinks();
+  }, [loadLinks]);
 
   const showToast = (type: 'success' | 'error', message: string) => {
     setToast({ type, message });
@@ -65,7 +65,12 @@ export default function DashboardPage() {
       
       setLinks(links.map(link => 
         link.id === id 
-          ? { ...link, original_url: originalUrl, custom_alias: customAlias || null }
+          ? {
+              ...link,
+              original_url: originalUrl,
+              custom_alias: customAlias || null,
+              ...(customAlias && { short_code: customAlias }),
+            }
           : link
       ));
       

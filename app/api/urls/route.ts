@@ -1,41 +1,36 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getDb, schema } from '@/lib/db';
-import { generateShortCode, isValidUrl, isValidShortCode, getBaseUrlFromRequest } from '@/lib/url';
-import { eq } from 'drizzle-orm';
+import { generateShortCode, isValidShortCode, getBaseUrlFromRequest } from '@/lib/url';
+import { createUrlSchema, getZodErrorMessage } from '@/lib/validation';
+import { getAuthUserFromRequest } from '@/lib/auth';
+import { generateQrCodeDataUrl } from '@/lib/qr';
+import { shortCodeExists } from '@/lib/data/links';
 
-const { urls } = schema;
+const { urls, userLinks } = schema;
 
 export async function POST(request: NextRequest) {
   try {
-    const db = getDb();
-    const body = await request.json();
-    const { originalUrl, customCode } = body;
-
-    if (!originalUrl) {
+    const parsed = createUrlSchema.safeParse(await request.json());
+    if (!parsed.success) {
       return NextResponse.json(
-        { error: 'URL original é obrigatória' },
+        { error: getZodErrorMessage(parsed.error) },
         { status: 400 }
       );
     }
-
-    if (typeof originalUrl !== 'string' || originalUrl.length > 2048) {
-      return NextResponse.json(
-        { error: 'URL inválida ou muito longa (máximo 2048 caracteres)' },
-        { status: 400 }
-      );
-    }
-
-    if (!isValidUrl(originalUrl)) {
-      return NextResponse.json(
-        { error: 'URL inválida. URLs locais (localhost) e IPs privados não são permitidos.' },
-        { status: 400 }
-      );
-    }
+    const { originalUrl, customCode } = parsed.data;
+    const authUser = await getAuthUserFromRequest(request);
 
     let shortCode: string;
 
-    if (customCode && customCode.trim()) {
-      const validation = isValidShortCode(customCode.trim());
+    if (customCode) {
+      if (!authUser?.isPremium) {
+        return NextResponse.json(
+          { error: 'Código personalizado é exclusivo para usuários Premium.' },
+          { status: 403 }
+        );
+      }
+
+      const validation = isValidShortCode(customCode);
       if (!validation.valid) {
         return NextResponse.json(
           { error: validation.error },
@@ -43,31 +38,21 @@ export async function POST(request: NextRequest) {
         );
       }
 
-      const normalizedCode = customCode.trim().toLowerCase();
-      
-      const existingCustom = await db.query.urls.findFirst({
-        where: eq(urls.shortCode, normalizedCode),
-      });
-
-      if (existingCustom) {
+      if (await shortCodeExists(customCode)) {
         return NextResponse.json(
           { error: 'Este código já está em uso. Escolha outro.' },
           { status: 409 }
         );
       }
 
-      shortCode = normalizedCode;
+      shortCode = customCode;
     } else {
       let attempts = 0;
       const maxAttempts = 5;
 
       do {
         shortCode = generateShortCode();
-        const existing = await db.query.urls.findFirst({
-          where: eq(urls.shortCode, shortCode),
-        });
-        
-        if (!existing) break;
+        if (!(await shortCodeExists(shortCode))) break;
         attempts++;
       } while (attempts < maxAttempts);
 
@@ -79,17 +64,39 @@ export async function POST(request: NextRequest) {
       }
     }
 
+    const shortUrl = `${getBaseUrlFromRequest(request)}/${shortCode}`;
+    const isPremiumLink = Boolean(authUser?.isPremium);
+    const db = getDb();
+
+    if (isPremiumLink && authUser) {
+      const [link] = await db.insert(userLinks).values({
+        userId: authUser.id,
+        originalUrl,
+        shortCode,
+        customAlias: customCode || null,
+        qrCode: await generateQrCodeDataUrl(shortUrl),
+        isPremium: true,
+      }).returning();
+
+      return NextResponse.json({
+        id: link.id,
+        shortCode: link.shortCode,
+        shortUrl,
+        originalUrl: link.originalUrl,
+        createdAt: link.createdAt,
+      });
+    }
+
     const [urlRecord] = await db.insert(urls).values({
       originalUrl,
       shortCode,
     }).returning();
 
-    const shortUrl = `${getBaseUrlFromRequest(request)}/${shortCode}`;
-
     return NextResponse.json({
       shortCode: urlRecord.shortCode,
       shortUrl,
       originalUrl: urlRecord.originalUrl,
+      createdAt: urlRecord.createdAt,
     });
   } catch (error) {
     console.error('Error creating short URL:', error);

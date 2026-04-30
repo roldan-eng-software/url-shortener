@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getDb, schema } from '@/lib/db';
 import { eq } from 'drizzle-orm';
+import { getAuthUserFromRequest } from '@/lib/auth';
 
 const { userLinks: userLinksTable } = schema;
 
@@ -9,9 +10,9 @@ export async function GET(
   { params }: { params: Promise<{ id: string }> }
 ) {
   try {
-    const userId = request.cookies.get('userId')?.value;
+    const authUser = await getAuthUserFromRequest(request);
     
-    if (!userId) {
+    if (!authUser) {
       return NextResponse.json(
         { error: 'Unauthorized' },
         { status: 401 }
@@ -32,7 +33,7 @@ export async function GET(
       );
     }
 
-    if (link.userId !== userId) {
+    if (link.userId !== authUser.id) {
       return NextResponse.json(
         { error: 'Acesso negado' },
         { status: 403 }

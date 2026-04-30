@@ -1,25 +1,37 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getDb, schema } from '@/lib/db';
 import { eq } from 'drizzle-orm';
-import { users } from '@/lib/db/schema';
+import { authSchema, getZodErrorMessage } from '@/lib/validation';
+import { assertSameOrigin, hashPassword, needsPasswordRehash, setAuthCookie, verifyPassword } from '@/lib/auth';
+import { isRateLimited } from '@/lib/rate-limit';
 
 const { users: usersTable } = schema;
 
 export async function POST(request: NextRequest) {
   try {
-    const db = getDb();
-    const body = await request.json();
-    const { email, password } = body;
+    if (!assertSameOrigin(request)) {
+      return NextResponse.json({ error: 'Origem inválida' }, { status: 403 });
+    }
 
-    if (!email || !password) {
+    if (isRateLimited(request, 'login')) {
       return NextResponse.json(
-        { error: 'Email e senha são obrigatórios' },
-        { status: 400 }
+        { error: 'Muitas tentativas. Aguarde um minuto e tente novamente.' },
+        { status: 429 }
       );
     }
 
+    const db = getDb();
+    const parsed = authSchema.safeParse(await request.json());
+    if (!parsed.success) {
+      return NextResponse.json(
+        { error: getZodErrorMessage(parsed.error) },
+        { status: 400 }
+      );
+    }
+    const { email, password } = parsed.data;
+
     const user = await db.query.users.findFirst({
-      where: eq(usersTable.email, email.toLowerCase()),
+      where: eq(usersTable.email, email),
     });
 
     if (!user) {
@@ -29,12 +41,18 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    const passwordHash = await hashPassword(password);
-    if (user.passwordHash !== passwordHash) {
+    const isValidPassword = await verifyPassword(password, user.passwordHash);
+    if (!isValidPassword) {
       return NextResponse.json(
         { error: 'Credenciais inválidas' },
         { status: 401 }
       );
+    }
+
+    if (needsPasswordRehash(user.passwordHash)) {
+      await db.update(usersTable)
+        .set({ passwordHash: await hashPassword(password), updatedAt: new Date() })
+        .where(eq(usersTable.id, user.id));
     }
 
     const isPremium = user.isPremium && 
@@ -48,13 +66,7 @@ export async function POST(request: NextRequest) {
       },
     });
 
-    response.cookies.set('userId', user.id, {
-      httpOnly: true,
-      secure: process.env.NODE_ENV === 'production',
-      sameSite: 'lax',
-      maxAge: 60 * 60 * 24 * 30,
-      path: '/',
-    });
+    setAuthCookie(response, user.id);
 
     return response;
   } catch (error) {
@@ -64,12 +76,4 @@ export async function POST(request: NextRequest) {
       { status: 500 }
     );
   }
-}
-
-async function hashPassword(password: string): Promise<string> {
-  const encoder = new TextEncoder();
-  const data = encoder.encode(password);
-  const hashBuffer = await crypto.subtle.digest('SHA-256', data);
-  const hashArray = Array.from(new Uint8Array(hashBuffer));
-  return hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
 }

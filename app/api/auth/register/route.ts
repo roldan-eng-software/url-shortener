@@ -21,7 +21,6 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    const db = getDb();
     const parsed = authSchema.safeParse(await request.json());
     if (!parsed.success) {
       return NextResponse.json(
@@ -30,6 +29,7 @@ export async function POST(request: NextRequest) {
       );
     }
     const { email, password } = parsed.data;
+    const db = getDb();
 
     const existingUser = await db.query.users.findFirst({
       where: eq(usersTable.email, email),

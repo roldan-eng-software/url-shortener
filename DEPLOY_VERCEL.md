@@ -65,6 +65,7 @@ Depois confira o deployment no painel da Vercel e valide:
 
 ```text
 https://urlencurta.com.br
+https://urlencurta.com.br/premium/success
 https://urlencurta.com.br/robots.txt
 https://urlencurta.com.br/sitemap.xml
 ```

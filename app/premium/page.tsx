@@ -69,7 +69,6 @@ export default function PremiumPage() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
 
-  const success = searchParams.get('success');
   const canceled = searchParams.get('canceled');
 
   const handleCheckout = async () => {
@@ -108,13 +107,8 @@ export default function PremiumPage() {
 
   return (
     <div className="min-h-screen bg-background">
-      {(success || canceled || error) && (
+      {(canceled || error) && (
         <div className="container mx-auto max-w-6xl px-4 pt-4">
-          {success && (
-            <div className="rounded-xl border border-green-200 bg-green-50 p-4 text-center text-green-700 dark:border-green-800 dark:bg-green-900/20 dark:text-green-300">
-              Checkout iniciado. Verifique seu email e finalize a confirmação da assinatura.
-            </div>
-          )}
           {canceled && (
             <div className="rounded-xl border border-yellow-200 bg-yellow-50 p-4 text-center text-yellow-700 dark:border-yellow-800 dark:bg-yellow-900/20 dark:text-yellow-300">
               Checkout cancelado. Sua conta continua no plano atual.

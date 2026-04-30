@@ -60,6 +60,47 @@ export const updateUserLinkSchema = z.object({
     }),
 });
 
+export const marketingLeadSchema = z.object({
+  name: z
+    .string('Informe seu nome')
+    .trim()
+    .min(2, 'Informe seu nome')
+    .max(120, 'Nome muito longo'),
+  email: z
+    .string('Informe seu email')
+    .trim()
+    .email('Email inválido')
+    .max(254)
+    .transform((email) => email.toLowerCase()),
+  company: z
+    .string()
+    .trim()
+    .max(160, 'Empresa muito longa')
+    .optional()
+    .transform((value) => value || undefined),
+  phone: z
+    .string()
+    .trim()
+    .max(40, 'Telefone muito longo')
+    .optional()
+    .transform((value) => value || undefined),
+  interest: z
+    .enum(['premium', 'analytics', 'campaigns', 'agency'])
+    .default('premium'),
+  source: z
+    .string()
+    .trim()
+    .max(80)
+    .optional()
+    .transform((value) => value || 'home_conversion_band'),
+  message: z
+    .string()
+    .trim()
+    .max(500, 'Mensagem muito longa')
+    .optional()
+    .transform((value) => value || undefined),
+});
+
 export function getZodErrorMessage(error: z.ZodError) {
   return error.issues[0]?.message || 'Dados inválidos';
 }

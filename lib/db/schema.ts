@@ -51,6 +51,19 @@ export const urls = pgTable('urls', {
   clicksReferrers: jsonb('clicks_referrers').default({}),
 });
 
+export const marketingLeads = pgTable('marketing_leads', {
+  id: uuid('id').primaryKey().defaultRandom(),
+  name: varchar('name', { length: 120 }).notNull(),
+  email: text('email').notNull(),
+  company: varchar('company', { length: 160 }),
+  phone: varchar('phone', { length: 40 }),
+  interest: varchar('interest', { length: 40 }).notNull().default('premium'),
+  source: varchar('source', { length: 80 }).notNull().default('home_conversion_band'),
+  message: text('message'),
+  status: varchar('status', { length: 30 }).notNull().default('new'),
+  createdAt: timestamp('created_at').defaultNow(),
+});
+
 export type User = typeof users.$inferSelect;
 export type NewUser = typeof users.$inferInsert;
 export type UserLink = typeof userLinks.$inferSelect;
@@ -59,3 +72,5 @@ export type AnonLink = typeof anonLinks.$inferSelect;
 export type NewAnonLink = typeof anonLinks.$inferInsert;
 export type Url = typeof urls.$inferSelect;
 export type NewUrl = typeof urls.$inferInsert;
+export type MarketingLead = typeof marketingLeads.$inferSelect;
+export type NewMarketingLead = typeof marketingLeads.$inferInsert;

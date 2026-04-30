@@ -4,6 +4,13 @@ import { useState, useEffect } from 'react';
 import { UrlResult } from './UrlResult';
 import Link from 'next/link';
 import { useAuth } from '@/context/AuthContext';
+import { Clipboard, Crown, Link2, Loader2, Wand2 } from 'lucide-react';
+
+const exampleUrls = [
+  'https://wa.me/5511999999999',
+  'https://instagram.com/suaempresa',
+  'https://sua-loja.com/promocao',
+];
 
 export function UrlForm() {
   const [url, setUrl] = useState('');
@@ -94,26 +101,75 @@ export function UrlForm() {
     }
   };
 
+  const handlePaste = async () => {
+    try {
+      const text = await navigator.clipboard.readText();
+      if (text) {
+        setUrl(text.trim());
+        setError('');
+      }
+    } catch {
+      setError('Não foi possível ler a área de transferência.');
+    }
+  };
+
   return (
-    <div className="space-y-4">
+    <div className="space-y-5">
       <form onSubmit={handleSubmit} className="space-y-4">
-        <div className="flex flex-col sm:flex-row gap-3">
-          <input
-            type="text"
-            value={url}
-            onChange={(e) => setUrl(e.target.value)}
-            placeholder="Cole seu link aqui (WhatsApp, Instagram, etc)"
-            className="w-full sm:w-96 px-4 py-3 rounded-xl border border-border bg-surface text-title placeholder-text-secondary focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary transition-all duration-300 shadow-glow"
-            disabled={loading}
-          />
+        <div className="flex flex-col gap-3">
+          <div className="flex min-h-[52px] items-stretch rounded-xl border border-border bg-surface shadow-glow focus-within:border-primary focus-within:ring-2 focus-within:ring-primary/30">
+            <div className="hidden sm:flex w-12 items-center justify-center border-r border-border text-primary">
+              <Link2 className="h-5 w-5" />
+            </div>
+            <input
+              type="url"
+              inputMode="url"
+              value={url}
+              onChange={(e) => setUrl(e.target.value)}
+              placeholder="Cole seu link aqui"
+              className="min-w-0 flex-1 rounded-xl bg-transparent px-4 py-3 text-title placeholder-text-secondary focus:outline-none sm:rounded-none"
+              disabled={loading}
+            />
+            <button
+              type="button"
+              onClick={handlePaste}
+              disabled={loading}
+              className="hidden sm:inline-flex items-center gap-2 border-l border-border px-4 text-sm font-semibold text-text transition-colors hover:text-primary disabled:opacity-50"
+            >
+              <Clipboard className="h-4 w-4" />
+              Colar
+            </button>
+          </div>
           <button
             type="submit"
             disabled={loading}
-            className="px-6 py-3 text-white font-bold rounded-xl transition-all duration-300 hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100"
-            style={{ background: 'linear-gradient(135deg, #10B981 0%, #059669 100%)' }}
+            className="inline-flex min-h-[52px] items-center justify-center gap-2 rounded-xl bg-success px-6 py-3 font-bold text-white transition-all duration-300 hover:scale-[1.02] hover:brightness-105 disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:scale-100"
           >
-            {loading ? 'Encurtando...' : '🔥 Encurtar Grátis'}
+            {loading ? (
+              <>
+                <Loader2 className="h-5 w-5 animate-spin" />
+                Encurtando...
+              </>
+            ) : (
+              <>
+                <Wand2 className="h-5 w-5" />
+                Encurtar grátis
+              </>
+            )}
           </button>
+        </div>
+
+        <div className="flex flex-wrap gap-2">
+          {exampleUrls.map((example) => (
+            <button
+              key={example}
+              type="button"
+              onClick={() => setUrl(example)}
+              className="rounded-full border border-border bg-background px-3 py-1.5 text-xs font-medium text-text transition-colors hover:border-primary/50 hover:text-primary"
+            >
+              {example.replace('https://', '')}
+            </button>
+          ))}
         </div>
 
         <div className="flex flex-col sm:flex-row gap-2 sm:gap-3 items-start sm:items-center">
@@ -126,9 +182,7 @@ export function UrlForm() {
                 : 'border-border bg-surface text-text hover:border-primary/50'
             } ${aliasLocked ? 'animate-pulse' : ''}`}
           >
-            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1" />
-            </svg>
+            <Crown className="h-4 w-4" />
             <span className="text-sm font-medium">
               {showCustomAlias ? 'Código personalizado' : 'Adicionar alias'}
             </span>
@@ -161,9 +215,9 @@ export function UrlForm() {
         </div>
 
         {!isPremium && aliasLocked && (
-          <div className="flex items-center justify-between p-3 bg-yellow-50 dark:bg-yellow-900/20 border border-yellow-200 dark:border-yellow-800 rounded-xl">
+          <div className="flex flex-col gap-3 p-3 bg-yellow-50 dark:bg-yellow-900/20 border border-yellow-200 dark:border-yellow-800 rounded-xl sm:flex-row sm:items-center sm:justify-between">
             <p className="text-sm text-yellow-800 dark:text-yellow-200">
-              Alias personalizado é exclusivo para membros Premium!
+              Use links com sua marca no Premium.
             </p>
             <Link
               href="/premium"

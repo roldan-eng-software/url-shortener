@@ -8,12 +8,14 @@ import { HowItWorks } from '@/components/HowItWorks';
 import { Testimonials } from '@/components/Testimonials';
 import { FAQ } from '@/components/FAQ';
 import { CTAPremium } from '@/components/CTAPremium';
+import { ConversionBand } from '@/components/ConversionBand';
 import { UrlHistoryItem } from '@/types';
 import { UrlCard } from '@/components/UrlCard';
 import { Stats } from '@/components/Stats';
 import { AdRectangle } from '@/components/Adsense';
 import Link from 'next/link';
 import { useAuth } from '@/context/AuthContext';
+import { UseCases } from '@/components/UseCases';
 
 interface UserLinkResponse {
   short_code: string;
@@ -78,6 +80,8 @@ export default function Home() {
         <meta property="og:type" content="website" />
       </Head>
       <Hero />
+      <UseCases />
+      <ConversionBand />
       <AdRectangle />
       <Benefits />
       <HowItWorks />

@@ -17,11 +17,12 @@ interface LinkStats {
   clicksDevice?: Record<string, number>;
 }
 
-export function UrlResult({ shortUrl, isPremium = false }: UrlResultProps) {
+export function UrlResult({ shortCode, shortUrl, isPremium = false }: UrlResultProps) {
   const [copied, setCopied] = useState(false);
   const [showStats, setShowStats] = useState(false);
   const [stats, setStats] = useState<LinkStats | null>(null);
   const [loadingStats, setLoadingStats] = useState(false);
+  const previewUrl = `${typeof window !== 'undefined' ? window.location.origin : ''}/preview/${shortCode}`;
 
   const handleCopy = async () => {
     try {
@@ -98,6 +99,22 @@ export function UrlResult({ shortUrl, isPremium = false }: UrlResultProps) {
         </div>
 
         <div className="mt-4 pt-4 border-t border-success/20">
+          <div className="mb-4 rounded-xl border border-success/20 bg-white/60 p-3 dark:bg-slate-900/30">
+            <p className="text-xs font-medium uppercase tracking-[0.08em] text-text-secondary">
+              Página de prévia
+            </p>
+            <div className="mt-1 flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
+              <p className="break-all text-sm font-bold text-title">{previewUrl}</p>
+              <Link
+                href={`/preview/${shortCode}`}
+                target="_blank"
+                className="shrink-0 text-sm font-bold text-primary hover:underline"
+              >
+                Ver prévia
+              </Link>
+            </div>
+          </div>
+
           <div className="flex items-center justify-between">
             <button
               onClick={handleShowStats}

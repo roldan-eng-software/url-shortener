@@ -46,6 +46,21 @@ export async function shortCodeExists(shortCode: string) {
   return Boolean(link);
 }
 
+export async function findPublicLinkPreview(shortCode: string) {
+  const link = await findLinkByShortCode(shortCode);
+
+  if (!link) {
+    return null;
+  }
+
+  const isExpired = Boolean(link.expiresAt && new Date(link.expiresAt) < new Date());
+
+  return {
+    ...link,
+    isExpired,
+  };
+}
+
 export async function incrementLinkClicks(shortCode: string) {
   const db = getDb();
   const link = await findLinkByShortCode(shortCode);

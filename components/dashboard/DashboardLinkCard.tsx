@@ -7,6 +7,7 @@ import {
   Copy,
   Edit3,
   ExternalLink,
+  Eye,
   Link2,
   MousePointerClick,
   QrCode,
@@ -45,6 +46,7 @@ export function DashboardLinkCard({
   const shortUrl = customAlias 
     ? `${typeof window !== 'undefined' ? window.location.origin : ''}/${customAlias}`
     : `${typeof window !== 'undefined' ? window.location.origin : ''}/${shortCode}`;
+  const previewUrl = `${typeof window !== 'undefined' ? window.location.origin : ''}/preview/${customAlias || shortCode}`;
 
   const displayClicks = clicksTotal ?? 0;
   const createdLabel = new Date(createdAt).toLocaleDateString('pt-BR');
@@ -120,8 +122,16 @@ export function DashboardLinkCard({
           </div>
           
           <div className="rounded-xl border border-border/70 bg-background px-4 py-3">
-            <p className="text-xs font-medium uppercase tracking-[0.08em] text-text-secondary">Link curto</p>
-            <p className="mt-1 break-all text-sm font-bold text-primary">{shortUrl}</p>
+            <div className="grid gap-3 md:grid-cols-2">
+              <div>
+                <p className="text-xs font-medium uppercase tracking-[0.08em] text-text-secondary">Link curto</p>
+                <p className="mt-1 break-all text-sm font-bold text-primary">{shortUrl}</p>
+              </div>
+              <div>
+                <p className="text-xs font-medium uppercase tracking-[0.08em] text-text-secondary">Prévia pública</p>
+                <p className="mt-1 break-all text-sm font-bold text-title">{previewUrl}</p>
+              </div>
+            </div>
           </div>
 
           <div className="flex flex-col gap-3 border-t border-border/50 pt-3 sm:flex-row sm:items-center sm:justify-between">
@@ -141,6 +151,15 @@ export function DashboardLinkCard({
               >
                 <BarChart3 className="h-4 w-4" />
               </button>
+              <a
+                href={previewUrl}
+                target="_blank"
+                rel="noreferrer"
+                className="rounded-lg p-2 text-text transition-all duration-300 hover:bg-primary/10 hover:text-primary"
+                title="Ver página de prévia"
+              >
+                <Eye className="h-4 w-4" />
+              </a>
               <button
                 onClick={() => setShowQrModal(true)}
                 className="rounded-lg p-2 text-text transition-all duration-300 hover:bg-primary/10 hover:text-primary"

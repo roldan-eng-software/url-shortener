@@ -7,6 +7,7 @@ import { cn } from '@/lib/utils';
 import Link from 'next/link';
 import { QrCodeModal } from './QrCodeModal';
 import { generateQrCodeDataUrl } from '@/lib/qr';
+import { ShareTemplates } from './ShareTemplates';
 
 interface UrlResultProps {
   shortCode: string;
@@ -168,6 +169,10 @@ export function UrlResult({ shortCode, shortUrl, isPremium = false }: UrlResultP
                 Ver prévia
               </Link>
             </div>
+          </div>
+
+          <div className="mb-4">
+            <ShareTemplates shortUrl={shortUrl} />
           </div>
 
           <div className="flex items-center justify-between">

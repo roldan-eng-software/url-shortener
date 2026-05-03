@@ -2,6 +2,15 @@
 
 import { useState, useEffect } from 'react';
 import Image from 'next/image';
+import {
+  Check,
+  Clipboard,
+  Copy,
+  Download,
+  ExternalLink,
+  QrCode,
+  X,
+} from 'lucide-react';
 import { generateQrCodeDataUrl } from '@/lib/qr';
 import { cn } from '@/lib/utils';
 
@@ -15,6 +24,7 @@ export function QrCodeModal({ isOpen, onClose, url }: QrCodeModalProps) {
   const [qrCodeUrl, setQrCodeUrl] = useState<string>('');
   const [loading, setLoading] = useState(true);
   const [copied, setCopied] = useState(false);
+  const [linkCopied, setLinkCopied] = useState(false);
   const [downloaded, setDownloaded] = useState(false);
 
   useEffect(() => {
@@ -46,7 +56,7 @@ export function QrCodeModal({ isOpen, onClose, url }: QrCodeModalProps) {
     
     const link = document.createElement('a');
     link.href = qrCodeUrl;
-    link.download = `qrcode-${Date.now()}.png`;
+    link.download = `qrcode-${getQrFileName(url)}.png`;
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
@@ -78,6 +88,22 @@ export function QrCodeModal({ isOpen, onClose, url }: QrCodeModalProps) {
     }
   };
 
+  const handleCopyLink = async () => {
+    try {
+      await navigator.clipboard.writeText(url);
+    } catch {
+      const input = document.createElement('input');
+      input.value = url;
+      document.body.appendChild(input);
+      input.select();
+      document.execCommand('copy');
+      document.body.removeChild(input);
+    }
+
+    setLinkCopied(true);
+    setTimeout(() => setLinkCopied(false), 2000);
+  };
+
   if (!isOpen) return null;
 
   return (
@@ -87,24 +113,24 @@ export function QrCodeModal({ isOpen, onClose, url }: QrCodeModalProps) {
         onClick={onClose}
       />
       
-      <div className="relative bg-white rounded-2xl shadow-2xl w-full max-w-md animate-in fade-in zoom-in-95 duration-200">
+      <div className="relative w-full max-w-md animate-in rounded-2xl bg-white shadow-2xl duration-200 fade-in zoom-in-95 dark:bg-slate-900">
         <button
           onClick={onClose}
-          className="absolute top-4 right-4 p-2 text-gray-400 hover:text-gray-600 transition-colors"
+          className="absolute right-4 top-4 rounded-lg p-2 text-gray-400 transition-colors hover:bg-gray-100 hover:text-gray-600 dark:hover:bg-slate-800 dark:hover:text-gray-200"
+          aria-label="Fechar QR Code"
         >
-          <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-          </svg>
+          <X className="h-5 w-5" />
         </button>
 
         <div className="p-6">
           <div className="text-center mb-6">
             <div className="inline-flex items-center justify-center w-12 h-12 bg-primary/10 rounded-xl mb-4">
-              <svg className="w-6 h-6 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v1m6 11h2m-6 0h-2v4m0-11v3m0 0h.01M12 12h4.01M16 20h4M4 12h4m12 0h.01M5 8h2a1 1 0 001-1V5a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1zm12 0h2a1 1 0 001-1V5a1 1 0 00-1-1h-2a1 1 0 00-1 1v2a1 1 0 001 1zM5 20h2a1 1 0 001-1v-2a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1z" />
-              </svg>
+              <QrCode className="h-6 w-6 text-primary" />
             </div>
-            <h2 className="text-xl font-bold text-gray-900">Código QR</h2>
+            <h2 className="text-xl font-bold text-gray-900 dark:text-white">Código QR</h2>
+            <p className="mt-2 text-sm text-gray-500 dark:text-gray-400">
+              Pronto para aulas, PDFs, blogs, grupos e materiais impressos.
+            </p>
           </div>
 
           <div className="flex justify-center mb-6">
@@ -126,12 +152,14 @@ export function QrCodeModal({ isOpen, onClose, url }: QrCodeModalProps) {
             )}
           </div>
 
-          <div className="mb-6">
-            <p className="text-xs text-secondary mb-1 text-center">URL:</p>
-            <p className="text-sm font-medium text-gray-900 text-center break-all">{url}</p>
+          <div className="mb-6 rounded-xl border border-gray-100 bg-gray-50 p-3 dark:border-slate-700 dark:bg-slate-800">
+            <p className="mb-1 text-center text-xs font-bold uppercase tracking-[0.08em] text-gray-500 dark:text-gray-400">
+              Link do QR Code
+            </p>
+            <p className="break-all text-center text-sm font-medium text-gray-900 dark:text-gray-100">{url}</p>
           </div>
 
-          <div className="flex gap-3">
+          <div className="grid gap-3 sm:grid-cols-2">
             <button
               onClick={handleDownload}
               disabled={loading || !qrCodeUrl}
@@ -144,16 +172,12 @@ export function QrCodeModal({ isOpen, onClose, url }: QrCodeModalProps) {
             >
               {downloaded ? (
                 <>
-                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                  </svg>
+                  <Check className="h-5 w-5" />
                   Baixado!
                 </>
               ) : (
                 <>
-                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
-                  </svg>
+                  <Download className="h-5 w-5" />
                   Baixar PNG
                 </>
               )}
@@ -170,23 +194,53 @@ export function QrCodeModal({ isOpen, onClose, url }: QrCodeModalProps) {
             >
               {copied ? (
                 <>
-                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                  </svg>
+                  <Check className="h-5 w-5" />
                   Copiado!
                 </>
               ) : (
                 <>
-                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" />
-                  </svg>
-                  Copiar Imagem
+                  <Copy className="h-5 w-5" />
+                  Copiar imagem
                 </>
               )}
             </button>
+          </div>
+
+          <div className="mt-3 grid gap-3 sm:grid-cols-2">
+            <button
+              onClick={handleCopyLink}
+              className={cn(
+                'flex items-center justify-center gap-2 rounded-xl px-4 py-3 font-medium transition-all',
+                linkCopied
+                  ? 'bg-success text-white'
+                  : 'bg-gray-100 text-gray-700 hover:bg-gray-200 dark:bg-slate-800 dark:text-gray-200 dark:hover:bg-slate-700'
+              )}
+            >
+              {linkCopied ? <Check className="h-5 w-5" /> : <Clipboard className="h-5 w-5" />}
+              {linkCopied ? 'Link copiado' : 'Copiar link'}
+            </button>
+            <a
+              href={url}
+              target="_blank"
+              rel="noreferrer"
+              className="flex items-center justify-center gap-2 rounded-xl border border-gray-200 px-4 py-3 font-medium text-gray-700 transition-all hover:border-primary/50 hover:text-primary dark:border-slate-700 dark:text-gray-200 dark:hover:border-primary/50"
+            >
+              <ExternalLink className="h-5 w-5" />
+              Abrir link
+            </a>
           </div>
         </div>
       </div>
     </div>
   );
+}
+
+function getQrFileName(url: string) {
+  try {
+    const parsedUrl = new URL(url);
+    const path = parsedUrl.pathname.replace(/^\/+/, '').replace(/[^a-z0-9-]/gi, '-');
+    return path || 'urlencurta';
+  } catch {
+    return 'urlencurta';
+  }
 }

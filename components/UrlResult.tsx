@@ -1,8 +1,12 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import Image from 'next/image';
+import { QrCode } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import Link from 'next/link';
+import { QrCodeModal } from './QrCodeModal';
+import { generateQrCodeDataUrl } from '@/lib/qr';
 
 interface UrlResultProps {
   shortCode: string;
@@ -20,9 +24,20 @@ interface LinkStats {
 export function UrlResult({ shortCode, shortUrl, isPremium = false }: UrlResultProps) {
   const [copied, setCopied] = useState(false);
   const [showStats, setShowStats] = useState(false);
+  const [showQrModal, setShowQrModal] = useState(false);
   const [stats, setStats] = useState<LinkStats | null>(null);
   const [loadingStats, setLoadingStats] = useState(false);
+  const [qrCodeUrl, setQrCodeUrl] = useState('');
+  const [loadingQrCode, setLoadingQrCode] = useState(true);
   const previewUrl = `${typeof window !== 'undefined' ? window.location.origin : ''}/preview/${shortCode}`;
+
+  useEffect(() => {
+    setLoadingQrCode(true);
+    generateQrCodeDataUrl(shortUrl)
+      .then(setQrCodeUrl)
+      .catch(console.error)
+      .finally(() => setLoadingQrCode(false));
+  }, [shortUrl]);
 
   const handleCopy = async () => {
     try {
@@ -77,7 +92,8 @@ export function UrlResult({ shortCode, shortUrl, isPremium = false }: UrlResultP
   };
 
   return (
-    <div className="space-y-4">
+    <>
+      <div className="space-y-4">
       <div className="p-4 bg-success/10 border border-success/30 rounded-xl animate-in fade-in slide-in-from-top-2 duration-300">
         <div className="flex flex-col sm:flex-row items-center gap-3">
           <div className="flex-1 w-full">
@@ -99,6 +115,45 @@ export function UrlResult({ shortCode, shortUrl, isPremium = false }: UrlResultP
         </div>
 
         <div className="mt-4 pt-4 border-t border-success/20">
+          <div className="mb-4 grid gap-4 rounded-xl border border-success/20 bg-white/60 p-3 dark:bg-slate-900/30 sm:grid-cols-[116px_1fr]">
+            <button
+              type="button"
+              onClick={() => setShowQrModal(true)}
+              className="flex h-[116px] w-[116px] items-center justify-center rounded-xl border border-border bg-white p-2 transition hover:border-primary/50"
+              aria-label="Ver QR Code"
+            >
+              {loadingQrCode ? (
+                <div className="h-8 w-8 animate-spin rounded-full border-4 border-primary border-t-transparent" />
+              ) : (
+                <Image
+                  src={qrCodeUrl}
+                  alt="QR Code do link encurtado"
+                  width={100}
+                  height={100}
+                  unoptimized
+                  className="h-[100px] w-[100px]"
+                />
+              )}
+            </button>
+            <div className="flex min-w-0 flex-col justify-center">
+              <p className="flex items-center gap-2 text-xs font-medium uppercase tracking-[0.08em] text-text-secondary">
+                <QrCode className="h-4 w-4 text-primary" />
+                QR Code automático
+              </p>
+              <p className="mt-2 text-sm text-text">
+                Use em aulas, grupos, blogs, PDFs e materiais impressos.
+              </p>
+              <button
+                type="button"
+                onClick={() => setShowQrModal(true)}
+                className="mt-3 inline-flex w-fit items-center gap-2 rounded-lg bg-primary px-3 py-2 text-sm font-bold text-white transition hover:bg-primary-hover"
+              >
+                <QrCode className="h-4 w-4" />
+                Ver QR Code
+              </button>
+            </div>
+          </div>
+
           <div className="mb-4 rounded-xl border border-success/20 bg-white/60 p-3 dark:bg-slate-900/30">
             <p className="text-xs font-medium uppercase tracking-[0.08em] text-text-secondary">
               Página de prévia
@@ -184,5 +239,12 @@ export function UrlResult({ shortCode, shortUrl, isPremium = false }: UrlResultP
         </div>
       </div>
     </div>
+
+      <QrCodeModal
+        isOpen={showQrModal}
+        onClose={() => setShowQrModal(false)}
+        url={shortUrl}
+      />
+    </>
   );
 }

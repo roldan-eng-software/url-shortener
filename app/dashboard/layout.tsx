@@ -94,6 +94,15 @@ export default function DashboardLayout({
         </svg>
       ),
     },
+    {
+      href: '/dashboard/bio',
+      label: 'Link na Bio',
+      icon: (
+        <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 7h16M4 12h10M4 17h7" />
+        </svg>
+      ),
+    },
   ];
 
   return (

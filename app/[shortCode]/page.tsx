@@ -5,6 +5,7 @@ import { useParams } from 'next/navigation';
 import Link from 'next/link';
 import { AdRectangle, AdLeaderboard } from '@/components/Adsense';
 import { Shield, Clock, AlertTriangle, CheckCircle, Info, Lock, Globe, FileText } from 'lucide-react';
+import { PublicBioPage } from '@/components/bio/PublicBioPage';
 
 interface UrlData {
   originalUrl: string;
@@ -13,7 +14,9 @@ interface UrlData {
 
 export default function RedirectPage() {
   const params = useParams();
-  const shortCode = params.shortCode as string;
+  const rawShortCode = params.shortCode as string;
+  const shortCode = decodeURIComponent(rawShortCode || '');
+  const isBioPage = shortCode?.startsWith('@');
   
   const [countdown, setCountdown] = useState(8);
   const [urlData, setUrlData] = useState<UrlData | null>(null);
@@ -45,13 +48,13 @@ export default function RedirectPage() {
       }
     };
 
-    if (shortCode) {
+    if (shortCode && !isBioPage) {
       fetchUrlData();
     }
-  }, [shortCode]);
+  }, [shortCode, isBioPage]);
 
   useEffect(() => {
-    if (!urlData || error) return;
+    if (isBioPage || !urlData || error) return;
 
     const skipTimer = setTimeout(() => {
       setCanSkip(true);
@@ -78,7 +81,7 @@ export default function RedirectPage() {
       clearInterval(countdownInterval);
       clearTimeout(redirectTimer);
     };
-  }, [urlData, error]);
+  }, [urlData, error, isBioPage]);
 
   const handleSkip = () => {
     if (urlData?.originalUrl) {
@@ -105,6 +108,10 @@ export default function RedirectPage() {
   const isSecure = (url: string) => {
     return getUrlProtocol(url) === 'https:';
   };
+
+  if (isBioPage) {
+    return <PublicBioPage handle={shortCode} />;
+  }
 
   if (isLoading) {
     return (

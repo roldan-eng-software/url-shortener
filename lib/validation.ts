@@ -101,6 +101,38 @@ export const marketingLeadSchema = z.object({
     .transform((value) => value || undefined),
 });
 
+export const bioHandleSchema = z
+  .string()
+  .trim()
+  .toLowerCase()
+  .min(3, 'Handle deve ter pelo menos 3 caracteres')
+  .max(40, 'Handle deve ter no máximo 40 caracteres')
+  .regex(/^[a-z][a-z0-9-]*$/, 'Use apenas letras, números e hifens. Comece com uma letra.')
+  .refine((value) => !value.includes('--') && !value.endsWith('-'), {
+    message: 'Handle não pode terminar com hífen ou ter hifens consecutivos',
+  });
+
+export const bioLinkSchema = z.object({
+  id: z.string().uuid().optional(),
+  title: z.string().trim().min(1, 'Título do link é obrigatório').max(120, 'Título muito longo'),
+  url: createUrlSchema.shape.originalUrl,
+  position: z.number().int().min(0).max(100).optional(),
+  isActive: z.boolean().default(true),
+});
+
+export const upsertBioPageSchema = z.object({
+  handle: bioHandleSchema,
+  title: z.string().trim().min(2, 'Título é obrigatório').max(120, 'Título muito longo'),
+  description: z
+    .string()
+    .trim()
+    .max(280, 'Descrição deve ter no máximo 280 caracteres')
+    .optional()
+    .transform((value) => value || null),
+  isActive: z.boolean().default(true),
+  links: z.array(bioLinkSchema).max(30, 'Use no máximo 30 links nesta página'),
+});
+
 export function getZodErrorMessage(error: z.ZodError) {
   return error.issues[0]?.message || 'Dados inválidos';
 }

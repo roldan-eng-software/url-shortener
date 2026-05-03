@@ -64,6 +64,30 @@ export const marketingLeads = pgTable('marketing_leads', {
   createdAt: timestamp('created_at').defaultNow(),
 });
 
+export const bioPages = pgTable('bio_pages', {
+  id: uuid('id').primaryKey().defaultRandom(),
+  userId: uuid('user_id').references(() => users.id, { onDelete: 'cascade' }).notNull(),
+  handle: varchar('handle', { length: 40 }).notNull().unique(),
+  title: varchar('title', { length: 120 }).notNull(),
+  description: text('description'),
+  viewsTotal: integer('views_total').notNull().default(0),
+  isActive: boolean('is_active').notNull().default(true),
+  createdAt: timestamp('created_at').defaultNow(),
+  updatedAt: timestamp('updated_at').defaultNow(),
+});
+
+export const bioLinks = pgTable('bio_links', {
+  id: uuid('id').primaryKey().defaultRandom(),
+  bioPageId: uuid('bio_page_id').references(() => bioPages.id, { onDelete: 'cascade' }).notNull(),
+  title: varchar('title', { length: 120 }).notNull(),
+  url: text('url').notNull(),
+  position: integer('position').notNull().default(0),
+  clicksTotal: integer('clicks_total').notNull().default(0),
+  isActive: boolean('is_active').notNull().default(true),
+  createdAt: timestamp('created_at').defaultNow(),
+  updatedAt: timestamp('updated_at').defaultNow(),
+});
+
 export type User = typeof users.$inferSelect;
 export type NewUser = typeof users.$inferInsert;
 export type UserLink = typeof userLinks.$inferSelect;
@@ -74,3 +98,7 @@ export type Url = typeof urls.$inferSelect;
 export type NewUrl = typeof urls.$inferInsert;
 export type MarketingLead = typeof marketingLeads.$inferSelect;
 export type NewMarketingLead = typeof marketingLeads.$inferInsert;
+export type BioPage = typeof bioPages.$inferSelect;
+export type NewBioPage = typeof bioPages.$inferInsert;
+export type BioLink = typeof bioLinks.$inferSelect;
+export type NewBioLink = typeof bioLinks.$inferInsert;

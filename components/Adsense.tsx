@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import { usePathname } from 'next/navigation';
 
 declare global {
   interface Window {
@@ -17,6 +18,49 @@ interface AdSenseProps {
   label?: string;
 }
 
+const DISALLOWED_AD_PREFIXES = [
+  '/api',
+  '/dashboard',
+  '/login',
+  '/premium',
+  '/preview',
+  '/register',
+];
+
+const DISALLOWED_AD_PATHS = ['/termos', '/privacidade'];
+const ALLOWED_AD_PATHS = ['/como-funciona'];
+
+function isShortCodePath(pathname: string) {
+  const normalizedPath = pathname.split('?')[0].split('#')[0];
+
+  if (!normalizedPath || normalizedPath === '/') {
+    return false;
+  }
+
+  const segments = normalizedPath.split('/').filter(Boolean);
+  return segments.length === 1 && !ALLOWED_AD_PATHS.includes(normalizedPath);
+}
+
+function canShowGoogleAds(pathname: string | null) {
+  if (!pathname) {
+    return false;
+  }
+
+  if (DISALLOWED_AD_PATHS.includes(pathname)) {
+    return false;
+  }
+
+  if (DISALLOWED_AD_PREFIXES.some((prefix) => pathname.startsWith(prefix))) {
+    return false;
+  }
+
+  if (isShortCodePath(pathname)) {
+    return false;
+  }
+
+  return ALLOWED_AD_PATHS.includes(pathname);
+}
+
 export function AdSense({ 
   adSlot, 
   adClient = 'ca-pub-6076119895678197',
@@ -26,10 +70,12 @@ export function AdSense({
   label = 'Publicidade',
 }: AdSenseProps) {
   const [adError, setAdError] = useState(false);
+  const pathname = usePathname();
   const isPlaceholderSlot = adSlot.startsWith('123456');
+  const canShowAds = canShowGoogleAds(pathname);
 
   useEffect(() => {
-    if (typeof window !== 'undefined' && !isPlaceholderSlot) {
+    if (typeof window !== 'undefined' && canShowAds && !isPlaceholderSlot) {
       try {
         (window.adsbygoogle = window.adsbygoogle || []).push({});
       } catch (err) {
@@ -37,7 +83,11 @@ export function AdSense({
         setAdError(true);
       }
     }
-  }, [isPlaceholderSlot]);
+  }, [canShowAds, isPlaceholderSlot]);
+
+  if (!canShowAds) {
+    return null;
+  }
 
   const style = layout === 'leaderboard'
     ? { display: 'block', width: '100%', maxWidth: '728px', height: `${minHeight || 90}px`, margin: '0 auto' }
@@ -88,7 +138,14 @@ export function AdSense({
 }
 
 export function AdSenseScript() {
+  const pathname = usePathname();
+  const canShowAds = canShowGoogleAds(pathname);
+
   useEffect(() => {
+    if (!canShowAds) {
+      return;
+    }
+
     const scriptId = 'adsense-script';
 
     if (document.getElementById(scriptId)) {
@@ -101,7 +158,7 @@ export function AdSenseScript() {
     script.crossOrigin = 'anonymous';
     script.src = 'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6076119895678197';
     document.head.appendChild(script);
-  }, []);
+  }, [canShowAds]);
 
   return null;
 }

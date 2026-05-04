@@ -1,9 +1,10 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
+import { AdSlotMiddle } from '@/components/Adsense';
 
 export const metadata: Metadata = {
   title: 'Como Encurtar URLs - Tutorial Completo | URLEncurta',
-  description: 'Aprenda como encurtar suas URLs em segundos. Guia passo a passo para criar links curtos e personalizados.',
+  description: 'Aprenda como encurtar URLs, criar QR Codes, compartilhar links com segurança e acompanhar campanhas sem complicação.',
 };
 
 const steps = [
@@ -60,6 +61,32 @@ const benefits = [
     description: 'Cada link vem com um QR Code automático.',
     icon: '⬛'
   }
+];
+
+const bestPractices = [
+  {
+    title: 'Use links curtos em canais onde espaço importa',
+    content: 'Biografias de redes sociais, mensagens de WhatsApp, materiais impressos e campanhas pagas ficam mais claros quando o endereço é curto e fácil de copiar.',
+  },
+  {
+    title: 'Confira o destino antes de compartilhar',
+    content: 'Antes de enviar um link para clientes ou seguidores, abra a URL original e confirme se ela leva para a página certa, sem erros, pop-ups inesperados ou redirecionamentos suspeitos.',
+  },
+  {
+    title: 'Prefira HTTPS',
+    content: 'Links que apontam para páginas HTTPS passam mais confiança e reduzem alertas no navegador. Se a página de destino ainda usa HTTP, considere atualizá-la antes de divulgar.',
+  },
+  {
+    title: 'Organize campanhas com nomes claros',
+    content: 'Quando usar alias personalizado, escolha palavras simples e relacionadas à campanha, como promocao-maio ou cardapio. Isso facilita leitura, suporte e acompanhamento.',
+  },
+];
+
+const useCases = [
+  'Enviar orçamentos e propostas por WhatsApp sem uma URL longa quebrando a mensagem.',
+  'Colocar um QR Code em panfletos, embalagens, cartões de visita ou apresentações.',
+  'Divulgar uma página de pagamento, formulário, catálogo ou cardápio digital.',
+  'Compartilhar links em bios de redes sociais, posts, stories e campanhas de tráfego.',
 ];
 
 export default function ComoFuncionaPage() {
@@ -124,6 +151,53 @@ export default function ComoFuncionaPage() {
                   <p className="text-secondary">{benefit.description}</p>
                 </div>
               ))}
+            </div>
+          </div>
+        </section>
+
+        <section className="py-16">
+          <div className="container mx-auto px-4 max-w-4xl">
+            <div className="mb-10 text-center">
+              <h2 className="text-3xl font-bold text-gray-900 mb-4">
+                Boas práticas para compartilhar links com segurança
+              </h2>
+              <p className="text-secondary">
+                Um link curto deve ajudar o usuário, não esconder informação importante. Veja cuidados simples antes de divulgar.
+              </p>
+            </div>
+
+            <div className="grid gap-5 md:grid-cols-2">
+              {bestPractices.map((item) => (
+                <article key={item.title} className="rounded-xl border border-border bg-white p-6 shadow-sm">
+                  <h3 className="mb-3 text-lg font-bold text-gray-900">{item.title}</h3>
+                  <p className="text-secondary">{item.content}</p>
+                </article>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        <AdSlotMiddle />
+
+        <section className="py-16 bg-white">
+          <div className="container mx-auto px-4 max-w-4xl">
+            <div className="grid gap-10 md:grid-cols-[0.9fr_1.1fr] md:items-start">
+              <div>
+                <h2 className="text-3xl font-bold text-gray-900 mb-4">
+                  Quando vale a pena encurtar uma URL?
+                </h2>
+                <p className="text-secondary">
+                  Nem todo link precisa ser encurtado. O URLEncurta é mais útil quando o endereço original é longo, difícil de digitar ou precisa ser compartilhado em muitos canais.
+                </p>
+              </div>
+
+              <ul className="space-y-4">
+                {useCases.map((item) => (
+                  <li key={item} className="rounded-xl border border-border bg-gray-50 p-4 text-secondary">
+                    {item}
+                  </li>
+                ))}
+              </ul>
             </div>
           </div>
         </section>

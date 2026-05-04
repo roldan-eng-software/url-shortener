@@ -15,7 +15,6 @@ import {
   Zap,
 } from 'lucide-react';
 import { UrlForm } from '@/components/UrlForm';
-import { AdSlotBottom, AdSlotMiddle, AdSlotTop } from '@/components/Adsense';
 import { QrCodeModal } from '@/components/QrCodeModal';
 import { useAuth } from '@/context/AuthContext';
 import { cn, truncate } from '@/lib/utils';
@@ -147,7 +146,6 @@ export function HomeRedesign() {
   return (
     <div className="-mx-4 -my-8 bg-background">
       <HeroShortener />
-      <AdSlotTop />
       <CoreBenefits />
       <HowItWorksCompact />
 
@@ -159,10 +157,8 @@ export function HomeRedesign() {
         />
       )}
 
-      <AdSlotMiddle />
       <FaqCompact />
       <PremiumMiniCta />
-      <AdSlotBottom />
     </div>
   );
 }

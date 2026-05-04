@@ -3,7 +3,6 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'next/navigation';
 import Link from 'next/link';
-import { AdRectangle, AdLeaderboard } from '@/components/Adsense';
 import { Shield, Clock, AlertTriangle, CheckCircle, Info, Lock, Globe, FileText } from 'lucide-react';
 import { PublicBioPage } from '@/components/bio/PublicBioPage';
 
@@ -286,12 +285,6 @@ export default function RedirectPage() {
 
         {/* Right Column - Sidebar */}
         <div className="space-y-6">
-          {/* Ad */}
-          <div className="bg-white rounded-xl p-4 border border-gray-200">
-            <p className="text-xs text-center text-gray-500 mb-2">Publicidade</p>
-            <AdRectangle />
-          </div>
-
           {/* Stats */}
           <div className="bg-gradient-to-br from-blue-600 to-indigo-700 rounded-xl p-6 text-white">
             <h3 className="font-semibold mb-4">Sobre este link</h3>
@@ -343,12 +336,6 @@ export default function RedirectPage() {
                 </p>
               </details>
             </div>
-          </div>
-
-          {/* Second Ad */}
-          <div className="bg-white rounded-xl p-4 border border-gray-200">
-            <p className="text-xs text-center text-gray-500 mb-2">Patrocinado</p>
-            <AdLeaderboard />
           </div>
 
           {/* Trust Badges */}

@@ -1,0 +1,1874 @@
+{
+  "version": "2.11",
+  "children": [
+    {
+      "type": "frame",
+      "id": "bi8Au",
+      "x": 0,
+      "y": 0,
+      "name": "URLEncurta redesign study",
+      "clip": true,
+      "width": 1720,
+      "height": 2860,
+      "fill": "#F8FAFC",
+      "layout": "none",
+      "children": [
+        {
+          "type": "frame",
+          "id": "bSNOe",
+          "x": 40,
+          "y": 40,
+          "name": "Home redesign - desktop",
+          "width": 1180,
+          "height": 2500,
+          "fill": "#F8FAFC",
+          "layout": "vertical",
+          "children": [
+            {
+              "type": "frame",
+              "id": "kkPxq",
+              "name": "Navbar",
+              "width": "fill_container",
+              "height": 72,
+              "fill": "#FFFFFF",
+              "gap": 24,
+              "padding": 24,
+              "justifyContent": "space_between",
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "text",
+                  "id": "kpYGC",
+                  "name": "Logo",
+                  "fill": "#0F172A",
+                  "content": "URLEncurta",
+                  "fontFamily": "Inter",
+                  "fontSize": 24,
+                  "fontWeight": "700"
+                },
+                {
+                  "type": "text",
+                  "id": "JJwJj",
+                  "name": "Nav links",
+                  "fill": "#475569",
+                  "content": "Recursos   Premium   Entrar",
+                  "fontFamily": "Inter",
+                  "fontSize": 14,
+                  "fontWeight": "normal"
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "p7tBBi",
+              "name": "HeroShortener",
+              "width": "fill_container",
+              "height": 420,
+              "fill": "#F8FAFC",
+              "gap": 44,
+              "padding": 56,
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "GWpfs",
+                  "name": "Hero copy",
+                  "width": 470,
+                  "height": "fill_container",
+                  "layout": "vertical",
+                  "gap": 18,
+                  "justifyContent": "center",
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "AdJCH",
+                      "name": "dBadge",
+                      "fill": "#4F46E5",
+                      "content": "Ferramenta gratuita",
+                      "fontFamily": "Inter",
+                      "fontSize": 13,
+                      "fontWeight": "600"
+                    },
+                    {
+                      "type": "text",
+                      "id": "HeqRb",
+                      "name": "dH1",
+                      "fill": "#0F172A",
+                      "textGrowth": "fixed-width-height",
+                      "width": 450,
+                      "height": 128,
+                      "content": "Encurte seu link gratis",
+                      "fontFamily": "Inter",
+                      "fontSize": 52,
+                      "fontWeight": "800"
+                    },
+                    {
+                      "type": "text",
+                      "id": "OWen0",
+                      "name": "dSub",
+                      "fill": "#475569",
+                      "textGrowth": "fixed-width-height",
+                      "width": 420,
+                      "height": 56,
+                      "content": "Cole uma URL e gere um link curto com QR Code em segundos.",
+                      "fontFamily": "Inter",
+                      "fontSize": 18,
+                      "fontWeight": "normal"
+                    },
+                    {
+                      "type": "text",
+                      "id": "f6PCe",
+                      "name": "dTrust",
+                      "fill": "#64748B",
+                      "textGrowth": "fixed-width-height",
+                      "width": 460,
+                      "height": 28,
+                      "content": "Sem cadastro obrigatorio  |  QR Code gratis  |  Historico no navegador",
+                      "fontFamily": "Inter",
+                      "fontSize": 13,
+                      "fontWeight": "normal"
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "iSEJf",
+                  "name": "UrlForm card",
+                  "width": 550,
+                  "height": 300,
+                  "fill": "#FFFFFF",
+                  "cornerRadius": 18,
+                  "layout": "vertical",
+                  "gap": 16,
+                  "padding": 24,
+                  "justifyContent": "center",
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "ke6u9",
+                      "name": "dFormTitle",
+                      "fill": "#0F172A",
+                      "content": "Cole sua URL",
+                      "fontFamily": "Inter",
+                      "fontSize": 18,
+                      "fontWeight": "700"
+                    },
+                    {
+                      "type": "frame",
+                      "id": "QyfTg",
+                      "name": "URL input",
+                      "width": "fill_container",
+                      "height": 58,
+                      "fill": "#F8FAFC",
+                      "cornerRadius": 12,
+                      "layout": "vertical",
+                      "padding": 16,
+                      "justifyContent": "center",
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "PHtT5",
+                          "name": "dInputText",
+                          "fill": "#94A3B8",
+                          "content": "https://exemplo.com/minha-pagina",
+                          "fontFamily": "Inter",
+                          "fontSize": 15,
+                          "fontWeight": "normal"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "hZEJY",
+                      "name": "Primary action",
+                      "width": "fill_container",
+                      "height": 56,
+                      "fill": "#16A34A",
+                      "cornerRadius": 12,
+                      "layout": "vertical",
+                      "justifyContent": "center",
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "NkoNw",
+                          "name": "dButtonText",
+                          "fill": "#FFFFFF",
+                          "content": "Encurtar link",
+                          "fontFamily": "Inter",
+                          "fontSize": 16,
+                          "fontWeight": "700"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "RZVJo",
+                      "name": "Generated result preview",
+                      "width": "fill_container",
+                      "height": 70,
+                      "fill": "#EEF2FF",
+                      "cornerRadius": 12,
+                      "gap": 12,
+                      "padding": 14,
+                      "justifyContent": "space_between",
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "UjIh3",
+                          "name": "dShort",
+                          "fill": "#4F46E5",
+                          "content": "urlencurta.com.br/a7k2",
+                          "fontFamily": "Inter",
+                          "fontSize": 15,
+                          "fontWeight": "700"
+                        },
+                        {
+                          "type": "text",
+                          "id": "WhfBp",
+                          "name": "dCopy",
+                          "fill": "#16A34A",
+                          "content": "Copiar",
+                          "fontFamily": "Inter",
+                          "fontSize": 14,
+                          "fontWeight": "700"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "V2W7QJ",
+              "name": "AdSlotTop",
+              "width": "fill_container",
+              "height": 160,
+              "fill": "#F8FAFC",
+              "layout": "vertical",
+              "padding": 24,
+              "justifyContent": "center",
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "WV3kd",
+                  "name": "728x120 reserved ad",
+                  "width": 728,
+                  "height": 120,
+                  "fill": "#F1F5F9",
+                  "cornerRadius": 12,
+                  "layout": "vertical",
+                  "justifyContent": "center",
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "M8P5wL",
+                      "name": "dAdLabel",
+                      "fill": "#94A3B8",
+                      "content": "Publicidade",
+                      "fontFamily": "Inter",
+                      "fontSize": 12,
+                      "fontWeight": "normal"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "fcdZX",
+              "name": "CoreBenefits",
+              "width": "fill_container",
+              "height": 300,
+              "fill": "#F8FAFC",
+              "layout": "vertical",
+              "gap": 24,
+              "padding": 56,
+              "children": [
+                {
+                  "type": "text",
+                  "id": "D0C3fe",
+                  "name": "dBenTitle",
+                  "fill": "#0F172A",
+                  "content": "Tudo que voce precisa para compartilhar links",
+                  "fontFamily": "Inter",
+                  "fontSize": 30,
+                  "fontWeight": "800"
+                },
+                {
+                  "type": "frame",
+                  "id": "jbr1I",
+                  "name": "Benefits grid",
+                  "width": "fill_container",
+                  "height": 150,
+                  "gap": 18,
+                  "children": [
+                    {
+                      "type": "frame",
+                      "id": "I219NA",
+                      "name": "Gratuito e rapido",
+                      "width": 334,
+                      "height": 140,
+                      "fill": "#FFFFFF",
+                      "cornerRadius": 14,
+                      "layout": "vertical",
+                      "gap": 8,
+                      "padding": 18,
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "fxItG",
+                          "name": "b1t",
+                          "fill": "#0F172A",
+                          "content": "Gratuito e rapido",
+                          "fontFamily": "Inter",
+                          "fontSize": 18,
+                          "fontWeight": "700"
+                        },
+                        {
+                          "type": "text",
+                          "id": "X9Rkux",
+                          "name": "b1d",
+                          "fill": "#475569",
+                          "textGrowth": "fixed-width-height",
+                          "width": 290,
+                          "height": 44,
+                          "content": "Crie links curtos sem cadastro obrigatorio.",
+                          "fontFamily": "Inter",
+                          "fontSize": 14,
+                          "fontWeight": "normal"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "UbzYn",
+                      "name": "QR Code automatico",
+                      "width": 334,
+                      "height": 140,
+                      "fill": "#FFFFFF",
+                      "cornerRadius": 14,
+                      "layout": "vertical",
+                      "gap": 8,
+                      "padding": 18,
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "qhAMj",
+                          "name": "b2t",
+                          "fill": "#0F172A",
+                          "content": "QR Code automatico",
+                          "fontFamily": "Inter",
+                          "fontSize": 18,
+                          "fontWeight": "700"
+                        },
+                        {
+                          "type": "text",
+                          "id": "X9sRJe",
+                          "name": "b2d",
+                          "fill": "#475569",
+                          "textGrowth": "fixed-width-height",
+                          "width": 290,
+                          "height": 44,
+                          "content": "Cada link pode ser compartilhado tambem por QR Code.",
+                          "fontFamily": "Inter",
+                          "fontSize": 14,
+                          "fontWeight": "normal"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "IzjuB",
+                      "name": "Historico simples",
+                      "width": 334,
+                      "height": 140,
+                      "fill": "#FFFFFF",
+                      "cornerRadius": 14,
+                      "layout": "vertical",
+                      "gap": 8,
+                      "padding": 18,
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "HzKeJ",
+                          "name": "b3t",
+                          "fill": "#0F172A",
+                          "content": "Historico simples",
+                          "fontFamily": "Inter",
+                          "fontSize": 18,
+                          "fontWeight": "700"
+                        },
+                        {
+                          "type": "text",
+                          "id": "yea0m",
+                          "name": "b3d",
+                          "fill": "#475569",
+                          "textGrowth": "fixed-width-height",
+                          "width": 290,
+                          "height": 44,
+                          "content": "Acesse os ultimos links criados no navegador.",
+                          "fontFamily": "Inter",
+                          "fontSize": 14,
+                          "fontWeight": "normal"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "ngklg",
+              "name": "HowItWorksCompact",
+              "width": "fill_container",
+              "height": 300,
+              "fill": "#F1F5F9",
+              "layout": "vertical",
+              "gap": 24,
+              "padding": 56,
+              "children": [
+                {
+                  "type": "text",
+                  "id": "dqkZJ",
+                  "name": "hTitle",
+                  "fill": "#0F172A",
+                  "content": "Como funciona",
+                  "fontFamily": "Inter",
+                  "fontSize": 30,
+                  "fontWeight": "800"
+                },
+                {
+                  "type": "frame",
+                  "id": "YwVCx",
+                  "name": "Three steps",
+                  "width": "fill_container",
+                  "height": 150,
+                  "gap": 18,
+                  "children": [
+                    {
+                      "type": "frame",
+                      "id": "hoQAi",
+                      "name": "Step 1",
+                      "width": 334,
+                      "height": 130,
+                      "fill": "#FFFFFF",
+                      "cornerRadius": 14,
+                      "layout": "vertical",
+                      "gap": 8,
+                      "padding": 18,
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "QOmZn",
+                          "name": "h1n",
+                          "fill": "#4F46E5",
+                          "content": "01",
+                          "fontFamily": "Inter",
+                          "fontSize": 13,
+                          "fontWeight": "700"
+                        },
+                        {
+                          "type": "text",
+                          "id": "q8K9bo",
+                          "name": "h1t",
+                          "fill": "#0F172A",
+                          "content": "Cole sua URL",
+                          "fontFamily": "Inter",
+                          "fontSize": 18,
+                          "fontWeight": "700"
+                        },
+                        {
+                          "type": "text",
+                          "id": "z4P1xz",
+                          "name": "h1d",
+                          "fill": "#475569",
+                          "content": "Use o campo principal no inicio da pagina.",
+                          "fontFamily": "Inter",
+                          "fontSize": 14,
+                          "fontWeight": "normal"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "ACT7r",
+                      "name": "Step 2",
+                      "width": 334,
+                      "height": 130,
+                      "fill": "#FFFFFF",
+                      "cornerRadius": 14,
+                      "layout": "vertical",
+                      "gap": 8,
+                      "padding": 18,
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "ZpjDh",
+                          "name": "h2n",
+                          "fill": "#4F46E5",
+                          "content": "02",
+                          "fontFamily": "Inter",
+                          "fontSize": 13,
+                          "fontWeight": "700"
+                        },
+                        {
+                          "type": "text",
+                          "id": "JRi64",
+                          "name": "h2t",
+                          "fill": "#0F172A",
+                          "content": "Clique em encurtar",
+                          "fontFamily": "Inter",
+                          "fontSize": 18,
+                          "fontWeight": "700"
+                        },
+                        {
+                          "type": "text",
+                          "id": "z0OPkN",
+                          "name": "h2d",
+                          "fill": "#475569",
+                          "content": "O link curto e criado em segundos.",
+                          "fontFamily": "Inter",
+                          "fontSize": 14,
+                          "fontWeight": "normal"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "hUBoi",
+                      "name": "Step 3",
+                      "width": 334,
+                      "height": 130,
+                      "fill": "#FFFFFF",
+                      "cornerRadius": 14,
+                      "layout": "vertical",
+                      "gap": 8,
+                      "padding": 18,
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "kJAcw",
+                          "name": "h3n",
+                          "fill": "#4F46E5",
+                          "content": "03",
+                          "fontFamily": "Inter",
+                          "fontSize": 13,
+                          "fontWeight": "700"
+                        },
+                        {
+                          "type": "text",
+                          "id": "sLEol",
+                          "name": "h3t",
+                          "fill": "#0F172A",
+                          "content": "Copie e compartilhe",
+                          "fontFamily": "Inter",
+                          "fontSize": 18,
+                          "fontWeight": "700"
+                        },
+                        {
+                          "type": "text",
+                          "id": "Hb64j",
+                          "name": "h3d",
+                          "fill": "#475569",
+                          "content": "Envie por mensagem, bio ou QR Code.",
+                          "fontFamily": "Inter",
+                          "fontSize": 14,
+                          "fontWeight": "normal"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "TsDAt",
+              "name": "UrlHistorySection conditional",
+              "width": "fill_container",
+              "height": 240,
+              "fill": "#F8FAFC",
+              "layout": "vertical",
+              "gap": 16,
+              "padding": 56,
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "text",
+                  "id": "J4Vn09",
+                  "name": "dHistTitle",
+                  "fill": "#0F172A",
+                  "content": "Seus links recentes",
+                  "fontFamily": "Inter",
+                  "fontSize": 26,
+                  "fontWeight": "800"
+                },
+                {
+                  "type": "frame",
+                  "id": "tNbJF",
+                  "name": "Recent links list",
+                  "width": 760,
+                  "height": 110,
+                  "layout": "vertical",
+                  "gap": 10,
+                  "children": [
+                    {
+                      "type": "frame",
+                      "id": "TCnoL",
+                      "name": "Recent URL card",
+                      "width": "fill_container",
+                      "height": 96,
+                      "fill": "#FFFFFF",
+                      "cornerRadius": 14,
+                      "padding": 16,
+                      "justifyContent": "space_between",
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "frame",
+                          "id": "NhCF6",
+                          "name": "URL text",
+                          "width": 470,
+                          "height": "fill_container",
+                          "layout": "vertical",
+                          "gap": 6,
+                          "justifyContent": "center",
+                          "children": [
+                            {
+                              "type": "text",
+                              "id": "vaqOG",
+                              "name": "dHistShort",
+                              "fill": "#4F46E5",
+                              "content": "urlencurta.com.br/a7k2",
+                              "fontFamily": "Inter",
+                              "fontSize": 16,
+                              "fontWeight": "800"
+                            },
+                            {
+                              "type": "text",
+                              "id": "ZRDsW",
+                              "name": "dHistOriginal",
+                              "fill": "#64748B",
+                              "content": "https://exemplo.com/minha-pagina-com-url-longa",
+                              "fontFamily": "Inter",
+                              "fontSize": 13,
+                              "fontWeight": "normal"
+                            }
+                          ]
+                        },
+                        {
+                          "type": "text",
+                          "id": "MbLjL",
+                          "name": "dHistActions",
+                          "fill": "#16A34A",
+                          "content": "Copiar   QR Code",
+                          "fontFamily": "Inter",
+                          "fontSize": 14,
+                          "fontWeight": "700"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "x8n8N",
+              "name": "AdSlotMiddle",
+              "width": "fill_container",
+              "height": 170,
+              "fill": "#F8FAFC",
+              "layout": "vertical",
+              "padding": 24,
+              "justifyContent": "center",
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "pK6h7",
+                  "name": "In-article ad",
+                  "width": 728,
+                  "height": 120,
+                  "fill": "#F1F5F9",
+                  "cornerRadius": 12,
+                  "layout": "vertical",
+                  "justifyContent": "center",
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "kbZ7m",
+                      "name": "midAdText",
+                      "fill": "#94A3B8",
+                      "content": "Publicidade",
+                      "fontFamily": "Inter",
+                      "fontSize": 12,
+                      "fontWeight": "normal"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "d3kRqt",
+              "name": "FaqCompact",
+              "width": "fill_container",
+              "height": 360,
+              "fill": "#F8FAFC",
+              "layout": "vertical",
+              "gap": 20,
+              "padding": 56,
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "text",
+                  "id": "OQEoG",
+                  "name": "faqTitle",
+                  "fill": "#0F172A",
+                  "content": "Duvidas frequentes",
+                  "fontFamily": "Inter",
+                  "fontSize": 30,
+                  "fontWeight": "800"
+                },
+                {
+                  "type": "frame",
+                  "id": "fsyX9",
+                  "name": "FAQ list",
+                  "width": 720,
+                  "height": 230,
+                  "layout": "vertical",
+                  "gap": 10,
+                  "children": [
+                    {
+                      "type": "frame",
+                      "id": "eJxKJ",
+                      "name": "FAQ 1",
+                      "width": "fill_container",
+                      "height": 48,
+                      "fill": "#FFFFFF",
+                      "cornerRadius": 12,
+                      "padding": 14,
+                      "justifyContent": "space_between",
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "Or0Wo",
+                          "name": "q1t",
+                          "fill": "#0F172A",
+                          "content": "O URLEncurta e gratuito?",
+                          "fontFamily": "Inter",
+                          "fontSize": 15,
+                          "fontWeight": "600"
+                        },
+                        {
+                          "type": "text",
+                          "id": "gvWkD",
+                          "name": "q1p",
+                          "fill": "#4F46E5",
+                          "content": "+",
+                          "fontFamily": "Inter",
+                          "fontSize": 20,
+                          "fontWeight": "normal"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "SIFEd",
+                      "name": "FAQ 2",
+                      "width": "fill_container",
+                      "height": 48,
+                      "fill": "#FFFFFF",
+                      "cornerRadius": 12,
+                      "padding": 14,
+                      "justifyContent": "space_between",
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "QK5jG",
+                          "name": "q2t",
+                          "fill": "#0F172A",
+                          "content": "Preciso criar conta?",
+                          "fontFamily": "Inter",
+                          "fontSize": 15,
+                          "fontWeight": "600"
+                        },
+                        {
+                          "type": "text",
+                          "id": "CxURv",
+                          "name": "q2p",
+                          "fill": "#4F46E5",
+                          "content": "+",
+                          "fontFamily": "Inter",
+                          "fontSize": 20,
+                          "fontWeight": "normal"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "whaEe",
+                      "name": "FAQ 3",
+                      "width": "fill_container",
+                      "height": 48,
+                      "fill": "#FFFFFF",
+                      "cornerRadius": 12,
+                      "padding": 14,
+                      "justifyContent": "space_between",
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "K08Ckq",
+                          "name": "q3t",
+                          "fill": "#0F172A",
+                          "content": "Os links expiram?",
+                          "fontFamily": "Inter",
+                          "fontSize": 15,
+                          "fontWeight": "600"
+                        },
+                        {
+                          "type": "text",
+                          "id": "oxUBB",
+                          "name": "q3p",
+                          "fill": "#4F46E5",
+                          "content": "+",
+                          "fontFamily": "Inter",
+                          "fontSize": 20,
+                          "fontWeight": "normal"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "uWB7k",
+                      "name": "FAQ 4",
+                      "width": "fill_container",
+                      "height": 48,
+                      "fill": "#FFFFFF",
+                      "cornerRadius": 12,
+                      "padding": 14,
+                      "justifyContent": "space_between",
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "bbCWM",
+                          "name": "q4t",
+                          "fill": "#0F172A",
+                          "content": "Posso gerar QR Code?",
+                          "fontFamily": "Inter",
+                          "fontSize": 15,
+                          "fontWeight": "600"
+                        },
+                        {
+                          "type": "text",
+                          "id": "xNPzf",
+                          "name": "q4p",
+                          "fill": "#4F46E5",
+                          "content": "+",
+                          "fontFamily": "Inter",
+                          "fontSize": 20,
+                          "fontWeight": "normal"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "Lf3Zz",
+              "name": "PremiumMiniCta",
+              "width": "fill_container",
+              "height": 190,
+              "fill": "#F8FAFC",
+              "layout": "vertical",
+              "padding": 32,
+              "justifyContent": "center",
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "pSa5Y",
+                  "name": "Premium compact card",
+                  "width": 900,
+                  "height": 126,
+                  "fill": "#FFFFFF",
+                  "cornerRadius": 16,
+                  "padding": 24,
+                  "justifyContent": "space_between",
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "frame",
+                      "id": "e7kq9C",
+                      "name": "Premium copy",
+                      "width": 560,
+                      "height": "fill_container",
+                      "layout": "vertical",
+                      "gap": 8,
+                      "justifyContent": "center",
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "UiKkY",
+                          "name": "premTitle",
+                          "fill": "#0F172A",
+                          "content": "Quer links com sua marca?",
+                          "fontFamily": "Inter",
+                          "fontSize": 24,
+                          "fontWeight": "800"
+                        },
+                        {
+                          "type": "text",
+                          "id": "LwEdE",
+                          "name": "premDesc",
+                          "fill": "#475569",
+                          "content": "No Premium voce usa alias personalizado, historico completo e estatisticas avancadas.",
+                          "fontFamily": "Inter",
+                          "fontSize": 15,
+                          "fontWeight": "normal"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "K1XAw5",
+                      "name": "Premium button",
+                      "width": 132,
+                      "height": 46,
+                      "fill": "#F59E0B",
+                      "cornerRadius": 12,
+                      "layout": "vertical",
+                      "justifyContent": "center",
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "R8Bw5J",
+                          "name": "premBtnText",
+                          "fill": "#FFFFFF",
+                          "content": "Ver Premium",
+                          "fontFamily": "Inter",
+                          "fontSize": 14,
+                          "fontWeight": "700"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "hED80",
+              "name": "AdSlotBottom optional",
+              "width": "fill_container",
+              "height": 150,
+              "fill": "#F8FAFC",
+              "layout": "vertical",
+              "padding": 24,
+              "justifyContent": "center",
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "Q0Jtj9",
+                  "name": "Bottom responsive ad",
+                  "width": 728,
+                  "height": 100,
+                  "fill": "#F1F5F9",
+                  "cornerRadius": 12,
+                  "layout": "vertical",
+                  "justifyContent": "center",
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "ikCr8",
+                      "name": "bottomAdText",
+                      "fill": "#94A3B8",
+                      "content": "Publicidade opcional",
+                      "fontFamily": "Inter",
+                      "fontSize": 12,
+                      "fontWeight": "normal"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "EWhuO",
+              "name": "Footer global",
+              "width": "fill_container",
+              "height": 100,
+              "fill": "#FFFFFF",
+              "padding": 32,
+              "justifyContent": "space_between",
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "text",
+                  "id": "U9tvzF",
+                  "name": "footBrand",
+                  "fill": "#0F172A",
+                  "content": "URLEncurta",
+                  "fontFamily": "Inter",
+                  "fontSize": 18,
+                  "fontWeight": "700"
+                },
+                {
+                  "type": "text",
+                  "id": "wockx",
+                  "name": "footLinks",
+                  "fill": "#64748B",
+                  "content": "Termos   Privacidade   Contato",
+                  "fontFamily": "Inter",
+                  "fontSize": 13,
+                  "fontWeight": "normal"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "frame",
+          "id": "nStPM",
+          "x": 1260,
+          "y": 40,
+          "name": "Home redesign - mobile",
+          "width": 390,
+          "height": 2700,
+          "fill": "#F8FAFC",
+          "layout": "vertical",
+          "children": [
+            {
+              "type": "frame",
+              "id": "x61hi",
+              "name": "Navbar",
+              "width": "fill_container",
+              "height": 64,
+              "fill": "#FFFFFF",
+              "padding": 16,
+              "justifyContent": "space_between",
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "text",
+                  "id": "qTbJU",
+                  "name": "mLogo",
+                  "fill": "#0F172A",
+                  "content": "URLEncurta",
+                  "fontFamily": "Inter",
+                  "fontSize": 20,
+                  "fontWeight": "700"
+                },
+                {
+                  "type": "text",
+                  "id": "F2devz",
+                  "name": "mMenu",
+                  "fill": "#4F46E5",
+                  "content": "Menu",
+                  "fontFamily": "Inter",
+                  "fontSize": 14,
+                  "fontWeight": "600"
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "bFpbB",
+              "name": "HeroShortener",
+              "width": "fill_container",
+              "height": 530,
+              "fill": "#F8FAFC",
+              "layout": "vertical",
+              "gap": 18,
+              "padding": 18,
+              "children": [
+                {
+                  "type": "text",
+                  "id": "dg1Bb",
+                  "name": "mBadge",
+                  "fill": "#4F46E5",
+                  "content": "Ferramenta gratuita",
+                  "fontFamily": "Inter",
+                  "fontSize": 13,
+                  "fontWeight": "600"
+                },
+                {
+                  "type": "text",
+                  "id": "j3InTN",
+                  "name": "mH1",
+                  "fill": "#0F172A",
+                  "textGrowth": "fixed-width-height",
+                  "width": 350,
+                  "height": 86,
+                  "content": "Encurte seu link gratis",
+                  "fontFamily": "Inter",
+                  "fontSize": 34,
+                  "fontWeight": "800"
+                },
+                {
+                  "type": "text",
+                  "id": "CmsEG",
+                  "name": "mSub",
+                  "fill": "#475569",
+                  "textGrowth": "fixed-width-height",
+                  "width": 340,
+                  "height": 54,
+                  "content": "Cole uma URL e gere um link curto com QR Code em segundos.",
+                  "fontFamily": "Inter",
+                  "fontSize": 16,
+                  "fontWeight": "normal"
+                },
+                {
+                  "type": "frame",
+                  "id": "MAWav",
+                  "name": "UrlForm mobile",
+                  "width": "fill_container",
+                  "height": 250,
+                  "fill": "#FFFFFF",
+                  "cornerRadius": 16,
+                  "layout": "vertical",
+                  "gap": 12,
+                  "padding": 16,
+                  "children": [
+                    {
+                      "type": "frame",
+                      "id": "lgI38",
+                      "name": "URL input",
+                      "width": "fill_container",
+                      "height": 54,
+                      "fill": "#F8FAFC",
+                      "cornerRadius": 12,
+                      "layout": "vertical",
+                      "padding": 14,
+                      "justifyContent": "center",
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "xBeQy",
+                          "name": "mInputText",
+                          "fill": "#94A3B8",
+                          "content": "https://exemplo.com",
+                          "fontFamily": "Inter",
+                          "fontSize": 14,
+                          "fontWeight": "normal"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "w9iCcM",
+                      "name": "Primary action",
+                      "width": "fill_container",
+                      "height": 54,
+                      "fill": "#16A34A",
+                      "cornerRadius": 12,
+                      "layout": "vertical",
+                      "justifyContent": "center",
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "Ofw36",
+                          "name": "mButtonText",
+                          "fill": "#FFFFFF",
+                          "content": "Encurtar link",
+                          "fontFamily": "Inter",
+                          "fontSize": 16,
+                          "fontWeight": "700"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "Ijfha",
+                      "name": "Result preview",
+                      "width": "fill_container",
+                      "height": 60,
+                      "fill": "#EEF2FF",
+                      "cornerRadius": 12,
+                      "layout": "vertical",
+                      "padding": 12,
+                      "justifyContent": "center",
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "oeKkU",
+                          "name": "mShort",
+                          "fill": "#4F46E5",
+                          "content": "urlencurta.com.br/a7k2",
+                          "fontFamily": "Inter",
+                          "fontSize": 14,
+                          "fontWeight": "700"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "text",
+                  "id": "zBKdh",
+                  "name": "mTrust",
+                  "fill": "#64748B",
+                  "content": "Sem cadastro | QR Code gratis | Historico local",
+                  "fontFamily": "Inter",
+                  "fontSize": 12,
+                  "fontWeight": "normal"
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "aS690",
+              "name": "AdSlotTop",
+              "width": "fill_container",
+              "height": 300,
+              "fill": "#F8FAFC",
+              "layout": "vertical",
+              "padding": 16,
+              "justifyContent": "center",
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "S9bQ9U",
+                  "name": "Mobile reserved ad",
+                  "width": 336,
+                  "height": 260,
+                  "fill": "#F1F5F9",
+                  "cornerRadius": 12,
+                  "layout": "vertical",
+                  "justifyContent": "center",
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "irQgE",
+                      "name": "mAdText",
+                      "fill": "#94A3B8",
+                      "content": "Publicidade",
+                      "fontFamily": "Inter",
+                      "fontSize": 12,
+                      "fontWeight": "normal"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "ZLFZ0",
+              "name": "CoreBenefits",
+              "width": "fill_container",
+              "height": 380,
+              "fill": "#F8FAFC",
+              "layout": "vertical",
+              "gap": 14,
+              "padding": 18,
+              "children": [
+                {
+                  "type": "text",
+                  "id": "oui9M",
+                  "name": "mBenTitle",
+                  "fill": "#0F172A",
+                  "textGrowth": "fixed-width-height",
+                  "width": 340,
+                  "height": 62,
+                  "content": "Compartilhe links sem complicar",
+                  "fontFamily": "Inter",
+                  "fontSize": 24,
+                  "fontWeight": "800"
+                },
+                {
+                  "type": "frame",
+                  "id": "o9HcD",
+                  "name": "Gratuito e rapido",
+                  "width": "fill_container",
+                  "height": 82,
+                  "fill": "#FFFFFF",
+                  "cornerRadius": 12,
+                  "layout": "vertical",
+                  "gap": 4,
+                  "padding": 14,
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "crvUR",
+                      "name": "mb1t",
+                      "fill": "#0F172A",
+                      "content": "Gratuito e rapido",
+                      "fontFamily": "Inter",
+                      "fontSize": 16,
+                      "fontWeight": "700"
+                    },
+                    {
+                      "type": "text",
+                      "id": "GrrV7",
+                      "name": "mb1d",
+                      "fill": "#475569",
+                      "content": "Crie links curtos sem cadastro obrigatorio.",
+                      "fontFamily": "Inter",
+                      "fontSize": 13,
+                      "fontWeight": "normal"
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "KLcm9",
+                  "name": "QR Code automatico",
+                  "width": "fill_container",
+                  "height": 82,
+                  "fill": "#FFFFFF",
+                  "cornerRadius": 12,
+                  "layout": "vertical",
+                  "gap": 4,
+                  "padding": 14,
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "iC4hi",
+                      "name": "mb2t",
+                      "fill": "#0F172A",
+                      "content": "QR Code automatico",
+                      "fontFamily": "Inter",
+                      "fontSize": 16,
+                      "fontWeight": "700"
+                    },
+                    {
+                      "type": "text",
+                      "id": "ndwJx",
+                      "name": "mb2d",
+                      "fill": "#475569",
+                      "content": "Compartilhe tambem por QR Code.",
+                      "fontFamily": "Inter",
+                      "fontSize": 13,
+                      "fontWeight": "normal"
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "BthCJ",
+                  "name": "Historico simples",
+                  "width": "fill_container",
+                  "height": 82,
+                  "fill": "#FFFFFF",
+                  "cornerRadius": 12,
+                  "layout": "vertical",
+                  "gap": 4,
+                  "padding": 14,
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "n3Wa5Y",
+                      "name": "mb3t",
+                      "fill": "#0F172A",
+                      "content": "Historico simples",
+                      "fontFamily": "Inter",
+                      "fontSize": 16,
+                      "fontWeight": "700"
+                    },
+                    {
+                      "type": "text",
+                      "id": "t3uiks",
+                      "name": "mb3d",
+                      "fill": "#475569",
+                      "content": "Veja os ultimos links no navegador.",
+                      "fontFamily": "Inter",
+                      "fontSize": 13,
+                      "fontWeight": "normal"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "z6Q23",
+              "name": "HowItWorksCompact",
+              "width": "fill_container",
+              "height": 290,
+              "fill": "#F1F5F9",
+              "layout": "vertical",
+              "gap": 14,
+              "padding": 18,
+              "children": [
+                {
+                  "type": "text",
+                  "id": "evktj",
+                  "name": "mHowTitle",
+                  "fill": "#0F172A",
+                  "content": "Como funciona",
+                  "fontFamily": "Inter",
+                  "fontSize": 24,
+                  "fontWeight": "800"
+                },
+                {
+                  "type": "frame",
+                  "id": "GfzmW",
+                  "name": "Step 1",
+                  "width": "fill_container",
+                  "height": 58,
+                  "fill": "#FFFFFF",
+                  "cornerRadius": 12,
+                  "gap": 12,
+                  "padding": 14,
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "JXE9d",
+                      "name": "ms1n",
+                      "fill": "#4F46E5",
+                      "content": "01",
+                      "fontFamily": "Inter",
+                      "fontSize": 13,
+                      "fontWeight": "700"
+                    },
+                    {
+                      "type": "text",
+                      "id": "E9pT9",
+                      "name": "ms1t",
+                      "fill": "#0F172A",
+                      "content": "Cole sua URL",
+                      "fontFamily": "Inter",
+                      "fontSize": 15,
+                      "fontWeight": "700"
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "A23w9N",
+                  "name": "Step 2",
+                  "width": "fill_container",
+                  "height": 58,
+                  "fill": "#FFFFFF",
+                  "cornerRadius": 12,
+                  "gap": 12,
+                  "padding": 14,
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "J78RSc",
+                      "name": "ms2n",
+                      "fill": "#4F46E5",
+                      "content": "02",
+                      "fontFamily": "Inter",
+                      "fontSize": 13,
+                      "fontWeight": "700"
+                    },
+                    {
+                      "type": "text",
+                      "id": "O9KkME",
+                      "name": "ms2t",
+                      "fill": "#0F172A",
+                      "content": "Clique em encurtar",
+                      "fontFamily": "Inter",
+                      "fontSize": 15,
+                      "fontWeight": "700"
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "VftH5",
+                  "name": "Step 3",
+                  "width": "fill_container",
+                  "height": 58,
+                  "fill": "#FFFFFF",
+                  "cornerRadius": 12,
+                  "gap": 12,
+                  "padding": 14,
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "AHf5A",
+                      "name": "ms3n",
+                      "fill": "#4F46E5",
+                      "content": "03",
+                      "fontFamily": "Inter",
+                      "fontSize": 13,
+                      "fontWeight": "700"
+                    },
+                    {
+                      "type": "text",
+                      "id": "fiskM",
+                      "name": "ms3t",
+                      "fill": "#0F172A",
+                      "content": "Copie e compartilhe",
+                      "fontFamily": "Inter",
+                      "fontSize": 15,
+                      "fontWeight": "700"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "sCrUd",
+              "name": "UrlHistorySection conditional",
+              "width": "fill_container",
+              "height": 210,
+              "fill": "#F8FAFC",
+              "layout": "vertical",
+              "gap": 12,
+              "padding": 18,
+              "children": [
+                {
+                  "type": "text",
+                  "id": "bEQMx",
+                  "name": "mHistTitle",
+                  "fill": "#0F172A",
+                  "content": "Seus links recentes",
+                  "fontFamily": "Inter",
+                  "fontSize": 22,
+                  "fontWeight": "800"
+                },
+                {
+                  "type": "frame",
+                  "id": "rW9zs",
+                  "name": "Recent URL card",
+                  "width": "fill_container",
+                  "height": 126,
+                  "fill": "#FFFFFF",
+                  "cornerRadius": 14,
+                  "layout": "vertical",
+                  "gap": 8,
+                  "padding": 14,
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "Pnrdn",
+                      "name": "mHistShort",
+                      "fill": "#4F46E5",
+                      "content": "urlencurta.com.br/a7k2",
+                      "fontFamily": "Inter",
+                      "fontSize": 15,
+                      "fontWeight": "800"
+                    },
+                    {
+                      "type": "text",
+                      "id": "kTEGt",
+                      "name": "mHistOriginal",
+                      "fill": "#64748B",
+                      "content": "https://exemplo.com/minha-pagina...",
+                      "fontFamily": "Inter",
+                      "fontSize": 13,
+                      "fontWeight": "normal"
+                    },
+                    {
+                      "type": "text",
+                      "id": "KKCff",
+                      "name": "mHistActions",
+                      "fill": "#16A34A",
+                      "content": "Copiar        QR Code",
+                      "fontFamily": "Inter",
+                      "fontSize": 13,
+                      "fontWeight": "700"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "OTHUf",
+              "name": "AdSlotMiddle",
+              "width": "fill_container",
+              "height": 280,
+              "fill": "#F8FAFC",
+              "layout": "vertical",
+              "padding": 16,
+              "justifyContent": "center",
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "CMkfv",
+                  "name": "Mobile middle ad",
+                  "width": 336,
+                  "height": 250,
+                  "fill": "#F1F5F9",
+                  "cornerRadius": 12,
+                  "layout": "vertical",
+                  "justifyContent": "center",
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "gvzJo",
+                      "name": "mMidAdText",
+                      "fill": "#94A3B8",
+                      "content": "Publicidade",
+                      "fontFamily": "Inter",
+                      "fontSize": 12,
+                      "fontWeight": "normal"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "mqqyX",
+              "name": "FaqCompact",
+              "width": "fill_container",
+              "height": 330,
+              "fill": "#F8FAFC",
+              "layout": "vertical",
+              "gap": 12,
+              "padding": 18,
+              "children": [
+                {
+                  "type": "text",
+                  "id": "YtDE4",
+                  "name": "mFaqTitle",
+                  "fill": "#0F172A",
+                  "content": "Duvidas frequentes",
+                  "fontFamily": "Inter",
+                  "fontSize": 24,
+                  "fontWeight": "800"
+                },
+                {
+                  "type": "frame",
+                  "id": "FGZjV",
+                  "name": "FAQ 1",
+                  "width": "fill_container",
+                  "height": 46,
+                  "fill": "#FFFFFF",
+                  "cornerRadius": 12,
+                  "padding": 13,
+                  "justifyContent": "space_between",
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "iY1BU",
+                      "name": "mq1t",
+                      "fill": "#0F172A",
+                      "content": "O URLEncurta e gratuito?",
+                      "fontFamily": "Inter",
+                      "fontSize": 14,
+                      "fontWeight": "600"
+                    },
+                    {
+                      "type": "text",
+                      "id": "scbwm",
+                      "name": "mq1p",
+                      "fill": "#4F46E5",
+                      "content": "+",
+                      "fontFamily": "Inter",
+                      "fontSize": 18,
+                      "fontWeight": "normal"
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "djfCz",
+                  "name": "FAQ 2",
+                  "width": "fill_container",
+                  "height": 46,
+                  "fill": "#FFFFFF",
+                  "cornerRadius": 12,
+                  "padding": 13,
+                  "justifyContent": "space_between",
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "H2Ic4",
+                      "name": "mq2t",
+                      "fill": "#0F172A",
+                      "content": "Preciso criar conta?",
+                      "fontFamily": "Inter",
+                      "fontSize": 14,
+                      "fontWeight": "600"
+                    },
+                    {
+                      "type": "text",
+                      "id": "wrMTX",
+                      "name": "mq2p",
+                      "fill": "#4F46E5",
+                      "content": "+",
+                      "fontFamily": "Inter",
+                      "fontSize": 18,
+                      "fontWeight": "normal"
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "e65bw",
+                  "name": "FAQ 3",
+                  "width": "fill_container",
+                  "height": 46,
+                  "fill": "#FFFFFF",
+                  "cornerRadius": 12,
+                  "padding": 13,
+                  "justifyContent": "space_between",
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "KCNa3",
+                      "name": "mq3t",
+                      "fill": "#0F172A",
+                      "content": "Posso gerar QR Code?",
+                      "fontFamily": "Inter",
+                      "fontSize": 14,
+                      "fontWeight": "600"
+                    },
+                    {
+                      "type": "text",
+                      "id": "Z1FDKq",
+                      "name": "mq3p",
+                      "fill": "#4F46E5",
+                      "content": "+",
+                      "fontFamily": "Inter",
+                      "fontSize": 18,
+                      "fontWeight": "normal"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "pY1io",
+              "name": "PremiumMiniCta",
+              "width": "fill_container",
+              "height": 220,
+              "fill": "#F8FAFC",
+              "layout": "vertical",
+              "padding": 18,
+              "justifyContent": "center",
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "KhHHF",
+                  "name": "Premium compact card",
+                  "width": "fill_container",
+                  "height": 170,
+                  "fill": "#FFFFFF",
+                  "cornerRadius": 16,
+                  "layout": "vertical",
+                  "gap": 14,
+                  "padding": 18,
+                  "justifyContent": "center",
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "u9Pmi",
+                      "name": "mPremTitle",
+                      "fill": "#0F172A",
+                      "textGrowth": "fixed-width-height",
+                      "width": 320,
+                      "height": 56,
+                      "content": "Quer links com sua marca?",
+                      "fontFamily": "Inter",
+                      "fontSize": 22,
+                      "fontWeight": "800"
+                    },
+                    {
+                      "type": "text",
+                      "id": "jyfmd",
+                      "name": "mPremDesc",
+                      "fill": "#475569",
+                      "textGrowth": "fixed-width-height",
+                      "width": 315,
+                      "height": 42,
+                      "content": "Alias personalizado, historico completo e estatisticas avancadas.",
+                      "fontFamily": "Inter",
+                      "fontSize": 14,
+                      "fontWeight": "normal"
+                    },
+                    {
+                      "type": "frame",
+                      "id": "UWH7r",
+                      "name": "Premium button",
+                      "width": 128,
+                      "height": 44,
+                      "fill": "#F59E0B",
+                      "cornerRadius": 12,
+                      "layout": "vertical",
+                      "justifyContent": "center",
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "K5qsd",
+                          "name": "mPremBtnText",
+                          "fill": "#FFFFFF",
+                          "content": "Ver Premium",
+                          "fontFamily": "Inter",
+                          "fontSize": 14,
+                          "fontWeight": "700"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "YgpFR",
+              "name": "Footer global",
+              "width": "fill_container",
+              "height": 90,
+              "fill": "#FFFFFF",
+              "layout": "vertical",
+              "gap": 8,
+              "padding": 18,
+              "children": [
+                {
+                  "type": "text",
+                  "id": "E33LQw",
+                  "name": "mFootBrand",
+                  "fill": "#0F172A",
+                  "content": "URLEncurta",
+                  "fontFamily": "Inter",
+                  "fontSize": 17,
+                  "fontWeight": "700"
+                },
+                {
+                  "type": "text",
+                  "id": "opldc",
+                  "name": "mFootLinks",
+                  "fill": "#64748B",
+                  "content": "Termos   Privacidade   Contato",
+                  "fontFamily": "Inter",
+                  "fontSize": 12,
+                  "fontWeight": "normal"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

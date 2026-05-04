@@ -7,6 +7,7 @@ import { ConversionTracker } from '@/components/ConversionTracker';
 import { CookieBanner } from '@/components/CookieBanner';
 import { AuthProvider } from '@/context/AuthContext';
 import { JsonLd } from '@/components/JsonLd';
+import { AdSenseScript } from '@/components/Adsense';
 
 const siteUrl = process.env.NEXT_PUBLIC_APP_URL || 'https://urlencurta.com.br';
 
@@ -76,7 +77,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="pt-BR">
+    <html lang="pt-BR" suppressHydrationWarning>
       <head>
         <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
         <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
@@ -86,11 +87,6 @@ export default function RootLayout({
         <link rel="apple-touch-icon" sizes="512x512" href="/android-chrome-512x512.png" />
         <link rel="manifest" href="/site.webmanifest" />
         <JsonLd />
-        <script
-          async
-          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6076119895678197"
-          crossOrigin="anonymous"
-        />
         <GoogleAnalytics />
       </head>
       <body className="min-h-screen bg-[var(--background)] text-[var(--text-primary)] flex flex-col transition-colors">
@@ -107,6 +103,7 @@ export default function RootLayout({
             `,
           }}
         />
+        <AdSenseScript />
         <AuthProvider>
           <Navbar />
           <ConversionTracker />

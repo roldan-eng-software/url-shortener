@@ -12,6 +12,16 @@ Desenvolver um sistema de encurtamento de URLs (URL Shortener) como MicroSaaS, u
 
 O sistema deve permitir que usuários encurtem URLs longas em códigos curtos e únicos, com redirecionamento rápido e estatísticas básicas de cliques.
 
+### 1.1. Constituição de Monetização e Crescimento
+
+A direção futura do produto é definida pela constituição em
+`.specify/memory/constitution.md`: o encurtador gratuito é o motor de
+viralização e aquisição; páginas editoriais e informativas podem monetizar via
+Google AdSense; rotas privadas, legais, transacionais, APIs, preview e
+redirecionamentos não devem exibir anúncios. Qualquer planejamento futuro deve
+preservar o fluxo gratuito, validar LGPD/segurança, proteger performance e
+explicitar como contribui para SEO, compartilhamento, retenção ou receita.
+
 ## 2. Requisitos Funcionais
 
 ### 2.1. Funcionalidades Obrigatórias (MVP)

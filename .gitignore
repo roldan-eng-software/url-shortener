@@ -1,10 +1,16 @@
 node_modules/
 .next/
 .vercel/
+dist/
+build/
+coverage/
 .env
 .env.local
 .env.*.local
 *.log
+*.tmp
+*.swp
 .DS_Store
+Thumbs.db
 .vercel
 .env*.local

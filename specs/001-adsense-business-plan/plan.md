@@ -62,6 +62,8 @@ specs/001-adsense-business-plan/
 ├── research.md
 ├── data-model.md
 ├── quickstart.md
+├── business-plan.md      # Canonical implementation artifact
+├── validation-report.md  # Evidence and acceptance validation
 ├── contracts/
 │   └── business-plan-contract.md
 └── checklists/

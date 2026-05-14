@@ -88,13 +88,18 @@ export function getUserIdFromRequest(request: NextRequest) {
   return verifySessionToken(request.cookies.get(SESSION_COOKIE)?.value);
 }
 
-export async function getAuthUserFromRequest(request: NextRequest): Promise<AuthUser | null> {
-  const session = await nextAuth();
-  const userId = session?.user?.id || getUserIdFromRequest(request);
-  if (!userId) {
-    return null;
-  }
+const NEXTAUTH_SESSION_COOKIE_NAMES = new Set([
+  'authjs.session-token',
+  '__Secure-authjs.session-token',
+  'next-auth.session-token',
+  '__Secure-next-auth.session-token',
+]);
 
+function hasNextAuthSessionCookie(request: NextRequest) {
+  return request.cookies.getAll().some((c) => NEXTAUTH_SESSION_COOKIE_NAMES.has(c.name));
+}
+
+async function loadAuthUser(userId: string): Promise<AuthUser | null> {
   const db = getDb();
   const user = await db.query.users.findFirst({
     where: eq(users.id, userId),
@@ -114,6 +119,27 @@ export async function getAuthUserFromRequest(request: NextRequest): Promise<Auth
     isPremium,
     premiumExpiresAt: user.premiumExpiresAt,
   };
+}
+
+export async function getAuthUserFromRequest(request: NextRequest): Promise<AuthUser | null> {
+  const userIdFromCookie = getUserIdFromRequest(request);
+  const hasJwtCookie = hasNextAuthSessionCookie(request);
+
+  if (!userIdFromCookie && !hasJwtCookie) {
+    return null;
+  }
+
+  let userId: string | null = userIdFromCookie;
+  if (hasJwtCookie) {
+    const session = await nextAuth();
+    userId = session?.user?.id ?? userIdFromCookie;
+  }
+
+  if (!userId) {
+    return null;
+  }
+
+  return loadAuthUser(userId);
 }
 
 export function assertSameOrigin(request: NextRequest) {

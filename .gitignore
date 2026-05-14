@@ -4,6 +4,9 @@ node_modules/
 dist/
 build/
 coverage/
+test-results/
+testsprite_tests/tmp/
+tsconfig.tsbuildinfo
 .env
 .env.local
 .env.*.local

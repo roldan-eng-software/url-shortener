@@ -154,7 +154,7 @@ export default function RedirectPage() {
       <div className="text-center mb-10">
         <div className="inline-flex items-center gap-2 px-4 py-2 bg-blue-100 dark:bg-blue-900/30 text-blue-800 dark:text-blue-200 rounded-full text-sm font-medium mb-4">
           <Globe className="w-4 h-4" />
-          <span>Página de Redirecionamento Seguro</span>
+          <span>Prévia de redirecionamento</span>
         </div>
         <h1 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-3">
           Você está sendo redirecionado para:
@@ -187,7 +187,7 @@ export default function RedirectPage() {
                   </span>
                   <span className="inline-flex items-center gap-1 px-3 py-1 rounded-full text-xs font-medium bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-300">
                     <Shield className="w-3 h-3" />
-                    Verificado
+                    Destino visível
                   </span>
                 </div>
               </div>
@@ -294,8 +294,8 @@ export default function RedirectPage() {
                 <span className="font-mono">{shortCode}</span>
               </div>
               <div className="flex justify-between py-2 border-b border-white/20">
-                <span className="text-blue-100">Verificado:</span>
-                <span className="flex items-center gap-1"><CheckCircle className="w-4 h-4" /> Sim</span>
+                <span className="text-blue-100">Destino:</span>
+                <span className="flex items-center gap-1"><CheckCircle className="w-4 h-4" /> Visível</span>
               </div>
               <div className="flex justify-between py-2">
                 <span className="text-blue-100">Protocolo:</span>
@@ -314,7 +314,7 @@ export default function RedirectPage() {
                   <span className="group-open:rotate-180 transition">▼</span>
                 </summary>
                 <p className="mt-2 text-xs text-gray-600">
-                  A pausa permite verificar o destino e evitar acessos automáticos a sites maliciosos.
+                  A pausa mostra o destino antes do acesso e evita redirecionamentos automáticos sem contexto.
                 </p>
               </details>
               <details className="group">
@@ -323,7 +323,7 @@ export default function RedirectPage() {
                   <span className="group-open:rotate-180 transition">▼</span>
                 </summary>
                 <p className="mt-2 text-xs text-gray-600">
-                  Verificamos links contra bancos de dados de sites maliciosos.
+                  Mostramos o destino para que você confira domínio e protocolo antes de continuar.
                 </p>
               </details>
               <details className="group">
@@ -342,13 +342,13 @@ export default function RedirectPage() {
           <div className="bg-green-50 rounded-xl p-5 border border-green-200">
             <h4 className="font-medium text-green-900 mb-3 flex items-center gap-2">
               <Shield className="w-5 h-5" />
-              Protegido por:
+              Antes de continuar:
             </h4>
             <ul className="space-y-2 text-sm text-green-800">
-              <li className="flex items-center gap-2"><CheckCircle className="w-4 h-4" /> Verificação automática</li>
-              <li className="flex items-center gap-2"><CheckCircle className="w-4 h-4" /> HTTPS obrigatório</li>
-              <li className="flex items-center gap-2"><CheckCircle className="w-4 h-4" /> Anti-phishing</li>
-              <li className="flex items-center gap-2"><CheckCircle className="w-4 h-4" /> Monitoramento 24/7</li>
+              <li className="flex items-center gap-2"><CheckCircle className="w-4 h-4" /> Confira o domínio</li>
+              <li className="flex items-center gap-2"><CheckCircle className="w-4 h-4" /> Verifique se usa HTTPS</li>
+              <li className="flex items-center gap-2"><CheckCircle className="w-4 h-4" /> Desconfie de pedidos de senha</li>
+              <li className="flex items-center gap-2"><CheckCircle className="w-4 h-4" /> Continue apenas se reconhecer o destino</li>
             </ul>
           </div>
         </div>

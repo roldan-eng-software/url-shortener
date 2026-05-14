@@ -2,6 +2,34 @@ import type { MetadataRoute } from 'next';
 
 const baseUrl = process.env.NEXT_PUBLIC_APP_URL || 'https://urlencurta.com.br';
 
+const editorialPages = [
+  {
+    path: '/como-funciona',
+    changeFrequency: 'monthly' as const,
+    priority: 0.8,
+  },
+  {
+    path: '/seguranca-em-links-curtos',
+    changeFrequency: 'monthly' as const,
+    priority: 0.8,
+  },
+  {
+    path: '/qr-code-para-links',
+    changeFrequency: 'monthly' as const,
+    priority: 0.75,
+  },
+  {
+    path: '/links-para-whatsapp',
+    changeFrequency: 'monthly' as const,
+    priority: 0.75,
+  },
+  {
+    path: '/boas-praticas-url-curta',
+    changeFrequency: 'monthly' as const,
+    priority: 0.75,
+  },
+];
+
 export default function sitemap(): MetadataRoute.Sitemap {
   const now = new Date();
 
@@ -12,18 +40,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: 'daily',
       priority: 1,
     },
-    {
-      url: `${baseUrl}/premium`,
+    ...editorialPages.map((page) => ({
+      url: `${baseUrl}${page.path}`,
       lastModified: now,
-      changeFrequency: 'weekly',
-      priority: 0.9,
-    },
-    {
-      url: `${baseUrl}/como-funciona`,
-      lastModified: now,
-      changeFrequency: 'monthly',
-      priority: 0.7,
-    },
+      changeFrequency: page.changeFrequency,
+      priority: page.priority,
+    })),
     {
       url: `${baseUrl}/privacidade`,
       lastModified: now,

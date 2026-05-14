@@ -29,6 +29,13 @@ const DISALLOWED_AD_PREFIXES = [
 
 const DISALLOWED_AD_PATHS = ['/termos', '/privacidade'];
 const ALLOWED_AD_PATHS = ['/como-funciona'];
+const EDITORIAL_AD_PATHS = [
+  '/boas-praticas-url-curta',
+  '/links-para-whatsapp',
+  '/qr-code-para-links',
+  '/seguranca-em-links-curtos',
+];
+const MONETIZABLE_AD_PATHS = [...ALLOWED_AD_PATHS, ...EDITORIAL_AD_PATHS];
 
 function isShortCodePath(pathname: string) {
   const normalizedPath = pathname.split('?')[0].split('#')[0];
@@ -38,7 +45,7 @@ function isShortCodePath(pathname: string) {
   }
 
   const segments = normalizedPath.split('/').filter(Boolean);
-  return segments.length === 1 && !ALLOWED_AD_PATHS.includes(normalizedPath);
+  return segments.length === 1 && !MONETIZABLE_AD_PATHS.includes(normalizedPath);
 }
 
 function canShowGoogleAds(pathname: string | null) {
@@ -58,7 +65,7 @@ function canShowGoogleAds(pathname: string | null) {
     return false;
   }
 
-  return ALLOWED_AD_PATHS.includes(pathname);
+  return MONETIZABLE_AD_PATHS.includes(pathname);
 }
 
 export function AdSense({ 
@@ -72,6 +79,7 @@ export function AdSense({
   const [adError, setAdError] = useState(false);
   const pathname = usePathname();
   const isPlaceholderSlot = adSlot.startsWith('123456');
+  const showPlaceholder = process.env.NEXT_PUBLIC_SHOW_AD_PLACEHOLDERS === 'true';
   const canShowAds = canShowGoogleAds(pathname);
 
   useEffect(() => {
@@ -85,7 +93,7 @@ export function AdSense({
     }
   }, [canShowAds, isPlaceholderSlot]);
 
-  if (!canShowAds) {
+  if (!canShowAds || (isPlaceholderSlot && !showPlaceholder)) {
     return null;
   }
 
@@ -96,7 +104,7 @@ export function AdSense({
     : { display: 'block', width: '100%', minHeight: `${minHeight || 120}px`, margin: '0 auto' };
 
   // Fallback/placeholder when AdSense is not loaded or using test slots
-  if (isPlaceholderSlot || adError) {
+  if ((isPlaceholderSlot && showPlaceholder) || adError) {
     return (
       <div className={`ads-container ${className}`}>
         <div 

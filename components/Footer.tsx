@@ -6,7 +6,19 @@ export function Footer() {
       <div className="container mx-auto px-4 max-w-6xl py-6">
         <div className="flex flex-col md:flex-row items-center justify-between gap-4 text-sm text-text">
           <p>&copy; {new Date().getFullYear()} URLEncurta. Todos os direitos reservados.</p>
-          <div className="flex gap-6">
+          <div className="flex flex-wrap justify-center gap-x-6 gap-y-3">
+            <Link href="/seguranca-em-links-curtos" className="text-text hover:text-primary transition-colors duration-300">
+              Segurança
+            </Link>
+            <Link href="/qr-code-para-links" className="text-text hover:text-primary transition-colors duration-300">
+              QR Code
+            </Link>
+            <Link href="/links-para-whatsapp" className="text-text hover:text-primary transition-colors duration-300">
+              WhatsApp
+            </Link>
+            <Link href="/boas-praticas-url-curta" className="text-text hover:text-primary transition-colors duration-300">
+              Boas práticas
+            </Link>
             <Link href="/privacidade" className="text-text hover:text-primary transition-colors duration-300">
               Política de Privacidade
             </Link>

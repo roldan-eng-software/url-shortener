@@ -65,6 +65,12 @@ export function Navbar() {
               <Link href="/como-funciona" className="text-text hover:text-primary transition-colors font-medium">
                 Como Funciona
               </Link>
+              <Link href="/seguranca-em-links-curtos" className="text-text hover:text-primary transition-colors font-medium">
+                Segurança
+              </Link>
+              <Link href="/boas-praticas-url-curta" className="text-text hover:text-primary transition-colors font-medium">
+                Guias
+              </Link>
               <Link href="/premium" className="text-text hover:text-primary transition-colors font-medium">
                 Premium
               </Link>
@@ -135,6 +141,20 @@ export function Navbar() {
                   onClick={() => setIsMenuOpen(false)}
                 >
                   Como Funciona
+                </Link>
+                <Link
+                  href="/seguranca-em-links-curtos"
+                  className="text-text hover:text-primary transition-colors font-medium py-2"
+                  onClick={() => setIsMenuOpen(false)}
+                >
+                  Segurança
+                </Link>
+                <Link
+                  href="/boas-praticas-url-curta"
+                  className="text-text hover:text-primary transition-colors font-medium py-2"
+                  onClick={() => setIsMenuOpen(false)}
+                >
+                  Guias
                 </Link>
                 <Link 
                   href="/premium" 

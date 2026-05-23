@@ -1,6 +1,11 @@
 'use client';
 
 import Script from 'next/script';
+import { useEffect, useState } from 'react';
+import {
+  COOKIE_CONSENT_UPDATED_EVENT,
+  getStoredCookieConsent,
+} from '@/lib/cookie-consent';
 
 export const GA_MEASUREMENT_ID = process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID || 'G-ZRN8PG2KZX';
 
@@ -17,7 +22,19 @@ declare global {
 }
 
 export function GoogleAnalytics() {
-  if (!GA_MEASUREMENT_ID) return null;
+  const [canLoadAnalytics, setCanLoadAnalytics] = useState(false);
+
+  useEffect(() => {
+    const syncConsent = () => {
+      setCanLoadAnalytics(Boolean(getStoredCookieConsent()?.analytics));
+    };
+
+    syncConsent();
+    window.addEventListener(COOKIE_CONSENT_UPDATED_EVENT, syncConsent);
+    return () => window.removeEventListener(COOKIE_CONSENT_UPDATED_EVENT, syncConsent);
+  }, []);
+
+  if (!GA_MEASUREMENT_ID || !canLoadAnalytics) return null;
 
   return (
     <>
@@ -43,7 +60,7 @@ export function GoogleAnalytics() {
 }
 
 export function trackEvent(category: string, action: string, label?: string, value?: number) {
-  if (typeof window !== 'undefined' && window.gtag) {
+  if (typeof window !== 'undefined' && getStoredCookieConsent()?.analytics && window.gtag) {
     window.gtag('event', action, {
       event_category: category,
       event_label: label,
@@ -53,7 +70,7 @@ export function trackEvent(category: string, action: string, label?: string, val
 }
 
 export function trackConversionEvent(action: string, params?: Record<string, string | number | boolean | undefined>) {
-  if (typeof window !== 'undefined' && window.gtag) {
+  if (typeof window !== 'undefined' && getStoredCookieConsent()?.analytics && window.gtag) {
     window.gtag('event', action, {
       event_category: 'conversion',
       ...params,
@@ -62,7 +79,7 @@ export function trackConversionEvent(action: string, params?: Record<string, str
 }
 
 export function trackConversion(conversionId: string, conversionLabel: string) {
-  if (typeof window !== 'undefined' && window.gtag) {
+  if (typeof window !== 'undefined' && getStoredCookieConsent()?.analytics && window.gtag) {
     window.gtag('event', 'conversion', {
       send_to: `${conversionId}/${conversionLabel}`
     });

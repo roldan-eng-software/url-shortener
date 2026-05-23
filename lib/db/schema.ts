@@ -64,6 +64,16 @@ export const marketingLeads = pgTable('marketing_leads', {
   createdAt: timestamp('created_at').defaultNow(),
 });
 
+export const privacyRequests = pgTable('privacy_requests', {
+  id: uuid('id').primaryKey().defaultRandom(),
+  requestType: varchar('request_type', { length: 40 }).notNull(),
+  email: text('email').notNull(),
+  details: text('details'),
+  status: varchar('status', { length: 30 }).notNull().default('new'),
+  createdAt: timestamp('created_at').defaultNow(),
+  updatedAt: timestamp('updated_at').defaultNow(),
+});
+
 export const bioPages = pgTable('bio_pages', {
   id: uuid('id').primaryKey().defaultRandom(),
   userId: uuid('user_id').references(() => users.id, { onDelete: 'cascade' }).notNull(),
@@ -98,6 +108,8 @@ export type Url = typeof urls.$inferSelect;
 export type NewUrl = typeof urls.$inferInsert;
 export type MarketingLead = typeof marketingLeads.$inferSelect;
 export type NewMarketingLead = typeof marketingLeads.$inferInsert;
+export type PrivacyRequest = typeof privacyRequests.$inferSelect;
+export type NewPrivacyRequest = typeof privacyRequests.$inferInsert;
 export type BioPage = typeof bioPages.$inferSelect;
 export type NewBioPage = typeof bioPages.$inferInsert;
 export type BioLink = typeof bioLinks.$inferSelect;

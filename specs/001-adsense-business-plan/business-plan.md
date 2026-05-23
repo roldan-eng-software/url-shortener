@@ -132,6 +132,8 @@ O plano depende de confiança. Todo novo item de monetização deve registrar:
 - Dados pessoais ou comportamentais afetados.
 - Terceiros envolvidos: Google AdSense, Google Analytics, Stripe, lead capture ou outros.
 - Necessidade de atualização em política de privacidade, termos ou banner de cookies.
+- Necessidade de consentimento ou preferência granular antes de carregar analytics,
+  publicidade ou outro script não essencial.
 - Risco de tráfego inválido, clique acidental ou posicionamento enganoso.
 - Risco de destino inseguro, phishing, malware, spam ou abuso.
 - Evidência de que o usuário entende quando está vendo publicidade.

@@ -101,6 +101,27 @@ export const marketingLeadSchema = z.object({
     .transform((value) => value || undefined),
 });
 
+export const privacyRequestSchema = z.object({
+  requestType: z.enum([
+    'access',
+    'correction',
+    'deletion',
+    'portability',
+    'opposition',
+    'consent_revocation',
+    'information',
+  ]),
+  email: emailSchema.transform((email) => email.toLowerCase()),
+  details: z
+    .string()
+    .trim()
+    .max(1000, 'Detalhes devem ter no máximo 1000 caracteres')
+    .optional()
+    .transform((value) => value || undefined),
+});
+
+export type PrivacyRequestInput = z.infer<typeof privacyRequestSchema>;
+
 export const bioHandleSchema = z
   .string()
   .trim()

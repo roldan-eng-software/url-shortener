@@ -80,7 +80,7 @@ dedicated cleanup spec before scaling paid or advertising traffic.
 | Free Utility Gate | PASS | `business-plan.md` protects no-signup shortening, copy and QR Code as the free promise |
 | AdSense Surface Gate | PASS | Surface matrix classifies allowed, forbidden and review-required areas |
 | Organic Growth Gate | PASS | Roadmap includes 12 content opportunities and 6 growth loops |
-| Trust and LGPD Gate | PASS | Guardrails include privacy, cookies, third parties, unsafe destinations and policy risks |
+| Trust and LGPD Gate | PASS WITH IMPLEMENTATION FOLLOW-UP | Guardrails include privacy, cookies, third parties, unsafe destinations and policy risks. Runtime LGPD gaps found after this plan are handled by `specs/002-lgpd-compliance/`. |
 | Performance Gate | PASS | Guardrails include redirect p95, LCP, CLS, layout stability and creation completion |
 
 ## Surface matrix review
@@ -112,7 +112,7 @@ dedicated cleanup spec before scaling paid or advertising traffic.
 | Google AdSense policy risk documented | PASS |
 | Invalid traffic and accidental click risk documented | PASS |
 | Better Ads/readability risk documented | PASS |
-| Privacy, cookies, analytics, advertising, Stripe and lead capture covered | PASS |
+| Privacy, cookies, analytics, advertising, Stripe and lead capture covered | PASS WITH FOLLOW-UP | Covered as planning requirements; runtime implementation corrected in `specs/002-lgpd-compliance/`. |
 | Legal/privacy update triggers defined | PASS |
 | Unsafe destination and domain reputation risk documented | PASS |
 

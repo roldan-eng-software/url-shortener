@@ -2,6 +2,10 @@
 
 import { useEffect, useState } from 'react';
 import { usePathname } from 'next/navigation';
+import {
+  COOKIE_CONSENT_UPDATED_EVENT,
+  getStoredCookieConsent,
+} from '@/lib/cookie-consent';
 
 declare global {
   interface Window {
@@ -77,10 +81,21 @@ export function AdSense({
   label = 'Publicidade',
 }: AdSenseProps) {
   const [adError, setAdError] = useState(false);
+  const [canLoadAds, setCanLoadAds] = useState(false);
   const pathname = usePathname();
   const isPlaceholderSlot = adSlot.startsWith('123456');
   const showPlaceholder = process.env.NEXT_PUBLIC_SHOW_AD_PLACEHOLDERS === 'true';
-  const canShowAds = canShowGoogleAds(pathname);
+  const canShowAds = canShowGoogleAds(pathname) && canLoadAds;
+
+  useEffect(() => {
+    const syncConsent = () => {
+      setCanLoadAds(Boolean(getStoredCookieConsent()?.ads));
+    };
+
+    syncConsent();
+    window.addEventListener(COOKIE_CONSENT_UPDATED_EVENT, syncConsent);
+    return () => window.removeEventListener(COOKIE_CONSENT_UPDATED_EVENT, syncConsent);
+  }, []);
 
   useEffect(() => {
     if (typeof window !== 'undefined' && canShowAds && !isPlaceholderSlot) {
@@ -147,7 +162,18 @@ export function AdSense({
 
 export function AdSenseScript() {
   const pathname = usePathname();
-  const canShowAds = canShowGoogleAds(pathname);
+  const [canLoadAds, setCanLoadAds] = useState(false);
+  const canShowAds = canShowGoogleAds(pathname) && canLoadAds;
+
+  useEffect(() => {
+    const syncConsent = () => {
+      setCanLoadAds(Boolean(getStoredCookieConsent()?.ads));
+    };
+
+    syncConsent();
+    window.addEventListener(COOKIE_CONSENT_UPDATED_EVENT, syncConsent);
+    return () => window.removeEventListener(COOKIE_CONSENT_UPDATED_EVENT, syncConsent);
+  }, []);
 
   useEffect(() => {
     if (!canShowAds) {

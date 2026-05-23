@@ -1,216 +1,193 @@
 import type { Metadata } from 'next';
-import { CookieBanner } from '@/components/CookieBanner';
+import type { ReactNode } from 'react';
+import { PrivacyRequestForm } from '@/components/PrivacyRequestForm';
 
 export const metadata: Metadata = {
   title: 'Política de Privacidade - URLEncurta',
-  description: 'Política de Privacidade do URLEncurta. Veja como protegemos seus dados e respeitamos sua privacidade.',
+  description: 'Política de Privacidade do URLEncurta, com informações sobre LGPD, cookies, anúncios, analytics e direitos do titular.',
 };
+
+const updatedAt = '14 de maio de 2026';
 
 export default function PrivacyPolicyPage() {
   return (
-    <>
-      <div className="max-w-4xl mx-auto py-12 px-4">
-        <h1 className="text-3xl font-bold text-gray-900 mb-8">Política de Privacidade</h1>
-        
-        <div className="prose prose-gray max-w-none">
-          <p className="text-sm text-gray-500 mb-8">
-            <strong>Última atualização:</strong> 2 de março de 2026
-          </p>
-
-          <section className="mb-8">
-            <h2 className="text-xl font-semibold text-gray-900 mb-4">1. Introdução</h2>
-            <p className="text-gray-700 leading-relaxed mb-4">
-              A URLEncurta (&quot;nós&quot;, &quot;nosso&quot;) respeita sua privacidade e está comprometida em proteger 
-              seus dados pessoais. Esta Política de Privacidade explica como coletamos, usamos, divulgamos e 
-              protegemos suas informações.
-            </p>
-            <p className="text-gray-700 leading-relaxed">
-              Este site é operado em conformidade com a Lei Geral de Proteção de Dados (LGPD - Lei nº 13.709/2018).
-            </p>
-          </section>
-
-          <section className="mb-8">
-            <h2 className="text-xl font-semibold text-gray-900 mb-4">2. Dados que Coletamos</h2>
-            
-            <h3 className="text-lg font-medium text-gray-800 mb-3">2.1 Dados fornecidos por você</h3>
-            <ul className="list-disc pl-6 text-gray-700 space-y-2 mb-4">
-              <li>URL original que você deseja encurtar</li>
-              <li>Código personalizado (se aplicável)</li>
-            </ul>
-
-            <h3 className="text-lg font-medium text-gray-800 mb-3">2.2 Dados coletados automaticamente</h3>
-            <ul className="list-disc pl-6 text-gray-700 space-y-2">
-              <li>Endereço IP (anonimizado para estatísticas)</li>
-              <li>Tipo de navegador e dispositivo</li>
-              <li>Páginas visitadas e tempo de permanência</li>
-              <li>URL de referência (referrer)</li>
-              <li>Contador de cliques nos links</li>
-            </ul>
-          </section>
-
-          <section className="mb-8">
-            <h2 className="text-xl font-semibold text-gray-900 mb-4">3. Como Usamos Seus Dados</h2>
-            <p className="text-gray-700 leading-relaxed mb-4">
-              Utilizamos seus dados para as seguintes finalidades:
-            </p>
-            <ul className="list-disc pl-6 text-gray-700 space-y-2">
-              <li><strong>Prestação do serviço:</strong> Redirecionar URLs encurtadas para seus destinos originais</li>
-              <li><strong>Estatísticas:</strong> Contabilizar cliques e gerar estatísticas de acesso</li>
-              <li><strong>Segurança:</strong> Prevenir fraudes, abuses e ataques</li>
-              <li><strong>Melhoria do serviço:</strong> Analisar uso para melhorar nossa plataforma</li>
-              <li><strong>Publicidade:</strong> Exibir anúncios através do Google AdSense</li>
-            </ul>
-          </section>
-
-          <section className="mb-8">
-            <h2 className="text-xl font-semibold text-gray-900 mb-4">4. Base Legal para Tratamento</h2>
-            <p className="text-gray-700 leading-relaxed mb-4">
-              Tratamos seus dados com base nas seguintes hipóteses legais da LGPD:
-            </p>
-            <ul className="list-disc pl-6 text-gray-700 space-y-2">
-              <li><strong>Execução de contrato (Art. 7º, V):</strong> Para prestar o serviço de encurtamento de URLs</li>
-              <li><strong>Legítimo interesse (Art. 7º, IX):</strong> Para estatísticas, segurança e melhoria do serviço</li>
-              <li><strong>Cumprimento de obrigação legal (Art. 7º, II):</strong> Para obrigações fiscais e jurídicas</li>
-            </ul>
-          </section>
-
-          <section className="mb-8">
-            <h2 className="text-xl font-semibold text-gray-900 mb-4">5. Cookies e Tecnologias Semelhantes</h2>
-            <p className="text-gray-700 leading-relaxed mb-4">
-              Utilizamos cookies e tecnologias semelhantes para:
-            </p>
-            <ul className="list-disc pl-6 text-gray-700 space-y-2 mb-4">
-              <li><strong>Cookies técnicos:</strong> Necessários para o funcionamento do site</li>
-              <li><strong>Cookies de análise:</strong> Google Analytics para entender como o site é usado</li>
-              <li><strong>Cookies de publicidade:</strong> Google AdSense para exibir anúncios</li>
-            </ul>
-            <p className="text-gray-700 leading-relaxed">
-              Você pode controlar ou desativar cookies através das configurações do seu navegador.
-            </p>
-          </section>
-
-          <section className="mb-8">
-            <h2 className="text-xl font-semibold text-gray-900 mb-4">6. Compartilhamento de Dados</h2>
-            <p className="text-gray-700 leading-relaxed mb-4">
-              Compartilhamos dados com os seguintes terceiros:
-            </p>
-            
-            <div className="bg-gray-50 rounded-lg p-4 mb-4">
-              <h3 className="font-medium text-gray-900 mb-2">Google AdSense</h3>
-              <p className="text-sm text-gray-700">
-                O Google AdSense utiliza cookies para exibir anúncios personalizados e medir tráfego. 
-                O Google atua como controlador independente de dados. 
-                <a 
-                  href="https://policies.google.com/technologies/ads" 
-                  target="_blank" 
-                  rel="noopener noreferrer"
-                  className="text-blue-600 hover:underline ml-1"
-                >
-                  Política de Privacidade do Google
-                </a>
-              </p>
-            </div>
-
-            <div className="bg-gray-50 rounded-lg p-4 mb-4">
-              <h3 className="font-medium text-gray-900 mb-2">Google Analytics</h3>
-              <p className="text-sm text-gray-700">
-                Utilizamos Google Analytics para analisar o tráfego do site. Os dados de IP são anonimizados.
-                <a 
-                  href="https://policies.google.com/privacy" 
-                  target="_blank" 
-                  rel="noopener noreferrer"
-                  className="text-blue-600 hover:underline ml-1"
-                >
-                  Política de Privacidade do Google
-                </a>
-              </p>
-            </div>
-
-            <p className="text-gray-700 leading-relaxed">
-              Não vendemos, negociamos ou transferimos seus dados pessoais para terceiros.
-            </p>
-          </section>
-
-          <section className="mb-8">
-            <h2 className="text-xl font-semibold text-gray-900 mb-4">7. Retenção de Dados</h2>
-            <p className="text-gray-700 leading-relaxed mb-4">
-              Mantemos seus dados pelo tempo necessário para:
-            </p>
-            <ul className="list-disc pl-6 text-gray-700 space-y-2">
-              <li><strong>URLs encurtadas:</strong> Enquanto o link estiver ativo ou até solicitação de exclusão</li>
-              <li><strong>Dados de acesso:</strong> Até 12 meses para estatísticas e segurança</li>
-              <li><strong>Dados fiscais:</strong> Pelo prazo legal mínimo de 5 anos</li>
-            </ul>
-          </section>
-
-          <section className="mb-8">
-            <h2 className="text-xl font-semibold text-gray-900 mb-4">8. Seus Direitos (LGPD)</h2>
-            <p className="text-gray-700 leading-relaxed mb-4">
-              Você tem os seguintes direitos garantidos pela LGPD:
-            </p>
-            <ul className="list-disc pl-6 text-gray-700 space-y-2">
-              <li><strong>Confirmação:</strong> Receber confirmação sobre a existência de tratamento</li>
-              <li><strong>Acesso:</strong> Solicitar acesso aos seus dados</li>
-              <li><strong>Correção:</strong> Solicitar correção de dados incompletos ou desatualizados</li>
-              <li><strong>Anonimização:</strong> Solicitar anonimização de dados</li>
-              <li><strong>Bloqueio:</strong> Solicitar bloqueio ou eliminação de dados desnecessários</li>
-              <li><strong>Eliminação:</strong> Solicitar eliminação de dados tratados com consentimento</li>
-              <li><strong>Portabilidade:</strong> Solicitar portabilidade dos dados</li>
-              <li><strong>Informação:</strong> Receber informação sobre compartilhamento</li>
-              <li><strong>Revogação:</strong> Revogar consentimento a qualquer tempo</li>
-            </ul>
-          </section>
-
-          <section className="mb-8">
-            <h2 className="text-xl font-semibold text-gray-900 mb-4">9. Como Exerc Seus Direitos</h2>
-            <p className="text-gray-700 leading-relaxed mb-4">
-              Para exercer seus direitos ou esclarecer dúvidas, entre em contato conosco:
-            </p>
-            <div className="bg-gray-50 rounded-lg p-4">
-              <p className="text-gray-700">
-                <strong>Email:</strong> privacidade@urlencurta.com
-              </p>
-              <p className="text-gray-700 mt-2">
-                Responderemos sua solicitação em até 15 dias, conforme estabelecido pela LGPD.
-              </p>
-            </div>
-          </section>
-
-          <section className="mb-8">
-            <h2 className="text-xl font-semibold text-gray-900 mb-4">10. Segurança</h2>
-            <p className="text-gray-700 leading-relaxed">
-              Implementamos medidas de segurança técnicas e administrativas para proteger seus dados contra 
-              acesso não autorizado, alteração, divulgação ou destruição. Utilizamos criptografia SSL/TLS 
-              para transmissões e armazenamos dados em servidores seguros.
-            </p>
-          </section>
-
-          <section className="mb-8">
-            <h2 className="text-xl font-semibold text-gray-900 mb-4">11. Transferência Internacional</h2>
-            <p className="text-gray-700 leading-relaxed">
-              Alguns de nossos fornecedores (como Google) podem estar localizados fora do Brasil. 
-              Garantimos que tais transferências comply com a LGPD e que os dados são protegidos adequadamente.
-            </p>
-          </section>
-
-          <section className="mb-8">
-            <h2 className="text-xl font-semibold text-gray-900 mb-4">12. Alterações nesta Política</h2>
-            <p className="text-gray-700 leading-relaxed">
-              Podemos atualizar esta Política de Privacidade periodicamente. Notifyaremos sobre alterações 
-              публикуя a nova versão nesta página. Recomendamos que você revise esta política regularmente.
-            </p>
-          </section>
-
-          <section>
-            <h2 className="text-xl font-semibold text-gray-900 mb-4">13. Encarregado de Proteção de Dados</h2>
-            <p className="text-gray-700 leading-relaxed">
-              Nosso Encarregado de Proteção de Dados (DPO) pode ser contactado através de 
-              privacidade@urlencurta.com.
-            </p>
-          </section>
-        </div>
+    <div className="mx-auto max-w-4xl px-4 py-12">
+      <div className="mb-10">
+        <h1 className="text-3xl font-bold text-title">Política de Privacidade</h1>
+        <p className="mt-3 text-sm text-text-secondary">
+          Última atualização: {updatedAt}
+        </p>
+        <p className="mt-5 text-text">
+          Esta política explica como o URLEncurta trata dados pessoais para operar o
+          encurtador de links, contas Premium, páginas de bio, analytics, anúncios e
+          comunicações comerciais, em conformidade com a Lei Geral de Proteção de Dados
+          Pessoais (Lei nº 13.709/2018).
+        </p>
       </div>
-      <CookieBanner />
-    </>
+
+      <div className="space-y-9 text-text">
+        <Section title="1. Controlador e contato">
+          <p>
+            O controlador dos dados é o URLEncurta, responsável por definir as finalidades
+            e meios de tratamento dos dados pessoais tratados neste serviço.
+          </p>
+          <p>
+            Para dúvidas ou solicitações LGPD, use o formulário ao final desta página ou
+            envie email para <strong>privacidade@urlencurta.com.br</strong>.
+          </p>
+        </Section>
+
+        <Section title="2. Dados tratados">
+          <ul className="list-disc space-y-2 pl-6">
+            <li>URLs originais, links curtos, aliases personalizados, QR Codes e contadores de cliques.</li>
+            <li>Email, senha protegida por hash, identificador de usuário e status Premium.</li>
+            <li>Dados de pagamento processados pela Stripe, como identificadores de cliente e assinatura.</li>
+            <li>Dados de páginas de bio, incluindo handle, título, descrição, links e métricas de acesso.</li>
+            <li>Dados enviados em formulários comerciais, como nome, email, empresa, telefone, interesse e mensagem.</li>
+            <li>Dados técnicos e de segurança, como endereço IP, origem da requisição, navegador, dispositivo e eventos de abuso.</li>
+            <li>Preferências de cookies salvas no navegador para analytics e publicidade.</li>
+          </ul>
+        </Section>
+
+        <Section title="3. Finalidades e bases legais">
+          <div className="overflow-x-auto">
+            <table className="w-full min-w-[720px] border-collapse text-left text-sm">
+              <thead>
+                <tr className="border-b border-border text-title">
+                  <th className="py-3 pr-4">Finalidade</th>
+                  <th className="py-3 pr-4">Dados principais</th>
+                  <th className="py-3">Base legal</th>
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-border">
+                <TableRow
+                  basis="Execução de contrato ou procedimentos preliminares"
+                  data="URL, código curto, QR Code, conta e links salvos"
+                  purpose="Prestar o serviço de encurtamento, redirecionamento e recursos Premium"
+                />
+                <TableRow
+                  basis="Legítimo interesse e prevenção a fraudes"
+                  data="IP, origem, limites de uso, eventos técnicos e URLs suspeitas"
+                  purpose="Proteger o domínio, evitar abuso, spam, phishing e indisponibilidade"
+                />
+                <TableRow
+                  basis="Consentimento registrado nas preferências de cookies"
+                  data="Eventos de navegação, páginas visitadas e conversões"
+                  purpose="Medir uso do site com Google Analytics"
+                />
+                <TableRow
+                  basis="Consentimento registrado nas preferências de cookies"
+                  data="Identificadores publicitários e sinais de anúncio"
+                  purpose="Carregar Google AdSense em páginas editoriais elegíveis"
+                />
+                <TableRow
+                  basis="Execução de contrato e cumprimento de obrigação legal"
+                  data="Email, identificadores Stripe, assinatura e status de pagamento"
+                  purpose="Processar assinatura Premium e obrigações relacionadas"
+                />
+                <TableRow
+                  basis="Consentimento ou procedimentos solicitados pelo titular"
+                  data="Nome, email, telefone, empresa, interesse e mensagem"
+                  purpose="Responder contatos comerciais e pedidos de plano de campanha"
+                />
+              </tbody>
+            </table>
+          </div>
+        </Section>
+
+        <Section title="4. Cookies e preferências">
+          <p>
+            Cookies necessários são usados para autenticação, segurança, tema e operação básica
+            do site. Cookies de analytics e publicidade ficam desativados até que você os aceite.
+          </p>
+          <p>
+            Você pode aceitar, rejeitar ou gerenciar as categorias no banner de cookies. Depois
+            da primeira escolha, o botão &quot;Preferências de cookies&quot; permanece disponível no canto
+            inferior da página para alterar ou revogar a autorização.
+          </p>
+        </Section>
+
+        <Section title="5. Compartilhamento com terceiros">
+          <ul className="list-disc space-y-2 pl-6">
+            <li><strong>Google Analytics:</strong> usado somente se cookies de analytics forem aceitos.</li>
+            <li><strong>Google AdSense:</strong> usado somente se cookies de publicidade forem aceitos e apenas em superfícies editoriais elegíveis.</li>
+            <li><strong>Stripe:</strong> processa checkout e assinaturas Premium.</li>
+            <li><strong>Neon/Vercel:</strong> infraestrutura de banco de dados, hospedagem e execução da aplicação.</li>
+          </ul>
+          <p>
+            Não vendemos dados pessoais. Compartilhamentos ocorrem para operar o serviço, cumprir
+            obrigações legais, proteger contra abuso ou atender solicitações do titular.
+          </p>
+        </Section>
+
+        <Section title="6. Retenção">
+          <ul className="list-disc space-y-2 pl-6">
+            <li>Links gratuitos e salvos: enquanto estiverem ativos ou até exclusão aplicável.</li>
+            <li>Contas e recursos Premium: enquanto a conta existir e pelo prazo necessário a obrigações legais.</li>
+            <li>Leads comerciais: até 24 meses ou até pedido de exclusão.</li>
+            <li>Solicitações LGPD: pelo prazo necessário para comprovar atendimento e governança.</li>
+            <li>Eventos técnicos e métricas agregadas: pelo tempo necessário para segurança, estatística e melhoria do serviço.</li>
+          </ul>
+        </Section>
+
+        <Section title="7. Transferência internacional">
+          <p>
+            Alguns fornecedores podem processar dados fora do Brasil. Nesses casos, usamos
+            fornecedores reconhecidos, contratos e medidas de segurança compatíveis com a LGPD.
+          </p>
+        </Section>
+
+        <Section title="8. Direitos do titular">
+          <p>Você pode solicitar:</p>
+          <ul className="list-disc space-y-2 pl-6">
+            <li>Confirmação da existência de tratamento e acesso aos dados.</li>
+            <li>Correção de dados incompletos, inexatos ou desatualizados.</li>
+            <li>Anonimização, bloqueio ou eliminação de dados desnecessários ou excessivos.</li>
+            <li>Portabilidade, quando aplicável.</li>
+            <li>Informações sobre compartilhamento com terceiros.</li>
+            <li>Revogação de consentimento e oposição a tratamentos aplicáveis.</li>
+          </ul>
+        </Section>
+
+        <Section title="9. Segurança">
+          <p>
+            Aplicamos medidas técnicas e administrativas, incluindo HTTPS, cookies de sessão
+            protegidos, validação de URLs, limites contra abuso, hash de senhas e restrições de
+            origem para operações sensíveis.
+          </p>
+        </Section>
+
+        <Section title="10. Solicitação LGPD">
+          <PrivacyRequestForm />
+        </Section>
+      </div>
+    </div>
+  );
+}
+
+function Section({ children, title }: { children: ReactNode; title: string }) {
+  return (
+    <section className="space-y-4">
+      <h2 className="text-xl font-semibold text-title">{title}</h2>
+      {children}
+    </section>
+  );
+}
+
+function TableRow({
+  basis,
+  data,
+  purpose,
+}: {
+  basis: string;
+  data: string;
+  purpose: string;
+}) {
+  return (
+    <tr>
+      <td className="py-3 pr-4 align-top">{purpose}</td>
+      <td className="py-3 pr-4 align-top">{data}</td>
+      <td className="py-3 align-top">{basis}</td>
+    </tr>
   );
 }

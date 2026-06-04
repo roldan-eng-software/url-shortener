@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
-import { AdSlotMiddle } from '@/components/Adsense';
+import { AdsterraSlotMiddle } from '@/components/Adsterra';
 
 export const metadata: Metadata = {
   title: 'Como Encurtar URLs - Tutorial Completo | URLEncurta',
@@ -177,7 +177,7 @@ export default function ComoFuncionaPage() {
           </div>
         </section>
 
-        <AdSlotMiddle />
+        <AdsterraSlotMiddle />
 
         <section className="py-16 bg-white">
           <div className="container mx-auto px-4 max-w-4xl">

@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { AdSlotMiddle } from '@/components/Adsense';
+import { AdsterraSlotMiddle } from '@/components/Adsterra';
 
 type GuideSection = {
   title: string;
@@ -73,7 +73,7 @@ export function EditorialGuide({
       <div className="space-y-12">
         {sections.map((section, index) => (
           <div key={section.title}>
-            {index === adIndex && <AdSlotMiddle />}
+            {index === adIndex && <AdsterraSlotMiddle />}
             <section className="scroll-mt-24">
               <h2 className="mb-4 text-2xl font-extrabold text-title md:text-3xl">
                 {section.title}

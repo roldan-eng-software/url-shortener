@@ -78,7 +78,7 @@ export default function PrivacyPolicyPage() {
                 <TableRow
                   basis="Consentimento registrado nas preferências de cookies"
                   data="Identificadores publicitários e sinais de anúncio"
-                  purpose="Carregar Google AdSense em páginas editoriais elegíveis"
+                  purpose="Carregar Adsterra em páginas editoriais elegíveis"
                 />
                 <TableRow
                   basis="Execução de contrato e cumprimento de obrigação legal"
@@ -110,7 +110,7 @@ export default function PrivacyPolicyPage() {
         <Section title="5. Compartilhamento com terceiros">
           <ul className="list-disc space-y-2 pl-6">
             <li><strong>Google Analytics:</strong> usado somente se cookies de analytics forem aceitos.</li>
-            <li><strong>Google AdSense:</strong> usado somente se cookies de publicidade forem aceitos e apenas em superfícies editoriais elegíveis.</li>
+            <li><strong>Adsterra:</strong> usada somente se cookies de publicidade forem aceitos e apenas em superfícies editoriais elegíveis.</li>
             <li><strong>Stripe:</strong> processa checkout e assinaturas Premium.</li>
             <li><strong>Neon/Vercel:</strong> infraestrutura de banco de dados, hospedagem e execução da aplicação.</li>
           </ul>

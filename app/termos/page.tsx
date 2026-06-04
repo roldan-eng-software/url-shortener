@@ -68,7 +68,7 @@ export default function TermsOfServicePage() {
             dependem das preferências informadas no banner de cookies.
           </p>
           <p>
-            Anúncios do Google AdSense podem aparecer em páginas editoriais elegíveis,
+            Anúncios da Adsterra podem aparecer em páginas editoriais elegíveis,
             nunca em APIs, dashboard, login, registro, checkout, preview, redirecionamento,
             páginas legais ou links curtos de usuários.
           </p>

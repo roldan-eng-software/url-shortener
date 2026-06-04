@@ -7,7 +7,6 @@ import { ConversionTracker } from '@/components/ConversionTracker';
 import { CookieBanner } from '@/components/CookieBanner';
 import { AuthProvider } from '@/context/AuthContext';
 import { JsonLd } from '@/components/JsonLd';
-import { AdSenseScript } from '@/components/Adsense';
 
 const siteUrl = process.env.NEXT_PUBLIC_APP_URL || 'https://urlencurta.com.br';
 
@@ -103,7 +102,6 @@ export default function RootLayout({
             `,
           }}
         />
-        <AdSenseScript />
         <AuthProvider>
           <Navbar />
           <ConversionTracker />

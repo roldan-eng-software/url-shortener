@@ -28,7 +28,7 @@ const DISALLOWED_AD_PREFIXES = [
 ];
 
 const DISALLOWED_AD_PATHS = ['/termos', '/privacidade'];
-const ALLOWED_AD_PATHS = ['/como-funciona'];
+const ALLOWED_AD_PATHS = ['/', '/como-funciona'];
 const EDITORIAL_AD_PATHS = [
   '/boas-praticas-url-curta',
   '/links-para-whatsapp',

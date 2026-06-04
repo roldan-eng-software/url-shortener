@@ -16,6 +16,7 @@ import {
 } from 'lucide-react';
 import { UrlForm } from '@/components/UrlForm';
 import { QrCodeModal } from '@/components/QrCodeModal';
+import { AdsterraSlotBottom } from '@/components/Adsterra';
 import { useAuth } from '@/context/AuthContext';
 import { cn, truncate } from '@/lib/utils';
 import { UrlHistoryItem } from '@/types';
@@ -148,6 +149,7 @@ export function HomeRedesign() {
       <HeroShortener />
       <CoreBenefits />
       <HowItWorksCompact />
+      <AdsterraSlotBottom />
 
       {displayHistory.length > 0 && (
         <UrlHistorySection

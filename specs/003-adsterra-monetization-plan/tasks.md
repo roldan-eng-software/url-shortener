@@ -22,10 +22,10 @@ be completed and reviewed independently.
 **Purpose**: Confirm the feature workspace and document sources before story
 work begins.
 
-- [ ] T001 Confirm the active feature directory and Spec Kit pointer in `.specify/feature.json`
-- [ ] T002 Confirm the current agent plan reference points to the Adsterra plan in `AGENTS.md`
-- [ ] T003 [P] Create or verify the Adsterra feature artifact inventory in `specs/003-adsterra-monetization-plan/validation-report.md`
-- [ ] T004 [P] Record the official Adsterra source URLs and scope boundaries in `specs/003-adsterra-monetization-plan/research.md`
+- [x] T001 Confirm the active feature directory and Spec Kit pointer in `.specify/feature.json`
+- [x] T002 Confirm the current agent plan reference points to the Adsterra plan in `AGENTS.md`
+- [x] T003 [P] Create or verify the Adsterra feature artifact inventory in `specs/003-adsterra-monetization-plan/validation-report.md`
+- [x] T004 [P] Record the official Adsterra source URLs and scope boundaries in `specs/003-adsterra-monetization-plan/research.md`
 
 ---
 
@@ -36,11 +36,11 @@ all user stories rely on.
 
 **Critical**: No user story work should begin until this phase is complete.
 
-- [ ] T005 Extract the documentation-only scope and no-runtime-change constraint in `specs/003-adsterra-monetization-plan/plan.md`
-- [ ] T006 [P] Define the shared Adsterra decision entities in `specs/003-adsterra-monetization-plan/data-model.md`
-- [ ] T007 [P] Define the reusable launch decision record schema in `specs/003-adsterra-monetization-plan/contracts/adsterra-monetization-contract.md`
-- [ ] T008 Document the constitution compatibility note for Adsterra versus the current AdSense-oriented rules in `specs/003-adsterra-monetization-plan/plan.md`
-- [ ] T009 Validate the setup and foundational artifacts against the requirements checklist in `specs/003-adsterra-monetization-plan/checklists/requirements.md`
+- [x] T005 Extract the documentation-only scope and no-runtime-change constraint in `specs/003-adsterra-monetization-plan/plan.md`
+- [x] T006 [P] Define the shared Adsterra decision entities in `specs/003-adsterra-monetization-plan/data-model.md`
+- [x] T007 [P] Define the reusable launch decision record schema in `specs/003-adsterra-monetization-plan/contracts/adsterra-monetization-contract.md`
+- [x] T008 Document the constitution compatibility note for Adsterra versus the current AdSense-oriented rules in `specs/003-adsterra-monetization-plan/plan.md`
+- [x] T009 Validate the setup and foundational artifacts against the requirements checklist in `specs/003-adsterra-monetization-plan/checklists/requirements.md`
 
 **Checkpoint**: Foundation ready. User story work can now begin.
 
@@ -58,12 +58,12 @@ internal launch review.
 
 ### Implementation for User Story 1
 
-- [ ] T010 [US1] Write the Adsterra onboarding sequence and production script prohibition in `specs/003-adsterra-monetization-plan/adsterra-monetization-plan.md`
-- [ ] T011 [P] [US1] Capture Adsterra onboarding research decisions and alternatives in `specs/003-adsterra-monetization-plan/research.md`
-- [ ] T012 [P] [US1] Define the Adsterra Onboarding Gate entity and validation rules in `specs/003-adsterra-monetization-plan/data-model.md`
-- [ ] T013 [US1] Add onboarding readiness fields and acceptance rules to `specs/003-adsterra-monetization-plan/contracts/adsterra-monetization-contract.md`
-- [ ] T014 [P] [US1] Add the external setup checklist for account, email, website, approval, and code retrieval in `specs/003-adsterra-monetization-plan/quickstart.md`
-- [ ] T015 [US1] Validate User Story 1 acceptance scenarios and success criteria in `specs/003-adsterra-monetization-plan/validation-report.md`
+- [x] T010 [US1] Write the Adsterra onboarding sequence and production script prohibition in `specs/003-adsterra-monetization-plan/adsterra-monetization-plan.md`
+- [x] T011 [P] [US1] Capture Adsterra onboarding research decisions and alternatives in `specs/003-adsterra-monetization-plan/research.md`
+- [x] T012 [P] [US1] Define the Adsterra Onboarding Gate entity and validation rules in `specs/003-adsterra-monetization-plan/data-model.md`
+- [x] T013 [US1] Add onboarding readiness fields and acceptance rules to `specs/003-adsterra-monetization-plan/contracts/adsterra-monetization-contract.md`
+- [x] T014 [P] [US1] Add the external setup checklist for account, email, website, approval, and code retrieval in `specs/003-adsterra-monetization-plan/quickstart.md`
+- [x] T015 [US1] Validate User Story 1 acceptance scenarios and success criteria in `specs/003-adsterra-monetization-plan/validation-report.md`
 
 **Checkpoint**: User Story 1 is complete and independently reviewable as the MVP.
 
@@ -80,12 +80,12 @@ classify it as allowed, forbidden, or review-required for Adsterra.
 
 ### Implementation for User Story 2
 
-- [ ] T016 [US2] Write allowed, forbidden, and review-required surface policy sections in `specs/003-adsterra-monetization-plan/adsterra-monetization-plan.md`
-- [ ] T017 [P] [US2] Record the content-page-first placement decision and rejected alternatives in `specs/003-adsterra-monetization-plan/research.md`
-- [ ] T018 [P] [US2] Define the Adsterra Surface Policy entity and validation rules in `specs/003-adsterra-monetization-plan/data-model.md`
-- [ ] T019 [US2] Add route classification fields and forbidden-route acceptance rules to `specs/003-adsterra-monetization-plan/contracts/adsterra-monetization-contract.md`
-- [ ] T020 [P] [US2] Add surface classification steps for allowed, forbidden, and review-required pages in `specs/003-adsterra-monetization-plan/quickstart.md`
-- [ ] T021 [US2] Validate the surface policy covers at least 8 forbidden surfaces and 5 eligibility requirements in `specs/003-adsterra-monetization-plan/validation-report.md`
+- [x] T016 [US2] Write allowed, forbidden, and review-required surface policy sections in `specs/003-adsterra-monetization-plan/adsterra-monetization-plan.md`
+- [x] T017 [P] [US2] Record the content-page-first placement decision and rejected alternatives in `specs/003-adsterra-monetization-plan/research.md`
+- [x] T018 [P] [US2] Define the Adsterra Surface Policy entity and validation rules in `specs/003-adsterra-monetization-plan/data-model.md`
+- [x] T019 [US2] Add route classification fields and forbidden-route acceptance rules to `specs/003-adsterra-monetization-plan/contracts/adsterra-monetization-contract.md`
+- [x] T020 [P] [US2] Add surface classification steps for allowed, forbidden, and review-required pages in `specs/003-adsterra-monetization-plan/quickstart.md`
+- [x] T021 [US2] Validate the surface policy covers at least 8 forbidden surfaces and 5 eligibility requirements in `specs/003-adsterra-monetization-plan/validation-report.md`
 
 **Checkpoint**: User Story 2 is complete and can classify Adsterra placements
 independently of User Story 3.
@@ -103,12 +103,12 @@ monitoring, and rejection rules before launch.
 
 ### Implementation for User Story 3
 
-- [ ] T022 [US3] Write compliance requirements, performance requirements, rollout workflow, and rejection rules in `specs/003-adsterra-monetization-plan/adsterra-monetization-plan.md`
-- [ ] T023 [P] [US3] Record LGPD disclosure, consent, AdSense coexistence, and performance-gate decisions in `specs/003-adsterra-monetization-plan/research.md`
-- [ ] T024 [P] [US3] Define Compliance Evidence, Performance Evidence, and Launch Decision entities in `specs/003-adsterra-monetization-plan/data-model.md`
-- [ ] T025 [US3] Add compliance, performance, rollback, and AdSense coexistence acceptance rules to `specs/003-adsterra-monetization-plan/contracts/adsterra-monetization-contract.md`
-- [ ] T026 [P] [US3] Add compliance readiness, performance readiness, and final decision steps in `specs/003-adsterra-monetization-plan/quickstart.md`
-- [ ] T027 [US3] Validate the launch-readiness checks and constitution gates in `specs/003-adsterra-monetization-plan/validation-report.md`
+- [x] T022 [US3] Write compliance requirements, performance requirements, rollout workflow, and rejection rules in `specs/003-adsterra-monetization-plan/adsterra-monetization-plan.md`
+- [x] T023 [P] [US3] Record LGPD disclosure, consent, AdSense coexistence, and performance-gate decisions in `specs/003-adsterra-monetization-plan/research.md`
+- [x] T024 [P] [US3] Define Compliance Evidence, Performance Evidence, and Launch Decision entities in `specs/003-adsterra-monetization-plan/data-model.md`
+- [x] T025 [US3] Add compliance, performance, rollback, and AdSense coexistence acceptance rules to `specs/003-adsterra-monetization-plan/contracts/adsterra-monetization-contract.md`
+- [x] T026 [P] [US3] Add compliance readiness, performance readiness, and final decision steps in `specs/003-adsterra-monetization-plan/quickstart.md`
+- [x] T027 [US3] Validate the launch-readiness checks and constitution gates in `specs/003-adsterra-monetization-plan/validation-report.md`
 
 **Checkpoint**: User Story 3 is complete and can govern future launch decisions.
 
@@ -119,11 +119,11 @@ monitoring, and rejection rules before launch.
 **Purpose**: Final validation and consistency across the generated planning
 package.
 
-- [ ] T028 [P] Review all cross-document links and relative paths in `specs/003-adsterra-monetization-plan/quickstart.md`
-- [ ] T029 [P] Review the task-independent success criteria mapping in `specs/003-adsterra-monetization-plan/spec.md`
-- [ ] T030 Ensure the canonical plan, contract, quickstart, and validation report agree on go, revise, pause, and reject outcomes in `specs/003-adsterra-monetization-plan/adsterra-monetization-plan.md`
-- [ ] T031 Run a final no-clarification-marker review across `specs/003-adsterra-monetization-plan/spec.md`
-- [ ] T032 Update the final generated artifact list and readiness result in `specs/003-adsterra-monetization-plan/validation-report.md`
+- [x] T028 [P] Review all cross-document links and relative paths in `specs/003-adsterra-monetization-plan/quickstart.md`
+- [x] T029 [P] Review the task-independent success criteria mapping in `specs/003-adsterra-monetization-plan/spec.md`
+- [x] T030 Ensure the canonical plan, contract, quickstart, and validation report agree on go, revise, pause, and reject outcomes in `specs/003-adsterra-monetization-plan/adsterra-monetization-plan.md`
+- [x] T031 Run a final no-clarification-marker review across `specs/003-adsterra-monetization-plan/spec.md`
+- [x] T032 Update the final generated artifact list and readiness result in `specs/003-adsterra-monetization-plan/validation-report.md`
 
 ---
 

@@ -5,6 +5,7 @@ export const users = pgTable('users', {
   email: text('email').unique().notNull(),
   passwordHash: text('password_hash').notNull(),
   isPremium: boolean('is_premium').default(false),
+  isAdmin: boolean('is_admin').default(false).notNull(),
   stripeCustomerId: varchar('stripe_customer_id', { length: 100 }),
   stripeSubscriptionId: varchar('stripe_subscription_id', { length: 100 }),
   premiumExpiresAt: timestamp('premium_expires_at'),

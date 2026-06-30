@@ -1,0 +1,462 @@
+openapi: 3.0.3
+info:
+  title: URLEncurta Admin API
+  description: API endpoints para o Dashboard Admin do URLEncurta
+  version: 1.0.0
+  contact:
+    name: URLEncurta Support
+    email: admin@urlencurta.com.br
+
+servers:
+  - url: https://urlencurta.com.br
+    description: Produção
+  - url: http://localhost:3000
+    description: Desenvolvimento
+
+security:
+  - sessionAuth: []
+
+paths:
+  /api/admin/metrics:
+    get:
+      summary: Obter métricas do banco de dados
+      description: Retorna contagem de registros por tabela
+      tags: [Admin, Metrics]
+      operationId: getDatabaseMetrics
+      responses:
+        '200':
+          description: Métricas obtidas com sucesso
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DatabaseMetrics'
+        '401':
+          description: Não autorizado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Acesso negado (não é admin)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Erro interno do servidor
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /api/admin/clients:
+    get:
+      summary: Listar clientes premium
+      description: Retorna lista de usuários premium com status de pagamento
+      tags: [Admin, Clients]
+      operationId: listPremiumClients
+      parameters:
+        - name: status
+          in: query
+          description: Filtrar por status de pagamento
+          required: false
+          schema:
+            type: string
+            enum: [active, expired, cancelled, all]
+            default: all
+        - name: page
+          in: query
+          description: Número da página
+          required: false
+          schema:
+            type: integer
+            default: 1
+        - name: limit
+          in: query
+          description: Itens por página
+          required: false
+          schema:
+            type: integer
+            default: 20
+            maximum: 100
+      responses:
+        '200':
+          description: Lista de clientes obtida com sucesso
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PremiumClientsResponse'
+        '401':
+          description: Não autorizado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Acesso negado (não é admin)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Erro interno do servidor
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /api/admin/payments:
+    get:
+      summary: Obter status de pagamentos
+      description: Retorna status da conexão Stripe e métricas financeiras
+      tags: [Admin, Payments]
+      operationId: getPaymentStatus
+      responses:
+        '200':
+          description: Status de pagamentos obtido com sucesso
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaymentMetrics'
+        '401':
+          description: Não autorizado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Acesso negado (não é admin)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Erro interno do servidor
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /api/admin/leads:
+    get:
+      summary: Listar leads
+      description: Retorna lista de leads de marketing com filtros
+      tags: [Admin, Leads]
+      operationId: listLeads
+      parameters:
+        - name: status
+          in: query
+          description: Filtrar por status
+          required: false
+          schema:
+            type: string
+            enum: [new, contacted, converted, lost, all]
+            default: all
+        - name: interest
+          in: query
+          description: Filtrar por interesse
+          required: false
+          schema:
+            type: string
+            enum: [premium, enterprise, partnership, other, all]
+            default: all
+        - name: source
+          in: query
+          description: Filtrar por fonte
+          required: false
+          schema:
+            type: string
+            enum: [home_conversion_band, seo, social, referral, other, all]
+            default: all
+        - name: page
+          in: query
+          description: Número da página
+          required: false
+          schema:
+            type: integer
+            default: 1
+        - name: limit
+          in: query
+          description: Itens por página
+          required: false
+          schema:
+            type: integer
+            default: 20
+            maximum: 100
+      responses:
+        '200':
+          description: Lista de leads obtida com sucesso
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LeadsResponse'
+        '401':
+          description: Não autorizado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Acesso negado (não é admin)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Erro interno do servidor
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+    put:
+      summary: Atualizar status de lead
+      description: Atualiza o status de um lead específico
+      tags: [Admin, Leads]
+      operationId: updateLeadStatus
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - leadId
+                - status
+              properties:
+                leadId:
+                  type: string
+                  format: uuid
+                  description: ID do lead
+                status:
+                  type: string
+                  enum: [new, contacted, converted, lost]
+                  description: Novo status do lead
+      responses:
+        '200':
+          description: Lead atualizado com sucesso
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Lead'
+        '400':
+          description: Dados inválidos
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Não autorizado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Acesso negado (não é admin)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Lead não encontrado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Erro interno do servidor
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+components:
+  securitySchemes:
+    sessionAuth:
+      type: apiKey
+      in: cookie
+      name: session
+      description: Sessão HMAC customizada do URLEncurta
+
+  schemas:
+    DatabaseMetrics:
+      type: object
+      description: Métricas do banco de dados
+      properties:
+        users:
+          type: integer
+          description: Contagem de usuários
+        userLinks:
+          type: integer
+          description: Contagem de links de usuários premium
+        anonLinks:
+          type: integer
+          description: Contagem de links anônimos
+        urls:
+          type: integer
+          description: Contagem total de URLs
+        marketingLeads:
+          type: integer
+          description: Contagem de leads de marketing
+        privacyRequests:
+          type: integer
+          description: Contagem de solicitações LGPD
+        bioPages:
+          type: integer
+          description: Contagem de páginas bio
+        bioLinks:
+          type: integer
+          description: Contagem de links bio
+        totalRecords:
+          type: integer
+          description: Total de registros em todas as tabelas
+
+    PremiumClientsResponse:
+      type: object
+      description: Resposta com lista de clientes premium
+      properties:
+        clients:
+          type: array
+          items:
+            $ref: '#/components/schemas/PremiumClient'
+        pagination:
+          $ref: '#/components/schemas/Pagination'
+
+    PremiumClient:
+      type: object
+      description: Cliente premium
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: ID do usuário
+        email:
+          type: string
+          format: email
+          description: Email do usuário
+        isPremium:
+          type: boolean
+          description: Se o usuário é premium
+        premiumExpiresAt:
+          type: string
+          format: date-time
+          nullable: true
+          description: Data de expiração do premium
+        stripeSubscriptionId:
+          type: string
+          nullable: true
+          description: ID da subscription Stripe
+        paymentStatus:
+          type: string
+          enum: [active, expired, cancelled, trialing]
+          description: Status do pagamento
+        createdAt:
+          type: string
+          format: date-time
+          description: Data de criação da conta
+
+    PaymentMetrics:
+      type: object
+      description: Métricas de pagamentos
+      properties:
+        stripeConnected:
+          type: boolean
+          description: Se o Stripe está conectado
+        totalRevenue:
+          type: integer
+          description: Receita total em centavos (R$)
+        mrr:
+          type: integer
+          description: Monthly Recurring Revenue em centavos (R$)
+        activeSubscriptions:
+          type: integer
+          description: Número de subscriptions ativas
+        trialSubscriptions:
+          type: integer
+          description: Número de subscriptions em trial
+
+    LeadsResponse:
+      type: object
+      description: Resposta com lista de leads
+      properties:
+        leads:
+          type: array
+          items:
+            $ref: '#/components/schemas/Lead'
+        pagination:
+          $ref: '#/components/schemas/Pagination'
+
+    Lead:
+      type: object
+      description: Lead de marketing
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: ID do lead
+        name:
+          type: string
+          description: Nome do lead
+        email:
+          type: string
+          format: email
+          description: Email do lead
+        company:
+          type: string
+          nullable: true
+          description: Empresa do lead
+        phone:
+          type: string
+          nullable: true
+          description: Telefone do lead (formato: 5511999999999)
+        interest:
+          type: string
+          enum: [premium, enterprise, partnership, other]
+          description: Interesse do lead
+        source:
+          type: string
+          description: Fonte do lead
+        message:
+          type: string
+          nullable: true
+          description: Mensagem do lead
+        status:
+          type: string
+          enum: [new, contacted, converted, lost]
+          description: Status do lead
+        createdAt:
+          type: string
+          format: date-time
+          description: Data de criação
+
+    Pagination:
+      type: object
+      description: Informações de paginação
+      properties:
+        page:
+          type: integer
+          description: Página atual
+        limit:
+          type: integer
+          description: Itens por página
+        total:
+          type: integer
+          description: Total de itens
+        totalPages:
+          type: integer
+          description: Total de páginas
+
+    Error:
+      type: object
+      description: Erro da API
+      properties:
+        error:
+          type: string
+          description: Mensagem de erro
+        code:
+          type: string
+          description: Código do erro
+        details:
+          type: object
+          nullable: true
+          description: Detalhes adicionais do erro

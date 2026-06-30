@@ -3,6 +3,15 @@ import { sql } from 'drizzle-orm';
 import { getDb } from '@/lib/db';
 import { getAdminOrErrorResponse } from '@/lib/admin/middleware';
 
+async function countTable(db: ReturnType<typeof getDb>, tableName: string): Promise<number> {
+  try {
+    const result = await db.execute(sql`SELECT COUNT(*) FROM ${sql.identifier(tableName)}`);
+    return Number(result.rows[0]?.count) || 0;
+  } catch {
+    return 0;
+  }
+}
+
 export async function GET(request: NextRequest) {
   const { error } = await getAdminOrErrorResponse(request);
 
@@ -13,43 +22,29 @@ export async function GET(request: NextRequest) {
   try {
     const db = getDb();
 
-    // Query all table counts in a single request
-    const counts = await db.execute(sql`
-      SELECT
-        (SELECT COUNT(*) FROM users)::integer as users_count,
-        (SELECT COUNT(*) FROM user_links)::integer as user_links_count,
-        (SELECT COUNT(*) FROM anon_links)::integer as anon_links_count,
-        (SELECT COUNT(*) FROM urls)::integer as urls_count,
-        (SELECT COUNT(*) FROM marketing_leads)::integer as marketing_leads_count,
-        (SELECT COUNT(*) FROM privacy_requests)::integer as privacy_requests_count,
-        (SELECT COUNT(*) FROM bio_pages)::integer as bio_pages_count,
-        (SELECT COUNT(*) FROM bio_links)::integer as bio_links_count
-    `);
-
-    const row = counts.rows[0];
+    const [users, userLinks, anonLinks, urls, marketingLeads, privacyRequests, bioPages, bioLinks] =
+      await Promise.all([
+        countTable(db, 'users'),
+        countTable(db, 'user_links'),
+        countTable(db, 'anon_links'),
+        countTable(db, 'urls'),
+        countTable(db, 'marketing_leads'),
+        countTable(db, 'privacy_requests'),
+        countTable(db, 'bio_pages'),
+        countTable(db, 'bio_links'),
+      ]);
 
     const metrics = {
-      users: Number(row.users_count) || 0,
-      userLinks: Number(row.user_links_count) || 0,
-      anonLinks: Number(row.anon_links_count) || 0,
-      urls: Number(row.urls_count) || 0,
-      marketingLeads: Number(row.marketing_leads_count) || 0,
-      privacyRequests: Number(row.privacy_requests_count) || 0,
-      bioPages: Number(row.bio_pages_count) || 0,
-      bioLinks: Number(row.bio_links_count) || 0,
-      totalRecords: 0,
+      users,
+      userLinks,
+      anonLinks,
+      urls,
+      marketingLeads,
+      privacyRequests,
+      bioPages,
+      bioLinks,
+      totalRecords: users + userLinks + anonLinks + urls + marketingLeads + privacyRequests + bioPages + bioLinks,
     };
-
-    // Calculate total
-    metrics.totalRecords =
-      metrics.users +
-      metrics.userLinks +
-      metrics.anonLinks +
-      metrics.urls +
-      metrics.marketingLeads +
-      metrics.privacyRequests +
-      metrics.bioPages +
-      metrics.bioLinks;
 
     return NextResponse.json(metrics);
   } catch (err) {

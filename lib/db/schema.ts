@@ -99,6 +99,11 @@ export const bioLinks = pgTable('bio_links', {
   updatedAt: timestamp('updated_at').defaultNow(),
 });
 
+export const processedEvents = pgTable('processed_events', {
+  id: varchar('id', { length: 100 }).primaryKey(),
+  processedAt: timestamp('processed_at').defaultNow().notNull(),
+});
+
 export type User = typeof users.$inferSelect;
 export type NewUser = typeof users.$inferInsert;
 export type UserLink = typeof userLinks.$inferSelect;
@@ -115,3 +120,5 @@ export type BioPage = typeof bioPages.$inferSelect;
 export type NewBioPage = typeof bioPages.$inferInsert;
 export type BioLink = typeof bioLinks.$inferSelect;
 export type NewBioLink = typeof bioLinks.$inferInsert;
+export type ProcessedEvent = typeof processedEvents.$inferSelect;
+export type NewProcessedEvent = typeof processedEvents.$inferInsert;

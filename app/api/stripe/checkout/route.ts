@@ -21,7 +21,11 @@ function getStripe(): Stripe {
   return stripeClient;
 }
 
-const PREMIUM_PRICE_ID = process.env.STRIPE_PREMIUM_PRICE_ID || 'price_premium_monthly';
+// Fail-fast: price ID é obrigatório
+const PREMIUM_PRICE_ID = process.env.STRIPE_PREMIUM_PRICE_ID;
+if (!PREMIUM_PRICE_ID) {
+  console.error('[Stripe] STRIPE_PREMIUM_PRICE_ID não configurada');
+}
 
 function getAppUrl(request: NextRequest) {
   if (process.env.NEXT_PUBLIC_APP_URL) {
@@ -39,6 +43,15 @@ export async function POST(request: NextRequest) {
   try {
     if (!assertSameOrigin(request)) {
       return NextResponse.json({ error: 'Origem inválida' }, { status: 403 });
+    }
+
+    // Fail-fast se configuração incompleta
+    if (!PREMIUM_PRICE_ID) {
+      console.error('[Stripe] Checkout rejeitado: STRIPE_PREMIUM_PRICE_ID não configurada');
+      return NextResponse.json(
+        { error: 'Configuração de pagamento incompleta' },
+        { status: 500 }
+      );
     }
 
     const authUser = await getAuthUserFromRequest(request);

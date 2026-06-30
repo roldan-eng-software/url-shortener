@@ -1,5 +1,9 @@
+'use client';
+
 import Link from 'next/link';
-import { ArrowRight, BarChart3, CheckCircle2, Clock3, Crown, Link2, QrCode, ShieldCheck } from 'lucide-react';
+import { useSearchParams } from 'next/navigation';
+import { Suspense } from 'react';
+import { ArrowRight, BarChart3, CheckCircle2, Clock3, Crown, Link2, QrCode, ShieldCheck, AlertTriangle } from 'lucide-react';
 
 const nextSteps = [
   {
@@ -19,7 +23,46 @@ const nextSteps = [
   },
 ];
 
-export default function PremiumSuccessPage() {
+function SuccessContent() {
+  const searchParams = useSearchParams();
+  const sessionId = searchParams.get('session_id');
+
+  if (!sessionId) {
+    return (
+      <div className="min-h-screen bg-background py-12">
+        <div className="container mx-auto max-w-5xl px-4">
+          <section className="rounded-3xl border border-yellow-200 bg-surface p-6 text-center shadow-2xl shadow-yellow-500/10 md:p-10">
+            <div className="mx-auto mb-6 flex h-16 w-16 items-center justify-center rounded-2xl bg-yellow-500 text-white">
+              <AlertTriangle className="h-9 w-9" />
+            </div>
+
+            <h1 className="mx-auto max-w-3xl text-4xl font-bold leading-tight text-title md:text-5xl">
+              Sessão inválida
+            </h1>
+            <p className="mx-auto mt-5 max-w-2xl text-lg leading-8 text-text">
+              Não foi possível confirmar sua sessão de pagamento. Se você completou o checkout, aguarde alguns segundos e atualize a página.
+            </p>
+
+            <div className="mt-8 flex flex-col justify-center gap-3 sm:flex-row">
+              <Link
+                href="/premium"
+                className="inline-flex items-center justify-center gap-2 rounded-xl bg-primary px-6 py-3.5 font-bold text-white transition hover:bg-primary-hover"
+              >
+                Voltar para Premium
+              </Link>
+              <Link
+                href="/dashboard"
+                className="inline-flex items-center justify-center gap-2 rounded-xl border border-border px-6 py-3.5 font-bold text-title transition hover:border-primary/50 hover:text-primary"
+              >
+                Ir para o dashboard
+              </Link>
+            </div>
+          </section>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="min-h-screen bg-background py-12">
       <div className="container mx-auto max-w-5xl px-4">
@@ -91,5 +134,24 @@ export default function PremiumSuccessPage() {
         </div>
       </div>
     </div>
+  );
+}
+
+export default function PremiumSuccessPage() {
+  return (
+    <Suspense fallback={
+      <div className="min-h-screen bg-background py-12">
+        <div className="container mx-auto max-w-5xl px-4">
+          <section className="rounded-3xl border border-border bg-surface p-6 text-center md:p-10">
+            <div className="mx-auto mb-6 flex h-16 w-16 items-center justify-center rounded-2xl bg-primary/10 text-primary">
+              <Clock3 className="h-9 w-9 animate-pulse" />
+            </div>
+            <h1 className="text-2xl font-bold text-title">Carregando...</h1>
+          </section>
+        </div>
+      </div>
+    }>
+      <SuccessContent />
+    </Suspense>
   );
 }

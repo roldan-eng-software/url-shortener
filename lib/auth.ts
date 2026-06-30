@@ -74,7 +74,16 @@ export function setAuthCookie(response: NextResponse, userId: string) {
 }
 
 export function clearAuthCookie(response: NextResponse) {
-  for (const name of [SESSION_COOKIE, LEGACY_USER_COOKIE]) {
+  const cookiesToClear = [
+    SESSION_COOKIE,
+    LEGACY_USER_COOKIE,
+    'authjs.session-token',
+    '__Secure-authjs.session-token',
+    'next-auth.session-token',
+    '__Secure-next-auth.session-token',
+  ];
+
+  for (const name of cookiesToClear) {
     response.cookies.set(name, '', {
       httpOnly: true,
       secure: process.env.NODE_ENV === 'production',

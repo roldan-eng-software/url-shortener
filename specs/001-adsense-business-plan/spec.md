@@ -2,7 +2,8 @@
 
 **Feature Branch**: `001-adsense-business-plan`  
 **Created**: 2026-05-14  
-**Status**: Draft  
+**Status**: Implemented (Adsterra)  
+**Last Updated**: 2026-06-30  
 **Input**: User description: "Agora que já tem uma Constituição fundamentada, crie o Specify deste plano de negocios"
 
 ## User Scenarios & Testing *(mandatory)*
@@ -193,12 +194,14 @@ not mislead users about link destinations or sponsored content.
 
 - The website is already in production and the current free URL shortener remains
   the core product experience.
-- Google AdSense is the primary advertising revenue mechanism for this business
-  plan.
+- Adsterra is the primary advertising revenue mechanism for this business
+  plan (replacing the originally planned AdSense).
 - Premium subscriptions remain a secondary and complementary revenue model, not
   a replacement for free usage.
 - Organic growth is preferred over paid acquisition for the first planning cycle.
 - Existing legal, privacy, and cookie disclosures remain part of the trust model
   and may be expanded in later implementation plans.
-- The first execution phase after this spec will focus on planning the business
-  documentation, surface matrix, metrics, and roadmap before any product changes.
+- The first execution phase after this spec focused on planning the business
+  documentation, surface matrix, metrics, and roadmap before product changes.
+- Runtime implementation of Adsterra component (`components/Adsterra.tsx`) has
+  been completed and is active on eligible editorial pages.

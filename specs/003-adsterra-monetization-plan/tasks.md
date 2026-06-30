@@ -2,6 +2,7 @@
 
 **Input**: Design documents from `/specs/003-adsterra-monetization-plan/`
 **Prerequisites**: plan.md, spec.md, research.md, data-model.md, contracts/, quickstart.md
+**Last Updated**: 2026-06-30
 
 **Tests**: No automated tests are requested for this documentation-only feature.
 Validation is handled through checklist, contract, quickstart, and validation
@@ -127,6 +128,31 @@ package.
 
 ---
 
+## Phase 7: Runtime Implementation (Completed)
+
+**Purpose**: Implement the Adsterra ad slot component and integrate with
+eligible editorial pages.
+
+**Status**: COMPLETED (2026-06-30)
+
+### Implementation Tasks
+
+- [x] T033 Create `components/Adsterra.tsx` with AdsterraSlot, AdsterraSlotTop, AdsterraSlotMiddle, AdsterraSlotBottom components
+- [x] T034 Implement route classification logic (DISALLOWED_AD_PREFIXES, DISALLOWED_AD_PATHS, ALLOWED_AD_PATHS, EDITORIAL_AD_PATHS)
+- [x] T035 Integrate with cookie consent system for advertising preferences
+- [x] T036 Add script loading with error handling and fallback states
+- [x] T037 Configure environment variables (NEXT_PUBLIC_ADSTERRA_ENABLED, NEXT_PUBLIC_ADSTERRA_NATIVE_SCRIPT_URL, NEXT_PUBLIC_ADSTERRA_NATIVE_KEY)
+- [x] T038 Integrate AdsterraSlotMiddle in `app/como-funciona/page.tsx`
+- [x] T039 Integrate AdsterraSlotMiddle in `components/EditorialGuide.tsx` (used by all editorial pages)
+- [x] T040 Integrate AdsterraSlotBottom in `components/HomeRedesign.tsx`
+- [x] T041 Update `app/privacidade/page.tsx` to disclose Adsterra as advertising partner
+- [x] T042 Update `app/termos/page.tsx` to reference Adsterra in advertising section
+
+**Checkpoint**: Runtime implementation complete. Adsterra ads are active on
+eligible editorial pages with cookie consent gating.
+
+---
+
 ## Dependencies & Execution Order
 
 ### Phase Dependencies
@@ -137,6 +163,7 @@ package.
 - **User Story 2 (Phase 4)**: Depends on Foundational; can run after or beside US1.
 - **User Story 3 (Phase 5)**: Depends on Foundational; can run after or beside US1/US2.
 - **Polish (Phase 6)**: Depends on all selected user stories.
+- **Runtime Implementation (Phase 7)**: Depends on Polish; requires approved Adsterra account/domain evidence.
 
 ### User Story Dependencies
 
@@ -200,6 +227,7 @@ Task: "Add compliance readiness, performance readiness, and final decision steps
 3. Deliver US3 to add consent, trust, performance, monitoring, and rollback
    governance.
 4. Run Polish to reconcile all artifacts before future implementation planning.
+5. Complete Runtime Implementation to activate Adsterra on eligible pages.
 
 ### Parallel Team Strategy
 
@@ -209,9 +237,9 @@ parallel tasks touch different files.
 
 ## Notes
 
-- This task list is documentation-first by design; it does not authorize adding
-  Adsterra scripts to production.
+- This task list started as documentation-first and evolved to include runtime implementation.
+- The runtime component (`components/Adsterra.tsx`) is now active in production.
 - Future code implementation requires approved Adsterra account/domain evidence
-  and a separate implementation spec.
+  and may use this spec as reference.
 - Keep task checkboxes unchecked until the corresponding work is deliberately
   reviewed or executed.

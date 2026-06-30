@@ -2,6 +2,7 @@
 
 **Feature**: `001-adsense-business-plan`  
 **Date**: 2026-05-14  
+**Last Updated**: 2026-06-30  
 **Scope**: Evidence and acceptance validation for `business-plan.md`
 
 ## Checklist status
@@ -50,23 +51,23 @@
 - `/api/redirect/[shortCode]`
 - `/api/bio/*`
 
-## Current AdSense behavior
+## Current Adsterra behavior
 
-Current `components/Adsense.tsx` behavior:
+Current `components/Adsterra.tsx` behavior:
 
 - Disallowed prefixes: `/api`, `/dashboard`, `/login`, `/premium`, `/preview`, `/register`.
 - Disallowed paths: `/termos`, `/privacidade`.
-- Explicitly monetizable paths: `/como-funciona`, `/boas-praticas-url-curta`, `/links-para-whatsapp`, `/qr-code-para-links`, `/seguranca-em-links-curtos`.
+- Explicitly monetizable paths: `/`, `/como-funciona`, `/boas-praticas-url-curta`, `/links-para-whatsapp`, `/qr-code-para-links`, `/seguranca-em-links-curtos`.
 - Single-segment short-code paths are treated as non-monetizable unless they are explicitly listed as monetizable content paths.
-- Current slot values are placeholders beginning with `123456`, so production requires real unit IDs or disabled placeholders.
+- Environment variables configured: `NEXT_PUBLIC_ADSTERRA_ENABLED`, `NEXT_PUBLIC_ADSTERRA_NATIVE_SCRIPT_URL`, `NEXT_PUBLIC_ADSTERRA_NATIVE_KEY`.
 
 ## Legal, privacy and LGPD evidence
 
 Existing sources:
 
-- `app/privacidade/page.tsx` discloses Google AdSense, Google Analytics, cookies, LGPD rights, data retention, international transfer and contact.
-- `app/termos/page.tsx` discloses free service, advertising support, prohibited use, link-removal rights and third-party content limits.
-- `PLANO_LGPD.md` documents LGPD compatibility assumptions for AdSense, Analytics, cookie banner and legal pages.
+- `app/privacidade/page.tsx` discloses Adsterra, Google Analytics, cookies, LGPD rights, data retention, international transfer and contact.
+- `app/termos/page.tsx` discloses free service, advertising support (Adsterra), prohibited use, link-removal rights and third-party content limits.
+- `PLANO_LGPD.md` documents LGPD compatibility assumptions for Adsterra, Analytics, cookie banner and legal pages.
 - `components/CookieBanner.tsx` is included in the layout and legal pages.
 
 Operational note: future legal copy should be reviewed because existing legal
@@ -78,7 +79,7 @@ dedicated cleanup spec before scaling paid or advertising traffic.
 | Gate | Status | Evidence |
 |------|--------|----------|
 | Free Utility Gate | PASS | `business-plan.md` protects no-signup shortening, copy and QR Code as the free promise |
-| AdSense Surface Gate | PASS | Surface matrix classifies allowed, forbidden and review-required areas |
+| Adsterra Surface Gate | PASS | Surface matrix classifies allowed, forbidden and review-required areas |
 | Organic Growth Gate | PASS | Roadmap includes 12 content opportunities and 6 growth loops |
 | Trust and LGPD Gate | PASS WITH IMPLEMENTATION FOLLOW-UP | Guardrails include privacy, cookies, third parties, unsafe destinations and policy risks. Runtime LGPD gaps found after this plan are handled by `specs/002-lgpd-compliance/`. |
 | Performance Gate | PASS | Guardrails include redirect p95, LCP, CLS, layout stability and creation completion |

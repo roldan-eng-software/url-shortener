@@ -2,22 +2,23 @@
 
 **Branch**: `001-adsense-business-plan` | **Date**: 2026-05-14 | **Spec**: [spec.md](./spec.md)
 **Input**: Feature specification from `/specs/001-adsense-business-plan/spec.md`
+**Last Updated**: 2026-06-30
 
 **Note**: This template is filled in by the `/speckit-plan` command. See `.specify/templates/plan-template.md` for the execution workflow.
 
 ## Summary
 
 Create the first actionable business-planning package for URLEncurta's free
-viral growth and Google AdSense monetization model. The output is a documented
-decision system, not a product-code change: it defines eligible and forbidden ad
-surfaces, organic growth loops, content clusters, Premium's complementary role,
-baseline metrics, compliance/trust gates, and a quick validation workflow for
-future features.
+viral growth and advertising monetization model (Adsterra). The output is a
+documented decision system, not a product-code change: it defines eligible and
+forbidden ad surfaces, organic growth loops, content clusters, Premium's
+complementary role, baseline metrics, compliance/trust gates, and a quick
+validation workflow for future features.
 
 ## Technical Context
 
 **Language/Version**: Markdown documentation in the existing Spec Kit structure  
-**Primary Dependencies**: Current constitution, feature spec, existing legal/privacy docs, current public route inventory, official Google AdSense policy guidance  
+**Primary Dependencies**: Current constitution, feature spec, existing legal/privacy docs, current public route inventory, official Adsterra publisher guidance  
 **Storage**: Repository documentation files only; no runtime database changes in this planning phase  
 **Testing**: Manual checklist validation against spec success criteria, constitution gates, and quickstart review flow  
 **Target Platform**: Production website planning for `urlencurta.com.br` and future Spec Kit implementation cycles
@@ -35,7 +36,7 @@ Any FAIL must be listed in Complexity Tracking with a mitigation plan.
 
 - **Free Utility Gate**: PASS. The plan explicitly protects the no-signup free
   shortening path and treats it as the acquisition and viral growth engine.
-- **AdSense Surface Gate**: PASS. The plan requires allowed, forbidden, and
+- **Adsterra Surface Gate**: PASS. The plan requires allowed, forbidden, and
   review-required surface classifications and preserves the constitution's
   blocked route categories.
 - **Organic Growth Gate**: PASS. The plan centers SEO, sharing, QR Codes,

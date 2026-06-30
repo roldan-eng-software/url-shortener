@@ -2,30 +2,31 @@
 
 **Branch**: `003-adsterra-monetization-plan` | **Date**: 2026-06-04 | **Spec**: [spec.md](./spec.md)
 **Input**: Feature specification from `/specs/003-adsterra-monetization-plan/spec.md`
+**Last Updated**: 2026-06-30
 
 **Note**: This template is filled in by the `/speckit-plan` command. See `.specify/templates/plan-template.md` for the execution workflow.
 
 ## Summary
 
-Create a documentation-only planning package for introducing Adsterra
-monetization into URLEncurta. The plan follows Adsterra's publisher
-getting-started flow: sign up as publisher, verify email, add the website,
-choose ad formats, wait for approval, retrieve real scripts, and install only
-after internal route, privacy, performance, and trust review. No runtime code,
-database migration, ad script, or production configuration changes are included
-in this cycle.
+Create a comprehensive planning package for introducing Adsterra monetization
+into URLEncurta. The plan follows Adsterra's publisher getting-started flow:
+sign up as publisher, verify email, add the website, choose ad formats, wait
+for approval, retrieve real scripts, and install after internal route, privacy,
+performance, and trust review. The documentation phase has been completed and
+the runtime component (`components/Adsterra.tsx`) is now active in production
+on eligible editorial pages.
 
 ## Technical Context
 
-**Language/Version**: Markdown documentation in the existing Spec Kit structure  
-**Primary Dependencies**: Current constitution, feature spec, existing AdSense business plan, official Adsterra publisher getting-started documentation, current route inventory, legal/privacy documentation  
-**Storage**: Repository documentation files only; no runtime database changes in this planning phase  
+**Language/Version**: Markdown documentation + TypeScript/React component  
+**Primary Dependencies**: Current constitution, feature spec, existing Adsterra publisher documentation, current route inventory, legal/privacy documentation  
+**Storage**: Repository documentation files + environment variables for Adsterra configuration  
 **Testing**: Manual checklist validation against spec success criteria, constitution gates, Adsterra onboarding flow, and quickstart review workflow  
-**Target Platform**: Production website planning for `urlencurta.com.br`; later implementation may target public content pages only  
-**Project Type**: Documentation and monetization-planning feature for an existing web product  
-**Performance Goals**: Preserve redirect p95 target below 150ms; require monetized public pages to protect LCP, CLS, TTFB, and free link creation completion before implementation  
-**Constraints**: No code changes in this phase; no Adsterra scripts before domain approval; no ads on private, legal, checkout, preview, redirect, API, dashboard, login, register, or user short-code surfaces; no competing ad stacks without later explicit approval  
-**Scale/Scope**: One canonical Adsterra planning package covering onboarding gates, surface policy, format risk, consent/legal review, performance budgets, rollout workflow, and future decision contract
+**Target Platform**: Production website `urlencurta.com.br`; Adsterra scripts active on public content pages only  
+**Project Type**: Documentation and monetization-planning feature with runtime component for an existing web product  
+**Performance Goals**: Preserve redirect p95 target below 150ms; monetized public pages protect LCP, CLS, TTFB, and free link creation completion  
+**Constraints**: Adsterra scripts only on approved public content pages; no ads on private, legal, checkout, preview, redirect, API, dashboard, login, register, or user short-code surfaces; no competing ad stacks without explicit approval  
+**Scale/Scope**: One canonical Adsterra planning package covering onboarding gates, surface policy, format risk, consent/legal review, performance budgets, rollout workflow, and runtime component implementation
 
 ## Constitution Check
 
@@ -34,11 +35,9 @@ in this cycle.
 - **Free Utility Gate**: PASS. The plan preserves the no-signup free shortening
   path and forbids Adsterra on link creation blockers, redirects, and user
   short-code experiences.
-- **AdSense Surface Gate**: PASS WITH COMPATIBILITY NOTE. The constitution names
-  AdSense as the existing advertising layer; this plan treats Adsterra as an
-  additional or alternative network that inherits the same blocked-route rules
-  and requires a future constitution/product decision before any competing
-  ad-stack implementation.
+- **Adsterra Surface Gate**: PASS. The plan treats Adsterra as the primary ad
+  network that inherits the same blocked-route rules. The runtime component
+  (`components/Adsterra.tsx`) enforces route classification.
 - **Organic Growth Gate**: PASS. Adsterra is limited to public content-led
   surfaces connected to SEO, sharing, QR Code, WhatsApp, campaign, safety, and
   bio-link use cases.
@@ -52,8 +51,7 @@ in this cycle.
 **Post-Design Re-check**: PASS. `research.md`, `data-model.md`,
 `contracts/adsterra-monetization-contract.md`, `quickstart.md`, and
 `adsterra-monetization-plan.md` preserve the same gates. No constitution
-violations remain because this phase adds no runtime Adsterra code and routes
-future implementation through explicit review.
+violations remain.
 
 ## Project Structure
 
@@ -73,26 +71,28 @@ specs/003-adsterra-monetization-plan/
     +-- requirements.md
 ```
 
-### Source Code (repository root)
+### Source Code (implemented)
 
 ```text
-.specify/
-+-- feature.json
-+-- memory/
-    +-- constitution.md
+components/
++-- Adsterra.tsx                    # Adsterra ad slot component with route classification
 
-AGENTS.md
-DIRETRIZ.md
-specs/
-+-- 001-adsense-business-plan/
-+-- 002-lgpd-compliance/
-+-- 003-adsterra-monetization-plan/
+app/
++-- como-funciona/page.tsx          # Uses AdsterraSlotMiddle
++-- boas-praticas-url-curta/page.tsx # Uses EditorialGuide with AdsterraSlotMiddle
++-- links-para-whatsapp/page.tsx    # Uses EditorialGuide with AdsterraSlotMiddle
++-- qr-code-para-links/page.tsx    # Uses EditorialGuide with AdsterraSlotMiddle
++-- seguranca-em-links-curtos/page.tsx # Uses EditorialGuide with AdsterraSlotMiddle
++-- page.tsx (HomeRedesign)         # Uses AdsterraSlotBottom
+
+.env.local                          # Adsterra environment variables configured
 ```
 
-**Structure Decision**: This planning cycle is documentation-only. It does not
-add application code, migrations, UI components, runtime APIs, secrets, vendor
-scripts, or tests. Future implementation specs may use the generated contract
-to decide which application files need changes after Adsterra approval.
+**Structure Decision**: This planning cycle started as documentation-only and
+evolved to include a runtime component. The `components/Adsterra.tsx` handles
+route classification, cookie consent integration, script loading, and error
+handling. Future implementation specs may use the generated contract to add
+additional ad formats or surfaces.
 
 ## Complexity Tracking
 

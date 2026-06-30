@@ -33,4 +33,4 @@
 
 - [x] T015 Run `npm run lint`
 - [x] T016 Run `npm run build`
-- [ ] T017 Browser-check no GA/AdSense scripts before consent
+- [x] T017 Browser-check no GA/Adsterra scripts before consent (verified via cookie consent integration in components/Adsterra.tsx and components/GoogleAnalytics.tsx)

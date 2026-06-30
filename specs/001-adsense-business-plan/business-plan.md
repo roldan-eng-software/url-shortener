@@ -1,8 +1,9 @@
-# Plano de Negócios: Viralização Gratuita e Google AdSense
+# Plano de Negócios: Viralização Gratuita e Monetização Publicitária
 
 **Produto**: URLEncurta  
-**Versão do plano**: 1.0  
+**Versão do plano**: 1.1  
 **Data**: 2026-05-14  
+**Última atualização**: 2026-06-30  
 **Referência constitucional**: `.specify/memory/constitution.md`  
 **Status**: Plano canônico para orientar specs futuras
 
@@ -13,7 +14,7 @@ cola uma URL, recebe um link curto, copia, compartilha e pode usar QR Code sem
 cadastro obrigatório. Essa experiência gratuita é o motor de viralização e
 aquisição.
 
-A monetização principal deste plano é Google AdSense aplicado a páginas públicas
+A monetização principal deste plano é Adsterra aplicado a páginas públicas
 informativas e editoriais que tenham intenção real de busca, conexão direta com
 links curtos e contexto suficiente para publicidade. A publicidade não deve
 interromper criação de links, redirecionamento, login, registro, dashboard,
@@ -43,7 +44,7 @@ AdSense e conversão Premium futura.
 | Camada | Papel | Como gera valor | Limite constitucional |
 |--------|-------|-----------------|-----------------------|
 | Gratuito | Aquisição e viralização | Links curtos, QR Codes, histórico local e compartilhamento recorrente | Não pode virar uma experiência bloqueada por cadastro, pagamento ou anúncios intrusivos |
-| AdSense | Receita sobre intenção informativa | Monetiza guias, páginas editoriais e conteúdos úteis sobre links, QR Code, WhatsApp, campanhas, bio e segurança | Só pode aparecer em superfícies públicas apropriadas e explicitamente permitidas |
+| Adsterra | Receita sobre intenção informativa | Monetiza guias, páginas editoriais e conteúdos úteis sobre links, QR Code, WhatsApp, campanhas, bio e segurança | Só pode aparecer em superfícies públicas apropriadas e explicitamente permitidas |
 | Premium | Receita por necessidade avançada | Alias, métricas, histórico persistente, bio links, QR Codes ampliados, suporte e controle de campanha | Deve complementar o gratuito, não remover seu valor essencial |
 
 Decisão estratégica: priorizar tráfego orgânico qualificado antes de aumentar

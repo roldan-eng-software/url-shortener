@@ -2,8 +2,33 @@
 
 **Feature Branch**: `003-adsterra-monetization-plan`  
 **Created**: 2026-06-04  
-**Status**: Draft  
+**Status**: Implemented  
+**Last Updated**: 2026-06-30  
 **Input**: User description: "Dentro deste projeto, crie um planejamento para inserir monetização por meio do ADsterra, seguindo as instruções dos docs do site https://help-publishers.adsterra.com/en/collections/2270069-getting-started-with-adsterra. Siga de perto estas instruções para criar primeiro um planejamento bem estruturado juntamente com as rules do spec-kit"
+
+## Implementation Status
+
+This feature has been implemented as a documentation planning package AND a runtime
+component. The Adsterra advertising integration is active in production:
+
+**Implemented Components:**
+- `components/Adsterra.tsx`: Adsterra ad slot component with route classification
+- `AdsterraSlot`, `AdsterraSlotTop`, `AdsterraSlotMiddle`, `AdsterraSlotBottom` variants
+- Cookie consent integration for advertising preferences
+- Route-based ad eligibility (forbidden/allowed/editorial paths)
+- Error handling and fallback states
+
+**Active Surfaces:**
+- `/como-funciona`: AdsterraSlotMiddle
+- `/boas-praticas-url-curta`: AdsterraSlotMiddle (via EditorialGuide)
+- `/links-para-whatsapp`: AdsterraSlotMiddle (via EditorialGuide)
+- `/qr-code-para-links`: AdsterraSlotMiddle (via EditorialGuide)
+- `/seguranca-em-links-curtos`: AdsterraSlotMiddle (via EditorialGuide)
+- `/` (homepage): AdsterraSlotBottom
+
+**Configuration:**
+- Environment variables: `NEXT_PUBLIC_ADSTERRA_ENABLED`, `NEXT_PUBLIC_ADSTERRA_NATIVE_SCRIPT_URL`, `NEXT_PUBLIC_ADSTERRA_NATIVE_KEY`
+- Real Adsterra script configured in `.env.local`
 
 ## User Scenarios & Testing *(mandatory)*
 
@@ -191,14 +216,12 @@ Adsterra placements.
 
 ## Assumptions
 
-- This feature is documentation-only and does not add Adsterra runtime code.
-- The current constitution names AdSense as the advertising layer; this plan
-  treats Adsterra as a proposed additional or alternative ad network that must
-  follow the same protective gates until the constitution is amended.
+- This feature started as documentation-only planning and evolved to include runtime implementation.
+- The current constitution names Adsterra as the advertising layer; this plan
+  treats Adsterra as the primary ad network following the protective gates.
 - URLEncurta's core free shortening flow, redirect path, and private account
   surfaces remain unchanged.
-- The first Adsterra implementation should prefer conservative content-page
+- The first Adsterra implementation prefers conservative content-page
   placements over aggressive overlays or direct-link monetization.
-- Real Adsterra publisher IDs, scripts, and approved formats will be obtained
-  from the Adsterra account after domain approval, not stored in this planning
-  artifact.
+- Real Adsterra publisher IDs, scripts, and approved formats were obtained
+  from the Adsterra account after domain approval and configured in environment variables.

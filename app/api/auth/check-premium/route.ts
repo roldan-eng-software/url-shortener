@@ -8,16 +8,36 @@ export async function GET(request: NextRequest) {
     const user = await getAuthUserFromRequest(request);
 
     if (!user) {
-      return NextResponse.json({ isPremium: false, userId: null });
+      return NextResponse.json({
+        authenticated: false,
+        isPremium: false,
+        isAdmin: false,
+        userId: null,
+        user: null,
+      });
     }
 
     return NextResponse.json({
+      authenticated: true,
       isPremium: user.isPremium,
+      isAdmin: user.isAdmin,
       userId: user.id,
       email: user.email,
+      user: {
+        id: user.id,
+        email: user.email,
+        isPremium: user.isPremium,
+        isAdmin: user.isAdmin,
+      },
     });
   } catch (error) {
     console.error('Error checking premium:', error);
-    return NextResponse.json({ isPremium: false, userId: null });
+    return NextResponse.json({
+      authenticated: false,
+      isPremium: false,
+      isAdmin: false,
+      userId: null,
+      user: null,
+    });
   }
 }

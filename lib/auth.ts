@@ -13,6 +13,7 @@ export interface AuthUser {
   id: string;
   email: string;
   isPremium: boolean;
+  isAdmin: boolean;
   premiumExpiresAt: Date | null;
 }
 
@@ -117,6 +118,7 @@ async function loadAuthUser(userId: string): Promise<AuthUser | null> {
     id: user.id,
     email: user.email,
     isPremium,
+    isAdmin: Boolean(user.isAdmin),
     premiumExpiresAt: user.premiumExpiresAt,
   };
 }

@@ -76,7 +76,9 @@ export default function PaymentsPage() {
             <h3 className="text-lg font-semibold text-gray-900 mb-4">Resumo Financeiro</h3>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div>
-                <h4 className="text-sm font-medium text-gray-600 mb-2">Receita Mensal Recorrente (MRR)</h4>
+                <h4 className="text-sm font-medium text-gray-600 mb-2">
+                  Receita Mensal Recorrente (MRR)
+                </h4>
                 <p className="text-3xl font-bold text-blue-600">
                   {(metrics.mrr / 100).toLocaleString('pt-BR', {
                     style: 'currency',
@@ -95,9 +97,7 @@ export default function PaymentsPage() {
                     currency: 'BRL',
                   })}
                 </p>
-                <p className="text-sm text-gray-500 mt-1">
-                  MRR × 12 meses
-                </p>
+                <p className="text-sm text-gray-500 mt-1">MRR × 12 meses</p>
               </div>
             </div>
           </div>

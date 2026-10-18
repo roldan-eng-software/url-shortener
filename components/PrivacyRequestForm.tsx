@@ -41,7 +41,9 @@ export function PrivacyRequestForm() {
       setDetails('');
     } catch (error) {
       setStatus('error');
-      setMessage(error instanceof Error ? error.message : 'Não foi possível enviar sua solicitação.');
+      setMessage(
+        error instanceof Error ? error.message : 'Não foi possível enviar sua solicitação.'
+      );
     }
   };
 

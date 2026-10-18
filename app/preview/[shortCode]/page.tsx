@@ -108,9 +108,7 @@ export default async function PreviewPage({ params }: PreviewPageProps) {
             <h1 className="text-3xl font-extrabold tracking-normal text-title sm:text-4xl">
               {details.title}
             </h1>
-            <p className="mt-3 text-base text-text sm:text-lg">
-              {details.description}
-            </p>
+            <p className="mt-3 text-base text-text sm:text-lg">{details.description}</p>
           </div>
 
           <div className="rounded-xl border border-border/80 bg-background p-4">
@@ -118,9 +116,7 @@ export default async function PreviewPage({ params }: PreviewPageProps) {
               <Link2 className="h-3.5 w-3.5" />
               Destino
             </p>
-            <p className="break-all text-sm font-medium text-title">
-              {link.originalUrl}
-            </p>
+            <p className="break-all text-sm font-medium text-title">{link.originalUrl}</p>
           </div>
 
           <div className="grid gap-3 sm:grid-cols-2">
@@ -129,18 +125,14 @@ export default async function PreviewPage({ params }: PreviewPageProps) {
                 <MousePointerClick className="h-4 w-4 text-primary" />
                 Cliques registrados
               </p>
-              <p className="text-2xl font-extrabold text-title">
-                {formatClicks(link.clicks)}
-              </p>
+              <p className="text-2xl font-extrabold text-title">{formatClicks(link.clicks)}</p>
             </div>
             <div className="rounded-xl border border-border bg-background p-4">
               <p className="mb-2 flex items-center gap-2 text-sm font-semibold text-text">
                 <BarChart3 className="h-4 w-4 text-primary" />
                 Código curto
               </p>
-              <p className="break-all font-mono text-2xl font-extrabold text-title">
-                /{shortCode}
-              </p>
+              <p className="break-all font-mono text-2xl font-extrabold text-title">/{shortCode}</p>
             </div>
           </div>
 
@@ -169,8 +161,8 @@ export default async function PreviewPage({ params }: PreviewPageProps) {
         Feito com{' '}
         <Link href="/" className="font-bold text-primary hover:underline">
           URLencurta
-        </Link>
-        {' '}·{' '}
+        </Link>{' '}
+        ·{' '}
         <Link href="/" className="font-bold text-primary hover:underline">
           Encurte URLs grátis
         </Link>

@@ -2,10 +2,7 @@
 
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { usePathname } from 'next/navigation';
-import {
-  COOKIE_CONSENT_UPDATED_EVENT,
-  getStoredCookieConsent,
-} from '@/lib/cookie-consent';
+import { COOKIE_CONSENT_UPDATED_EVENT, getStoredCookieConsent } from '@/lib/cookie-consent';
 
 type AdsterraLayout = 'in-article' | 'display' | 'rectangle' | 'leaderboard';
 
@@ -185,15 +182,9 @@ export function AdsterraSlot({
     <section className={`px-4 ${className}`}>
       <div className="mx-auto max-w-6xl">
         {label && (
-          <p className="mb-2 text-center text-xs font-medium text-text-secondary">
-            {label}
-          </p>
+          <p className="mb-2 text-center text-xs font-medium text-text-secondary">{label}</p>
         )}
-        <div
-          ref={wrapperRef}
-          className="ads-container"
-          style={style}
-        >
+        <div ref={wrapperRef} className="ads-container" style={style}>
           <div id={adsterraConfig.containerId} />
           {adError && (
             <div className="flex min-h-[inherit] items-center justify-center rounded-xl border border-dashed border-border bg-surface/70 p-4 text-center text-xs font-medium text-text-secondary">

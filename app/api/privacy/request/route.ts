@@ -21,20 +21,14 @@ export async function POST(request: NextRequest) {
 
     const parsed = privacyRequestSchema.safeParse(await request.json());
     if (!parsed.success) {
-      return NextResponse.json(
-        { error: getZodErrorMessage(parsed.error) },
-        { status: 400 }
-      );
+      return NextResponse.json({ error: getZodErrorMessage(parsed.error) }, { status: 400 });
     }
 
-    const [privacyRequest] = await getDb()
-      .insert(privacyRequests)
-      .values(parsed.data)
-      .returning({
-        id: privacyRequests.id,
-        requestType: privacyRequests.requestType,
-        email: privacyRequests.email,
-      });
+    const [privacyRequest] = await getDb().insert(privacyRequests).values(parsed.data).returning({
+      id: privacyRequests.id,
+      requestType: privacyRequests.requestType,
+      email: privacyRequests.email,
+    });
 
     return NextResponse.json({
       request: privacyRequest,
@@ -42,9 +36,6 @@ export async function POST(request: NextRequest) {
     });
   } catch (error) {
     console.error('Error creating privacy request:', error);
-    return NextResponse.json(
-      { error: 'Erro interno do servidor' },
-      { status: 500 }
-    );
+    return NextResponse.json({ error: 'Erro interno do servidor' }, { status: 500 });
   }
 }

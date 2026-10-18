@@ -95,7 +95,10 @@ export async function PUT(request: NextRequest) {
     const validStatuses = ['new', 'contacted', 'converted', 'lost'];
     if (!validStatuses.includes(status)) {
       return NextResponse.json(
-        { error: `Invalid status. Must be one of: ${validStatuses.join(', ')}`, code: 'VALIDATION_ERROR' },
+        {
+          error: `Invalid status. Must be one of: ${validStatuses.join(', ')}`,
+          code: 'VALIDATION_ERROR',
+        },
         { status: 400 }
       );
     }
@@ -108,10 +111,7 @@ export async function PUT(request: NextRequest) {
       .returning();
 
     if (updatedLead.length === 0) {
-      return NextResponse.json(
-        { error: 'Lead not found', code: 'NOT_FOUND' },
-        { status: 404 }
-      );
+      return NextResponse.json({ error: 'Lead not found', code: 'NOT_FOUND' }, { status: 404 });
     }
 
     return NextResponse.json(updatedLead[0]);

@@ -97,7 +97,8 @@ export function LeadsTable({ leads, loading, onStatusUpdate }: LeadsTableProps) 
           </thead>
           <tbody className="divide-y divide-gray-200">
             {leads.map((lead) => {
-              const currentStatus = statusOptions.find((s) => s.value === lead.status) || statusOptions[0];
+              const currentStatus =
+                statusOptions.find((s) => s.value === lead.status) || statusOptions[0];
 
               return (
                 <tr key={lead.id} className="hover:bg-gray-50">

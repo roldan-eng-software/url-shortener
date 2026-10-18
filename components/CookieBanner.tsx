@@ -2,10 +2,7 @@
 
 import { useCallback, useEffect, useState } from 'react';
 import Link from 'next/link';
-import {
-  getStoredCookieConsent,
-  saveCookieConsent,
-} from '@/lib/cookie-consent';
+import { getStoredCookieConsent, saveCookieConsent } from '@/lib/cookie-consent';
 
 export function CookieBanner() {
   const [showBanner, setShowBanner] = useState(false);
@@ -58,9 +55,13 @@ export function CookieBanner() {
           <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
             <div className="flex-1">
               <p className="text-sm leading-relaxed text-text">
-                Usamos cookies necessários para operar o site. Cookies de analytics e publicidade
-                só são ativados com sua escolha. Você pode aceitar, rejeitar ou configurar por categoria.
-                <Link href="/privacidade" className="ml-1 font-semibold text-primary hover:underline">
+                Usamos cookies necessários para operar o site. Cookies de analytics e publicidade só
+                são ativados com sua escolha. Você pode aceitar, rejeitar ou configurar por
+                categoria.
+                <Link
+                  href="/privacidade"
+                  className="ml-1 font-semibold text-primary hover:underline"
+                >
                   Ver Política de Privacidade
                 </Link>
               </p>

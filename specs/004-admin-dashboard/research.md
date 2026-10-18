@@ -10,6 +10,7 @@
 **Status**: ✅ Já utilizado no projeto
 
 **Vantagens para Admin Dashboard**:
+
 - Server Components para carregamento inicial rápido de dados
 - API Routes integradas para endpoints admin
 - Middleware para proteção de rotas
@@ -22,6 +23,7 @@
 **Status**: ✅ Já utilizado no projeto
 
 **Queries Necessárias**:
+
 - `COUNT()` para métricas de tabelas
 - `SELECT` com filtros para listagem de clientes
 - `JOIN` entre users e dados de subscription
@@ -33,6 +35,7 @@
 **Status**: ✅ Já utilizado no projeto
 
 **Considerações**:
+
 - Serverless = conexões efêmeras
 - Queries de contagem são leves e rápidas
 - Não há necessidade de cache externo (Redis) para MVP
@@ -44,11 +47,13 @@
 **Status**: ✅ Já utilizado no projeto
 
 **Dados Disponíveis**:
+
 - `stripeCustomerId` na tabela users
 - `stripeSubscriptionId` na tabela users
 - Webhooks já configurados para atualizar status
 
 **Cálculos Necessários**:
+
 - Receita total: Somar valores de subscriptions ativas
 - MRR: Calcular receita mensal recorrente
 
@@ -59,6 +64,7 @@
 **Status**: ✅ Já utilizado no projeto
 
 **Extensão Necessária**:
+
 - Adicionar campo `isAdmin` à sessão
 - Criar middleware para verificar role
 - Proteger rotas admin
@@ -70,6 +76,7 @@
 **Status**: ✅ Já utilizado no projeto
 
 **Componentes Admin**:
+
 - Cards para métricas (Tailwind)
 - Tabelas para listagens (Tailwind)
 - Botões e ícones (Lucide)
@@ -82,6 +89,7 @@
 **Status**: ❌ Não existe no projeto
 
 **Opções Analisadas**:
+
 1. **WhatsApp Business API**: Oficial Meta, mas requer verificação de negócio
 2. **Twilio WhatsApp API**: Mais simples, mas custo por mensagem
 3. **Link direto para WhatsApp Web**: Simples, sem custo, sem API
@@ -94,6 +102,7 @@
 **Status**: React hooks existentes
 
 **Opções**:
+
 1. **React Query/TanStack Query**: Cache automático, refetch, optimistic updates
 2. **SWR**: Mais leve, focado em stale-while-revalidate
 3. **React hooks simples**: useState + useEffect + fetch
@@ -134,12 +143,12 @@ Browser → /api/admin/metrics (API Route)
 
 ## Riscos e Mitigações
 
-| Risco | Probabilidade | Impacto | Mitigação |
-|-------|---------------|---------|-----------|
-| Queries lentas de contagem | Baixa | Médio | Usar COUNT() otimizado, cache em memória |
-| Stripe API indisponível | Baixa | Médio | Tratamento de erro graceful, fallback |
-| Acesso não autorizado | Baixa | Alto | Middleware robusto, verificação em cada endpoint |
-| Dados sensíveis expostos | Baixa | Alto | Retornar apenas dados necessários, não expor IDs internos |
+| Risco                      | Probabilidade | Impacto | Mitigação                                                 |
+| -------------------------- | ------------- | ------- | --------------------------------------------------------- |
+| Queries lentas de contagem | Baixa         | Médio   | Usar COUNT() otimizado, cache em memória                  |
+| Stripe API indisponível    | Baixa         | Médio   | Tratamento de erro graceful, fallback                     |
+| Acesso não autorizado      | Baixa         | Alto    | Middleware robusto, verificação em cada endpoint          |
+| Dados sensíveis expostos   | Baixa         | Alto    | Retornar apenas dados necessários, não expor IDs internos |
 
 ## Conclusão
 

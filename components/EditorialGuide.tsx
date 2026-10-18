@@ -41,16 +41,10 @@ export function EditorialGuide({
   return (
     <article className="mx-auto max-w-4xl">
       <header className="mb-10 border-b border-border pb-8">
-        <p className="mb-3 text-sm font-bold uppercase tracking-[0.08em] text-primary">
-          {eyebrow}
-        </p>
-        <h1 className="text-3xl font-extrabold leading-tight text-title md:text-5xl">
-          {title}
-        </h1>
+        <p className="mb-3 text-sm font-bold uppercase tracking-[0.08em] text-primary">{eyebrow}</p>
+        <h1 className="text-3xl font-extrabold leading-tight text-title md:text-5xl">{title}</h1>
         <p className="mt-5 text-lg leading-8 text-text">{description}</p>
-        <p className="mt-4 text-sm text-text-secondary">
-          Atualizado em {updatedAt} por URLEncurta
-        </p>
+        <p className="mt-4 text-sm text-text-secondary">Atualizado em {updatedAt} por URLEncurta</p>
       </header>
 
       <div className="space-y-5 text-base leading-8 text-text md:text-lg">
@@ -86,10 +80,7 @@ export function EditorialGuide({
               {section.bullets && (
                 <ul className="mt-5 space-y-3 text-text">
                   {section.bullets.map((bullet) => (
-                    <li
-                      key={bullet}
-                      className="rounded-lg border border-border bg-surface p-4"
-                    >
+                    <li key={bullet} className="rounded-lg border border-border bg-surface p-4">
                       {bullet}
                     </li>
                   ))}
@@ -101,9 +92,7 @@ export function EditorialGuide({
       </div>
 
       <section className="mt-14 border-t border-border pt-8">
-        <h2 className="text-2xl font-extrabold text-title">
-          Continue lendo
-        </h2>
+        <h2 className="text-2xl font-extrabold text-title">Continue lendo</h2>
         <div className="mt-5 grid gap-4 md:grid-cols-3">
           {related.map((item) => (
             <Link
@@ -112,21 +101,17 @@ export function EditorialGuide({
               className="rounded-xl border border-border bg-surface p-5 transition hover:border-primary/50"
             >
               <h3 className="font-bold text-title">{item.title}</h3>
-              <p className="mt-2 text-sm leading-6 text-text">
-                {item.description}
-              </p>
+              <p className="mt-2 text-sm leading-6 text-text">{item.description}</p>
             </Link>
           ))}
         </div>
       </section>
 
       <section className="mt-12 rounded-xl bg-primary px-6 py-8 text-center text-white">
-        <h2 className="text-2xl font-extrabold">
-          Crie um link curto com mais contexto
-        </h2>
+        <h2 className="text-2xl font-extrabold">Crie um link curto com mais contexto</h2>
         <p className="mx-auto mt-3 max-w-2xl text-sm leading-6 text-white/90">
-          Depois de revisar o destino, use o URLEncurta para gerar um link curto,
-          um QR Code e uma forma simples de compartilhar sua campanha.
+          Depois de revisar o destino, use o URLEncurta para gerar um link curto, um QR Code e uma
+          forma simples de compartilhar sua campanha.
         </p>
         <Link
           href="/#encurtar"

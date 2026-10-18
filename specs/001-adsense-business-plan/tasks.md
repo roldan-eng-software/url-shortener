@@ -24,11 +24,11 @@
 
 **Purpose**: Prepare the business-plan artifact and evidence files.
 
-- [X] T001 Create `specs/001-adsense-business-plan/business-plan.md` with the 13 required sections from `specs/001-adsense-business-plan/contracts/business-plan-contract.md`
-- [X] T002 Create `specs/001-adsense-business-plan/validation-report.md` with sections for constitution gates, surface matrix review, roadmap review, compliance review, metrics review, and decision drill
-- [X] T003 Extract current public, private, legal, checkout, preview, API, redirect, and user short-code surfaces from `app/` into `specs/001-adsense-business-plan/validation-report.md`
-- [X] T004 Extract current AdSense behavior and allowed route categories from `components/Adsense.tsx` into `specs/001-adsense-business-plan/validation-report.md`
-- [X] T005 Extract existing privacy, terms, cookie, and LGPD references from `app/privacidade/page.tsx`, `app/termos/page.tsx`, and `PLANO_LGPD.md` into `specs/001-adsense-business-plan/validation-report.md`
+- [x] T001 Create `specs/001-adsense-business-plan/business-plan.md` with the 13 required sections from `specs/001-adsense-business-plan/contracts/business-plan-contract.md`
+- [x] T002 Create `specs/001-adsense-business-plan/validation-report.md` with sections for constitution gates, surface matrix review, roadmap review, compliance review, metrics review, and decision drill
+- [x] T003 Extract current public, private, legal, checkout, preview, API, redirect, and user short-code surfaces from `app/` into `specs/001-adsense-business-plan/validation-report.md`
+- [x] T004 Extract current AdSense behavior and allowed route categories from `components/Adsense.tsx` into `specs/001-adsense-business-plan/validation-report.md`
+- [x] T005 Extract existing privacy, terms, cookie, and LGPD references from `app/privacidade/page.tsx`, `app/termos/page.tsx`, and `PLANO_LGPD.md` into `specs/001-adsense-business-plan/validation-report.md`
 
 ---
 
@@ -38,12 +38,12 @@
 
 **CRITICAL**: No user story work can be finalized until this phase is complete.
 
-- [X] T006 Define the free product promise and protected no-signup shortening principles in `specs/001-adsense-business-plan/business-plan.md`
-- [X] T007 Define revenue layers for AdSense and Premium, including their separate business roles, in `specs/001-adsense-business-plan/business-plan.md`
-- [X] T008 Create the monetization surface matrix table in `specs/001-adsense-business-plan/business-plan.md`
-- [X] T009 Create the metrics baseline table with at least 8 metric slots in `specs/001-adsense-business-plan/business-plan.md`
-- [X] T010 Validate AdSense route eligibility and blocked surfaces against `.specify/memory/constitution.md` in `specs/001-adsense-business-plan/validation-report.md`
-- [X] T011 Validate LGPD/privacy, consent, third-party scripts, and abuse-prevention impacts against `.specify/memory/constitution.md` in `specs/001-adsense-business-plan/validation-report.md`
+- [x] T006 Define the free product promise and protected no-signup shortening principles in `specs/001-adsense-business-plan/business-plan.md`
+- [x] T007 Define revenue layers for AdSense and Premium, including their separate business roles, in `specs/001-adsense-business-plan/business-plan.md`
+- [x] T008 Create the monetization surface matrix table in `specs/001-adsense-business-plan/business-plan.md`
+- [x] T009 Create the metrics baseline table with at least 8 metric slots in `specs/001-adsense-business-plan/business-plan.md`
+- [x] T010 Validate AdSense route eligibility and blocked surfaces against `.specify/memory/constitution.md` in `specs/001-adsense-business-plan/validation-report.md`
+- [x] T011 Validate LGPD/privacy, consent, third-party scripts, and abuse-prevention impacts against `.specify/memory/constitution.md` in `specs/001-adsense-business-plan/validation-report.md`
 
 **Checkpoint**: Foundation ready - user story implementation can now begin in parallel.
 
@@ -57,16 +57,16 @@
 
 ### Implementation for User Story 1
 
-- [X] T012 [US1] Complete the executive summary in `specs/001-adsense-business-plan/business-plan.md`
-- [X] T013 [US1] Complete the free product promise section in `specs/001-adsense-business-plan/business-plan.md`
-- [X] T014 [US1] Complete the revenue model section covering AdSense and Premium in `specs/001-adsense-business-plan/business-plan.md`
-- [X] T015 [US1] Populate allowed AdSense surfaces in the monetization surface matrix in `specs/001-adsense-business-plan/business-plan.md`
-- [X] T016 [US1] Populate forbidden AdSense surfaces in the monetization surface matrix in `specs/001-adsense-business-plan/business-plan.md`
-- [X] T017 [US1] Populate review-required AdSense surfaces in the monetization surface matrix in `specs/001-adsense-business-plan/business-plan.md`
-- [X] T018 [US1] Complete the Premium complement strategy section in `specs/001-adsense-business-plan/business-plan.md`
-- [X] T019 [US1] Complete the decision workflow section with go, revise, and reject outcomes in `specs/001-adsense-business-plan/business-plan.md`
-- [X] T020 [US1] Document pause, revise, and reject rules for harmful ad placements in `specs/001-adsense-business-plan/business-plan.md`
-- [X] T021 [US1] Validate User Story 1 acceptance scenarios in `specs/001-adsense-business-plan/validation-report.md`
+- [x] T012 [US1] Complete the executive summary in `specs/001-adsense-business-plan/business-plan.md`
+- [x] T013 [US1] Complete the free product promise section in `specs/001-adsense-business-plan/business-plan.md`
+- [x] T014 [US1] Complete the revenue model section covering AdSense and Premium in `specs/001-adsense-business-plan/business-plan.md`
+- [x] T015 [US1] Populate allowed AdSense surfaces in the monetization surface matrix in `specs/001-adsense-business-plan/business-plan.md`
+- [x] T016 [US1] Populate forbidden AdSense surfaces in the monetization surface matrix in `specs/001-adsense-business-plan/business-plan.md`
+- [x] T017 [US1] Populate review-required AdSense surfaces in the monetization surface matrix in `specs/001-adsense-business-plan/business-plan.md`
+- [x] T018 [US1] Complete the Premium complement strategy section in `specs/001-adsense-business-plan/business-plan.md`
+- [x] T019 [US1] Complete the decision workflow section with go, revise, and reject outcomes in `specs/001-adsense-business-plan/business-plan.md`
+- [x] T020 [US1] Document pause, revise, and reject rules for harmful ad placements in `specs/001-adsense-business-plan/business-plan.md`
+- [x] T021 [US1] Validate User Story 1 acceptance scenarios in `specs/001-adsense-business-plan/validation-report.md`
 
 **Checkpoint**: Monetization strategy is complete and independently reviewable.
 
@@ -80,15 +80,15 @@
 
 ### Implementation for User Story 2
 
-- [X] T022 [US2] Draft the URL shortening and campaign naming content cluster in `specs/001-adsense-business-plan/business-plan.md`
-- [X] T023 [US2] Draft the WhatsApp and messaging content cluster in `specs/001-adsense-business-plan/business-plan.md`
-- [X] T024 [US2] Draft the QR Code and printed material content cluster in `specs/001-adsense-business-plan/business-plan.md`
-- [X] T025 [US2] Draft the link safety and trust content cluster in `specs/001-adsense-business-plan/business-plan.md`
-- [X] T026 [US2] Draft the bio links and social profile content cluster in `specs/001-adsense-business-plan/business-plan.md`
-- [X] T027 [US2] Consolidate at least 10 content opportunities into the organic growth and content roadmap in `specs/001-adsense-business-plan/business-plan.md`
-- [X] T028 [US2] Define growth loops for free link creation, link sharing, QR Code scanning, messaging templates, bio pages, and returning history users in `specs/001-adsense-business-plan/business-plan.md`
-- [X] T029 [US2] Add one desired user action and one success metric to every content opportunity in `specs/001-adsense-business-plan/business-plan.md`
-- [X] T030 [US2] Validate User Story 2 acceptance scenarios in `specs/001-adsense-business-plan/validation-report.md`
+- [x] T022 [US2] Draft the URL shortening and campaign naming content cluster in `specs/001-adsense-business-plan/business-plan.md`
+- [x] T023 [US2] Draft the WhatsApp and messaging content cluster in `specs/001-adsense-business-plan/business-plan.md`
+- [x] T024 [US2] Draft the QR Code and printed material content cluster in `specs/001-adsense-business-plan/business-plan.md`
+- [x] T025 [US2] Draft the link safety and trust content cluster in `specs/001-adsense-business-plan/business-plan.md`
+- [x] T026 [US2] Draft the bio links and social profile content cluster in `specs/001-adsense-business-plan/business-plan.md`
+- [x] T027 [US2] Consolidate at least 10 content opportunities into the organic growth and content roadmap in `specs/001-adsense-business-plan/business-plan.md`
+- [x] T028 [US2] Define growth loops for free link creation, link sharing, QR Code scanning, messaging templates, bio pages, and returning history users in `specs/001-adsense-business-plan/business-plan.md`
+- [x] T029 [US2] Add one desired user action and one success metric to every content opportunity in `specs/001-adsense-business-plan/business-plan.md`
+- [x] T030 [US2] Validate User Story 2 acceptance scenarios in `specs/001-adsense-business-plan/validation-report.md`
 
 **Checkpoint**: Organic growth roadmap is complete and independently reviewable.
 
@@ -102,13 +102,13 @@
 
 ### Implementation for User Story 3
 
-- [X] T031 [US3] Complete the compliance, trust, and LGPD guardrails section in `specs/001-adsense-business-plan/business-plan.md`
-- [X] T032 [US3] Complete the performance and user experience guardrails section in `specs/001-adsense-business-plan/business-plan.md`
-- [X] T033 [US3] Document Google AdSense policy, invalid traffic, accidental click, and Better Ads risks in `specs/001-adsense-business-plan/business-plan.md`
-- [X] T034 [US3] Document destination clarity, unsafe-link, abuse, and domain reputation risks in `specs/001-adsense-business-plan/business-plan.md`
-- [X] T035 [US3] Document privacy, cookie, analytics, advertising, Stripe, and lead-capture disclosure expectations in `specs/001-adsense-business-plan/business-plan.md`
-- [X] T036 [US3] Add legal/privacy update triggers to the risks and pause rules section in `specs/001-adsense-business-plan/business-plan.md`
-- [X] T037 [US3] Validate User Story 3 acceptance scenarios in `specs/001-adsense-business-plan/validation-report.md`
+- [x] T031 [US3] Complete the compliance, trust, and LGPD guardrails section in `specs/001-adsense-business-plan/business-plan.md`
+- [x] T032 [US3] Complete the performance and user experience guardrails section in `specs/001-adsense-business-plan/business-plan.md`
+- [x] T033 [US3] Document Google AdSense policy, invalid traffic, accidental click, and Better Ads risks in `specs/001-adsense-business-plan/business-plan.md`
+- [x] T034 [US3] Document destination clarity, unsafe-link, abuse, and domain reputation risks in `specs/001-adsense-business-plan/business-plan.md`
+- [x] T035 [US3] Document privacy, cookie, analytics, advertising, Stripe, and lead-capture disclosure expectations in `specs/001-adsense-business-plan/business-plan.md`
+- [x] T036 [US3] Add legal/privacy update triggers to the risks and pause rules section in `specs/001-adsense-business-plan/business-plan.md`
+- [x] T037 [US3] Validate User Story 3 acceptance scenarios in `specs/001-adsense-business-plan/validation-report.md`
 
 **Checkpoint**: Compliance and trust guardrails are complete and independently reviewable.
 
@@ -118,16 +118,16 @@
 
 **Purpose**: Final validation across the complete business-plan package.
 
-- [X] T038 Verify `specs/001-adsense-business-plan/business-plan.md` includes all required sections from `specs/001-adsense-business-plan/contracts/business-plan-contract.md`
-- [X] T039 Verify the monetization surface matrix includes user intent, ad status, business role, policy risk, privacy/trust note, performance note, and decision owner in `specs/001-adsense-business-plan/business-plan.md`
-- [X] T040 Verify at least 10 eligible or review-qualified content opportunities are documented in `specs/001-adsense-business-plan/business-plan.md`
-- [X] T041 Verify at least 8 metrics include business question, baseline source, review cadence, and decision threshold in `specs/001-adsense-business-plan/business-plan.md`
-- [X] T042 Verify no forbidden route category is marked ad-eligible in `specs/001-adsense-business-plan/business-plan.md`
-- [X] T043 Verify sitemap, robots, canonical metadata, and indexability considerations are covered for public monetizable pages in `specs/001-adsense-business-plan/business-plan.md`
-- [X] T044 Verify AdSense slots use approved production IDs or remain disabled/placeholders outside production in `specs/001-adsense-business-plan/validation-report.md`
-- [X] T045 Verify redirect hot path, LCP, CLS, and layout stability guardrails after ads, tracking, or content changes in `specs/001-adsense-business-plan/validation-report.md`
-- [X] T046 Run the quickstart decision drill from `specs/001-adsense-business-plan/quickstart.md` and record the go, revise, or reject result in `specs/001-adsense-business-plan/validation-report.md`
-- [X] T047 Update `specs/001-adsense-business-plan/checklists/requirements.md` if the final business plan changes assumptions or scope
+- [x] T038 Verify `specs/001-adsense-business-plan/business-plan.md` includes all required sections from `specs/001-adsense-business-plan/contracts/business-plan-contract.md`
+- [x] T039 Verify the monetization surface matrix includes user intent, ad status, business role, policy risk, privacy/trust note, performance note, and decision owner in `specs/001-adsense-business-plan/business-plan.md`
+- [x] T040 Verify at least 10 eligible or review-qualified content opportunities are documented in `specs/001-adsense-business-plan/business-plan.md`
+- [x] T041 Verify at least 8 metrics include business question, baseline source, review cadence, and decision threshold in `specs/001-adsense-business-plan/business-plan.md`
+- [x] T042 Verify no forbidden route category is marked ad-eligible in `specs/001-adsense-business-plan/business-plan.md`
+- [x] T043 Verify sitemap, robots, canonical metadata, and indexability considerations are covered for public monetizable pages in `specs/001-adsense-business-plan/business-plan.md`
+- [x] T044 Verify AdSense slots use approved production IDs or remain disabled/placeholders outside production in `specs/001-adsense-business-plan/validation-report.md`
+- [x] T045 Verify redirect hot path, LCP, CLS, and layout stability guardrails after ads, tracking, or content changes in `specs/001-adsense-business-plan/validation-report.md`
+- [x] T046 Run the quickstart decision drill from `specs/001-adsense-business-plan/quickstart.md` and record the go, revise, or reject result in `specs/001-adsense-business-plan/validation-report.md`
+- [x] T047 Update `specs/001-adsense-business-plan/checklists/requirements.md` if the final business plan changes assumptions or scope
 
 ---
 

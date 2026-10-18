@@ -37,7 +37,9 @@ export function getStoredCookieConsent(): CookieConsentPreferences | null {
   }
 }
 
-export function saveCookieConsent(preferences: Pick<CookieConsentPreferences, 'analytics' | 'ads'>) {
+export function saveCookieConsent(
+  preferences: Pick<CookieConsentPreferences, 'analytics' | 'ads'>
+) {
   if (typeof window === 'undefined') {
     return;
   }

@@ -127,9 +127,9 @@ export default function BioDashboardPage() {
   const updateLink = (index: number, patch: Partial<BioLink>) => {
     setBioPage((current) => ({
       ...current,
-      links: current.links.map((link, linkIndex) => (
+      links: current.links.map((link, linkIndex) =>
         linkIndex === index ? { ...link, ...patch } : link
-      )),
+      ),
     }));
   };
 
@@ -152,7 +152,9 @@ export default function BioDashboardPage() {
       const nextLinks = current.links.filter((_, linkIndex) => linkIndex !== index);
       return {
         ...current,
-        links: nextLinks.length ? nextLinks.map((link, position) => ({ ...link, position })) : [emptyLink()],
+        links: nextLinks.length
+          ? nextLinks.map((link, position) => ({ ...link, position }))
+          : [emptyLink()],
       };
     });
   };
@@ -264,7 +266,9 @@ export default function BioDashboardPage() {
             Link na bio
           </div>
           <h1 className="text-3xl font-bold text-title">Seu hub público de links</h1>
-          <p className="text-text">Organize campanhas, WhatsApp, catálogo, redes e materiais em uma página `@`.</p>
+          <p className="text-text">
+            Organize campanhas, WhatsApp, catálogo, redes e materiais em uma página `@`.
+          </p>
         </div>
         <button
           type="button"
@@ -294,7 +298,12 @@ export default function BioDashboardPage() {
                   <span className="border-r border-border px-3 py-3 text-text-secondary">@</span>
                   <input
                     value={bioPage.handle}
-                    onChange={(event) => setBioPage((current) => ({ ...current, handle: normalizeHandle(event.target.value) }))}
+                    onChange={(event) =>
+                      setBioPage((current) => ({
+                        ...current,
+                        handle: normalizeHandle(event.target.value),
+                      }))
+                    }
                     className="min-w-0 flex-1 bg-transparent px-3 py-3 text-title outline-none"
                     placeholder="seudominio"
                   />
@@ -305,7 +314,9 @@ export default function BioDashboardPage() {
                 <span className="mb-2 block text-sm font-bold text-title">Título</span>
                 <input
                   value={bioPage.title}
-                  onChange={(event) => setBioPage((current) => ({ ...current, title: event.target.value }))}
+                  onChange={(event) =>
+                    setBioPage((current) => ({ ...current, title: event.target.value }))
+                  }
                   className="w-full rounded-xl border border-border bg-background px-4 py-3 text-title outline-none transition focus:border-primary focus:ring-2 focus:ring-primary/40"
                   placeholder="Nome, marca ou negócio"
                   maxLength={120}
@@ -317,7 +328,9 @@ export default function BioDashboardPage() {
               <span className="mb-2 block text-sm font-bold text-title">Descrição curta</span>
               <textarea
                 value={bioPage.description || ''}
-                onChange={(event) => setBioPage((current) => ({ ...current, description: event.target.value }))}
+                onChange={(event) =>
+                  setBioPage((current) => ({ ...current, description: event.target.value }))
+                }
                 className="min-h-[96px] w-full resize-none rounded-xl border border-border bg-background px-4 py-3 text-title outline-none transition focus:border-primary focus:ring-2 focus:ring-primary/40"
                 placeholder="Conte em uma frase o que as pessoas encontram nos seus links."
                 maxLength={280}
@@ -328,7 +341,9 @@ export default function BioDashboardPage() {
               <input
                 type="checkbox"
                 checked={bioPage.isActive}
-                onChange={(event) => setBioPage((current) => ({ ...current, isActive: event.target.checked }))}
+                onChange={(event) =>
+                  setBioPage((current) => ({ ...current, isActive: event.target.checked }))
+                }
                 className="h-4 w-4 accent-primary"
               />
               Página pública ativa
@@ -339,7 +354,9 @@ export default function BioDashboardPage() {
             <div className="mb-4 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
               <div>
                 <h2 className="text-lg font-bold text-title">Links da bio</h2>
-                <p className="text-sm text-text">Adicione URLs livres ou reaproveite links curtos existentes.</p>
+                <p className="text-sm text-text">
+                  Adicione URLs livres ou reaproveite links curtos existentes.
+                </p>
               </div>
               <button
                 type="button"
@@ -376,7 +393,10 @@ export default function BioDashboardPage() {
 
             <div className="space-y-4">
               {bioPage.links.map((link, index) => (
-                <div key={link.id || index} className="rounded-2xl border border-border bg-background p-4">
+                <div
+                  key={link.id || index}
+                  className="rounded-2xl border border-border bg-background p-4"
+                >
                   <div className="mb-3 flex items-center justify-between gap-3">
                     <div className="inline-flex items-center gap-2 text-sm font-bold text-text">
                       <GripVertical className="h-4 w-4" />
@@ -457,7 +477,9 @@ export default function BioDashboardPage() {
               Página pública
             </h2>
             <div className="mt-4 rounded-xl border border-border bg-background p-4">
-              <p className="text-xs font-bold uppercase tracking-[0.08em] text-text-secondary">URL da bio</p>
+              <p className="text-xs font-bold uppercase tracking-[0.08em] text-text-secondary">
+                URL da bio
+              </p>
               <p className="mt-2 break-all text-lg font-bold text-primary">
                 {publicUrl || 'Defina um @handle'}
               </p>
@@ -476,7 +498,9 @@ export default function BioDashboardPage() {
                 href={publicUrl || '#'}
                 target="_blank"
                 className={`inline-flex items-center justify-center gap-2 rounded-xl border border-border px-4 py-2.5 text-sm font-bold transition ${
-                  publicUrl ? 'text-title hover:border-primary/50 hover:text-primary' : 'pointer-events-none opacity-50'
+                  publicUrl
+                    ? 'text-title hover:border-primary/50 hover:text-primary'
+                    : 'pointer-events-none opacity-50'
                 }`}
               >
                 <ExternalLink className="h-4 w-4" />
@@ -522,13 +546,20 @@ export default function BioDashboardPage() {
                 <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-2xl bg-primary text-xl font-extrabold text-white">
                   {(bioPage.title || 'B').slice(0, 1).toUpperCase()}
                 </div>
-                <p className="mt-3 text-xs font-bold text-primary">@{bioPage.handle || 'seudominio'}</p>
+                <p className="mt-3 text-xs font-bold text-primary">
+                  @{bioPage.handle || 'seudominio'}
+                </p>
                 <p className="mt-1 font-bold text-title">{bioPage.title || 'Sua marca'}</p>
-                <p className="mt-1 text-xs text-text">{bioPage.description || 'Descrição curta da sua página.'}</p>
+                <p className="mt-1 text-xs text-text">
+                  {bioPage.description || 'Descrição curta da sua página.'}
+                </p>
               </div>
               <div className="mt-4 space-y-2">
                 {activeLinks.slice(0, 5).map((link, index) => (
-                  <div key={`${link.title}-${index}`} className="rounded-xl border border-border bg-surface px-3 py-2 text-sm font-bold text-title">
+                  <div
+                    key={`${link.title}-${index}`}
+                    className="rounded-xl border border-border bg-surface px-3 py-2 text-sm font-bold text-title"
+                  >
                     {link.title}
                   </div>
                 ))}
@@ -551,11 +582,7 @@ export default function BioDashboardPage() {
       )}
 
       {publicUrl && (
-        <QrCodeModal
-          isOpen={showQrModal}
-          onClose={() => setShowQrModal(false)}
-          url={publicUrl}
-        />
+        <QrCodeModal isOpen={showQrModal} onClose={() => setShowQrModal(false)} url={publicUrl} />
       )}
     </div>
   );

@@ -55,18 +55,18 @@ END $$;
 **Tabela**: `users`  
 **Mudança**: Adicionar campo `isAdmin`
 
-| Campo | Tipo | Default | Descrição |
-|-------|------|---------|-----------|
-| id | UUID | auto | Primary key |
-| email | TEXT | required | Email único |
-| passwordHash | TEXT | required | Hash da senha |
-| isPremium | BOOLEAN | false | Usuário premium |
-| isAdmin | BOOLEAN | false | **NOVO**: Usuário administrador |
-| stripeCustomerId | VARCHAR(100) | null | ID do cliente Stripe |
-| stripeSubscriptionId | VARCHAR(100) | null | ID da subscription Stripe |
-| premiumExpiresAt | TIMESTAMP | null | Data de expiração premium |
-| createdAt | TIMESTAMP | now | Data de criação |
-| updatedAt | TIMESTAMP | now | Data de atualização |
+| Campo                | Tipo         | Default  | Descrição                       |
+| -------------------- | ------------ | -------- | ------------------------------- |
+| id                   | UUID         | auto     | Primary key                     |
+| email                | TEXT         | required | Email único                     |
+| passwordHash         | TEXT         | required | Hash da senha                   |
+| isPremium            | BOOLEAN      | false    | Usuário premium                 |
+| isAdmin              | BOOLEAN      | false    | **NOVO**: Usuário administrador |
+| stripeCustomerId     | VARCHAR(100) | null     | ID do cliente Stripe            |
+| stripeSubscriptionId | VARCHAR(100) | null     | ID da subscription Stripe       |
+| premiumExpiresAt     | TIMESTAMP    | null     | Data de expiração premium       |
+| createdAt            | TIMESTAMP    | now      | Data de criação                 |
+| updatedAt            | TIMESTAMP    | now      | Data de atualização             |
 
 ### DatabaseMetrics (Calculado)
 
@@ -149,7 +149,7 @@ async function calculateMRR(): Promise<number> {
     status: 'active',
     limit: 100,
   });
-  
+
   return subscriptions.data.reduce((total, sub) => {
     const monthlyAmount = sub.items.data[0].plan.amount || 0;
     return total + monthlyAmount;

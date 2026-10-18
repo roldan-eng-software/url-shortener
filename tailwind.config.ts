@@ -50,11 +50,11 @@ const config: Config = {
         sans: ['Inter', 'sans-serif'],
       },
       screens: {
-        'xs': '480px',
-        'sm': '640px',
-        'md': '768px',
-        'lg': '1024px',
-        'xl': '1280px',
+        xs: '480px',
+        sm: '640px',
+        md: '768px',
+        lg: '1024px',
+        xl: '1280px',
         '2xl': '1536px',
       },
       spacing: {
@@ -70,9 +70,9 @@ const config: Config = {
         'gradient-aurora-dark': 'linear-gradient(135deg, #A5B4FC 0%, #67E8F9 100%)',
       },
       boxShadow: {
-        'glow': '0 20px 25px -5px rgba(99, 102, 241, 0.15)',
+        glow: '0 20px 25px -5px rgba(99, 102, 241, 0.15)',
         'glow-dark': '0 20px 25px -5px rgba(129, 140, 248, 0.15)',
-        'card': '0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1)',
+        card: '0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1)',
         'card-lg': '0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1)',
         'card-xl': '0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1)',
       },

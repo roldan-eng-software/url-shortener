@@ -6,7 +6,8 @@ import { trackEvent } from './GoogleAnalytics';
 export function ConversionTracker() {
   useEffect(() => {
     const handleClick = (event: MouseEvent) => {
-      const target = event.target instanceof Element ? event.target.closest<HTMLElement>('[data-track]') : null;
+      const target =
+        event.target instanceof Element ? event.target.closest<HTMLElement>('[data-track]') : null;
       if (!target) return;
 
       trackEvent(

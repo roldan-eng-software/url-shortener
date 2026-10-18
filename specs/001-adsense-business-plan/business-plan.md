@@ -41,11 +41,11 @@ AdSense e conversão Premium futura.
 
 ## 3. Revenue model
 
-| Camada | Papel | Como gera valor | Limite constitucional |
-|--------|-------|-----------------|-----------------------|
-| Gratuito | Aquisição e viralização | Links curtos, QR Codes, histórico local e compartilhamento recorrente | Não pode virar uma experiência bloqueada por cadastro, pagamento ou anúncios intrusivos |
-| Adsterra | Receita sobre intenção informativa | Monetiza guias, páginas editoriais e conteúdos úteis sobre links, QR Code, WhatsApp, campanhas, bio e segurança | Só pode aparecer em superfícies públicas apropriadas e explicitamente permitidas |
-| Premium | Receita por necessidade avançada | Alias, métricas, histórico persistente, bio links, QR Codes ampliados, suporte e controle de campanha | Deve complementar o gratuito, não remover seu valor essencial |
+| Camada   | Papel                              | Como gera valor                                                                                                 | Limite constitucional                                                                   |
+| -------- | ---------------------------------- | --------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------- |
+| Gratuito | Aquisição e viralização            | Links curtos, QR Codes, histórico local e compartilhamento recorrente                                           | Não pode virar uma experiência bloqueada por cadastro, pagamento ou anúncios intrusivos |
+| Adsterra | Receita sobre intenção informativa | Monetiza guias, páginas editoriais e conteúdos úteis sobre links, QR Code, WhatsApp, campanhas, bio e segurança | Só pode aparecer em superfícies públicas apropriadas e explicitamente permitidas        |
+| Premium  | Receita por necessidade avançada   | Alias, métricas, histórico persistente, bio links, QR Codes ampliados, suporte e controle de campanha           | Deve complementar o gratuito, não remover seu valor essencial                           |
 
 Decisão estratégica: priorizar tráfego orgânico qualificado antes de aumentar
 densidade de anúncios. Receita publicitária que reduz criação de links,
@@ -53,41 +53,41 @@ confiança ou performance deve ser revisada ou pausada.
 
 ## 4. Monetization surface matrix
 
-| Surface | User intent | Ad status | Business role | Policy risk | Privacy/trust note | Performance note | Decision owner |
-|---------|-------------|-----------|---------------|-------------|--------------------|------------------|----------------|
-| `/como-funciona` | Entender o serviço e aprender a usar | Allowed | SEO, educação e AdSense | Baixo, se anúncios forem rotulados e não confundirem CTAs | Deve manter contexto claro do produto | Reservar espaço de anúncio e preservar LCP/CLS | Product owner |
-| `/boas-praticas-url-curta` | Aprender boas práticas de campanhas e aliases | Allowed | SEO, AdSense e qualificação Premium | Baixo a médio; evitar conteúdo raso criado só para anúncios | Deve orientar uso legítimo e responsável | Conteúdo deve carregar rápido e ser legível | Product owner |
-| `/links-para-whatsapp` | Compartilhar links em mensagens | Allowed | SEO, AdSense e viralização por WhatsApp | Médio; evitar incentivo a spam | Deve reforçar contexto e consentimento em mensagens | Anúncios não podem interromper leitura mobile | Product owner |
-| `/qr-code-para-links` | Usar QR Code em materiais físicos | Allowed | SEO, AdSense e uso offline-online | Baixo | Deve orientar teste do destino antes de imprimir | Imagens/ads não devem causar shift em mobile | Product owner |
-| `/seguranca-em-links-curtos` | Avaliar segurança de links curtos | Allowed | Confiança, SEO e AdSense | Baixo se conteúdo for educativo e original | Deve reforçar destino claro e prevenção de abuso | Priorizar leitura e estabilidade visual | Product owner |
-| `/` home | Encurtar URL imediatamente | Review-required | Aquisição, criação de link e conversão | Médio; anúncios podem reduzir conclusão da tarefa | Evitar confusão entre formulário e anúncio | Não inserir anúncio antes do formulário sem teste | Product owner |
-| Novas páginas editoriais | Resolver intenção de busca ligada ao produto | Review-required | SEO, AdSense e aquisição | Depende do tema e qualidade | Exige conexão real com encurtador | Exige critérios de LCP/CLS antes de liberar | Product owner |
-| Páginas de bio públicas | Visitar links de um usuário Premium | Review-required | Valor Premium, tráfego e retenção | Médio; anúncios podem confundir autoria | Exige distinção entre conteúdo do usuário e publicidade | Evitar degradar cliques nos links da bio | Product + trust review |
-| `/premium` | Avaliar assinatura | Forbidden | Conversão Premium | Médio; anúncios competem com checkout | Evitar terceiros em fluxo comercial sensível | Preservar clareza do plano | Product owner |
-| `/premium/success` | Confirmar assinatura | Forbidden | Pós-compra | Alto para confiança | Não expor etapa transacional a anúncios | Preservar confirmação rápida | Product owner |
-| `/login` e `/register` | Entrar ou criar conta | Forbidden | Autenticação | Alto para confiança e segurança | Não misturar publicidade com credenciais | Preservar foco e carregamento rápido | Product owner |
-| `/dashboard/*` | Gerenciar links e bio | Forbidden | Produto privado e Premium | Alto para privacidade | Área de dados do usuário | Não inserir scripts publicitários | Product owner |
-| `/privacidade` e `/termos` | Ler políticas legais | Forbidden | Confiança e compliance | Alto; anúncios podem reduzir seriedade legal | Deve ser texto legal claro | Sem distrações comerciais | Product + legal |
-| `/preview/*` | Conferir destino antes de abrir | Forbidden | Segurança e confiança | Alto; anúncio pode confundir destino | Superfície sensível de destino | Priorizar clareza | Product + trust review |
-| `/[shortCode]` | Ser redirecionado | Forbidden | Hot path e reputação | Crítico | Não criar interstitial publicitário | p95 abaixo de 150ms quando possível | Product + engineering |
-| `/api/*` | Operação de sistema | Forbidden | Serviço interno | Crítico | Nunca exibir anúncios | Sem scripts publicitários | Engineering |
+| Surface                      | User intent                                   | Ad status       | Business role                           | Policy risk                                                 | Privacy/trust note                                      | Performance note                                  | Decision owner         |
+| ---------------------------- | --------------------------------------------- | --------------- | --------------------------------------- | ----------------------------------------------------------- | ------------------------------------------------------- | ------------------------------------------------- | ---------------------- |
+| `/como-funciona`             | Entender o serviço e aprender a usar          | Allowed         | SEO, educação e AdSense                 | Baixo, se anúncios forem rotulados e não confundirem CTAs   | Deve manter contexto claro do produto                   | Reservar espaço de anúncio e preservar LCP/CLS    | Product owner          |
+| `/boas-praticas-url-curta`   | Aprender boas práticas de campanhas e aliases | Allowed         | SEO, AdSense e qualificação Premium     | Baixo a médio; evitar conteúdo raso criado só para anúncios | Deve orientar uso legítimo e responsável                | Conteúdo deve carregar rápido e ser legível       | Product owner          |
+| `/links-para-whatsapp`       | Compartilhar links em mensagens               | Allowed         | SEO, AdSense e viralização por WhatsApp | Médio; evitar incentivo a spam                              | Deve reforçar contexto e consentimento em mensagens     | Anúncios não podem interromper leitura mobile     | Product owner          |
+| `/qr-code-para-links`        | Usar QR Code em materiais físicos             | Allowed         | SEO, AdSense e uso offline-online       | Baixo                                                       | Deve orientar teste do destino antes de imprimir        | Imagens/ads não devem causar shift em mobile      | Product owner          |
+| `/seguranca-em-links-curtos` | Avaliar segurança de links curtos             | Allowed         | Confiança, SEO e AdSense                | Baixo se conteúdo for educativo e original                  | Deve reforçar destino claro e prevenção de abuso        | Priorizar leitura e estabilidade visual           | Product owner          |
+| `/` home                     | Encurtar URL imediatamente                    | Review-required | Aquisição, criação de link e conversão  | Médio; anúncios podem reduzir conclusão da tarefa           | Evitar confusão entre formulário e anúncio              | Não inserir anúncio antes do formulário sem teste | Product owner          |
+| Novas páginas editoriais     | Resolver intenção de busca ligada ao produto  | Review-required | SEO, AdSense e aquisição                | Depende do tema e qualidade                                 | Exige conexão real com encurtador                       | Exige critérios de LCP/CLS antes de liberar       | Product owner          |
+| Páginas de bio públicas      | Visitar links de um usuário Premium           | Review-required | Valor Premium, tráfego e retenção       | Médio; anúncios podem confundir autoria                     | Exige distinção entre conteúdo do usuário e publicidade | Evitar degradar cliques nos links da bio          | Product + trust review |
+| `/premium`                   | Avaliar assinatura                            | Forbidden       | Conversão Premium                       | Médio; anúncios competem com checkout                       | Evitar terceiros em fluxo comercial sensível            | Preservar clareza do plano                        | Product owner          |
+| `/premium/success`           | Confirmar assinatura                          | Forbidden       | Pós-compra                              | Alto para confiança                                         | Não expor etapa transacional a anúncios                 | Preservar confirmação rápida                      | Product owner          |
+| `/login` e `/register`       | Entrar ou criar conta                         | Forbidden       | Autenticação                            | Alto para confiança e segurança                             | Não misturar publicidade com credenciais                | Preservar foco e carregamento rápido              | Product owner          |
+| `/dashboard/*`               | Gerenciar links e bio                         | Forbidden       | Produto privado e Premium               | Alto para privacidade                                       | Área de dados do usuário                                | Não inserir scripts publicitários                 | Product owner          |
+| `/privacidade` e `/termos`   | Ler políticas legais                          | Forbidden       | Confiança e compliance                  | Alto; anúncios podem reduzir seriedade legal                | Deve ser texto legal claro                              | Sem distrações comerciais                         | Product + legal        |
+| `/preview/*`                 | Conferir destino antes de abrir               | Forbidden       | Segurança e confiança                   | Alto; anúncio pode confundir destino                        | Superfície sensível de destino                          | Priorizar clareza                                 | Product + trust review |
+| `/[shortCode]`               | Ser redirecionado                             | Forbidden       | Hot path e reputação                    | Crítico                                                     | Não criar interstitial publicitário                     | p95 abaixo de 150ms quando possível               | Product + engineering  |
+| `/api/*`                     | Operação de sistema                           | Forbidden       | Serviço interno                         | Crítico                                                     | Nunca exibir anúncios                                   | Sem scripts publicitários                         | Engineering            |
 
 ## 5. Organic growth and content roadmap
 
-| Topic | Audience | Search intent | Product connection | User action | Ad eligibility | Success metric |
-|-------|----------|---------------|--------------------|-------------|----------------|----------------|
-| Como encurtar URL para WhatsApp | Pequenos negócios e atendimento | Enviar links limpos em mensagens | Criar link curto e copiar texto pronto | Encurtar URL e copiar mensagem | Allowed | Cliques no formulário a partir da página |
-| URL curta para Instagram bio | Criadores, social media e pequenos negócios | Melhorar links em perfis sociais | Link curto, bio links e Premium | Criar link ou avaliar Premium bio | Review-required | Cliques em criação e Premium |
-| QR Code para cardápio ou catálogo | Restaurantes, lojas e eventos | Conectar material físico a página online | QR Code automático do link | Criar link e baixar/usar QR | Allowed | Uso de QR Code por origem editorial |
-| Boas práticas para nomear links de campanha | Marketers e agências | Escolher alias claro e mensurável | Alias Premium e organização de campanha | Ver Premium ou criar link padrão | Allowed | Cliques em Premium e criação |
-| Segurança em links curtos | Usuários gerais e empresas | Identificar riscos antes de clicar | Preview, contexto e domínio confiável | Ler guia e usar encurtador com contexto | Allowed | Tempo de leitura e criação pós-leitura |
-| Link curto para panfleto impresso | Eventos, comércio local e educação | Usar URL fácil de digitar em material físico | Link curto e QR Code | Criar link para material impresso | Review-required | Criações vindas do conteúdo |
-| Como medir cliques em campanhas simples | Pequenos negócios | Entender origem e performance | Métricas Premium e histórico | Avaliar Premium ou criar campanha | Review-required | Cliques em Premium |
-| Links curtos para propostas e orçamentos | Vendas e atendimento | Enviar materiais sem URLs longas | Link curto em WhatsApp/email | Criar link e copiar mensagem | Allowed | Criações e compartilhamentos |
-| Bio links para pequenos negócios | Lojas, profissionais e creators | Organizar vários links em uma página | Bio Premium | Avaliar Premium bio | Review-required | Leads/trials Premium |
-| Checklist antes de imprimir QR Code | Eventos e materiais físicos | Evitar erro em QR impresso | QR Code e URL curta alternativa | Criar link e testar QR | Allowed | Engajamento com QR e formulário |
-| Links curtos para anúncios pagos | Marketers | Melhorar clareza e acompanhamento | Alias e métricas Premium | Ver Premium | Review-required | Conversões Premium |
-| Encurtador de URL brasileiro | Usuários BR e negócios locais | Encontrar ferramenta nacional simples | Home gratuita e confiança LGPD | Encurtar URL | Allowed | Criações orgânicas |
+| Topic                                       | Audience                                    | Search intent                                | Product connection                      | User action                             | Ad eligibility  | Success metric                           |
+| ------------------------------------------- | ------------------------------------------- | -------------------------------------------- | --------------------------------------- | --------------------------------------- | --------------- | ---------------------------------------- |
+| Como encurtar URL para WhatsApp             | Pequenos negócios e atendimento             | Enviar links limpos em mensagens             | Criar link curto e copiar texto pronto  | Encurtar URL e copiar mensagem          | Allowed         | Cliques no formulário a partir da página |
+| URL curta para Instagram bio                | Criadores, social media e pequenos negócios | Melhorar links em perfis sociais             | Link curto, bio links e Premium         | Criar link ou avaliar Premium bio       | Review-required | Cliques em criação e Premium             |
+| QR Code para cardápio ou catálogo           | Restaurantes, lojas e eventos               | Conectar material físico a página online     | QR Code automático do link              | Criar link e baixar/usar QR             | Allowed         | Uso de QR Code por origem editorial      |
+| Boas práticas para nomear links de campanha | Marketers e agências                        | Escolher alias claro e mensurável            | Alias Premium e organização de campanha | Ver Premium ou criar link padrão        | Allowed         | Cliques em Premium e criação             |
+| Segurança em links curtos                   | Usuários gerais e empresas                  | Identificar riscos antes de clicar           | Preview, contexto e domínio confiável   | Ler guia e usar encurtador com contexto | Allowed         | Tempo de leitura e criação pós-leitura   |
+| Link curto para panfleto impresso           | Eventos, comércio local e educação          | Usar URL fácil de digitar em material físico | Link curto e QR Code                    | Criar link para material impresso       | Review-required | Criações vindas do conteúdo              |
+| Como medir cliques em campanhas simples     | Pequenos negócios                           | Entender origem e performance                | Métricas Premium e histórico            | Avaliar Premium ou criar campanha       | Review-required | Cliques em Premium                       |
+| Links curtos para propostas e orçamentos    | Vendas e atendimento                        | Enviar materiais sem URLs longas             | Link curto em WhatsApp/email            | Criar link e copiar mensagem            | Allowed         | Criações e compartilhamentos             |
+| Bio links para pequenos negócios            | Lojas, profissionais e creators             | Organizar vários links em uma página         | Bio Premium                             | Avaliar Premium bio                     | Review-required | Leads/trials Premium                     |
+| Checklist antes de imprimir QR Code         | Eventos e materiais físicos                 | Evitar erro em QR impresso                   | QR Code e URL curta alternativa         | Criar link e testar QR                  | Allowed         | Engajamento com QR e formulário          |
+| Links curtos para anúncios pagos            | Marketers                                   | Melhorar clareza e acompanhamento            | Alias e métricas Premium                | Ver Premium                             | Review-required | Conversões Premium                       |
+| Encurtador de URL brasileiro                | Usuários BR e negócios locais               | Encontrar ferramenta nacional simples        | Home gratuita e confiança LGPD          | Encurtar URL                            | Allowed         | Criações orgânicas                       |
 
 Critérios editoriais:
 
@@ -98,14 +98,14 @@ Critérios editoriais:
 
 ## 6. Growth loops
 
-| Loop | Trigger | User action | Distribution mechanism | Measurement | Risk |
-|------|---------|-------------|------------------------|-------------|------|
-| Link curto gratuito | Usuário precisa compartilhar URL longa | Cria e copia link | Link circula em WhatsApp, redes, email e materiais | Criações, cópias, redirects | Abuso ou destino inseguro |
-| QR Code | Usuário precisa ligar físico ao digital | Gera ou usa QR do link | QR impresso ou exibido em ponto físico | Aberturas por QR e criação pós-guia | QR sem contexto pode reduzir confiança |
-| Conteúdo SEO | Usuário pesquisa solução | Lê guia e usa ferramenta | Busca orgânica e compartilhamento do artigo | Page views, criação pós-leitura | Conteúdo raso para anúncios |
-| Mensagens prontas | Usuário quer enviar link com contexto | Copia template e link | Mensagens compartilhadas com marca/domínio | Copiar template, criar link | Spam ou mensagens sem consentimento |
-| Bio Premium | Usuário precisa agregar links | Cria página bio | Perfil social divulga página | Visitas da bio, cliques, Premium | Confusão entre autoria e publicidade |
-| Histórico e retorno | Usuário usa links com frequência | Retorna para reutilizar/gerenciar | Navegação direta e conta Premium | Retorno, login, dashboard | Upsell excessivo reduzir uso gratuito |
+| Loop                | Trigger                                 | User action                       | Distribution mechanism                             | Measurement                         | Risk                                   |
+| ------------------- | --------------------------------------- | --------------------------------- | -------------------------------------------------- | ----------------------------------- | -------------------------------------- |
+| Link curto gratuito | Usuário precisa compartilhar URL longa  | Cria e copia link                 | Link circula em WhatsApp, redes, email e materiais | Criações, cópias, redirects         | Abuso ou destino inseguro              |
+| QR Code             | Usuário precisa ligar físico ao digital | Gera ou usa QR do link            | QR impresso ou exibido em ponto físico             | Aberturas por QR e criação pós-guia | QR sem contexto pode reduzir confiança |
+| Conteúdo SEO        | Usuário pesquisa solução                | Lê guia e usa ferramenta          | Busca orgânica e compartilhamento do artigo        | Page views, criação pós-leitura     | Conteúdo raso para anúncios            |
+| Mensagens prontas   | Usuário quer enviar link com contexto   | Copia template e link             | Mensagens compartilhadas com marca/domínio         | Copiar template, criar link         | Spam ou mensagens sem consentimento    |
+| Bio Premium         | Usuário precisa agregar links           | Cria página bio                   | Perfil social divulga página                       | Visitas da bio, cliques, Premium    | Confusão entre autoria e publicidade   |
+| Histórico e retorno | Usuário usa links com frequência        | Retorna para reutilizar/gerenciar | Navegação direta e conta Premium                   | Retorno, login, dashboard           | Upsell excessivo reduzir uso gratuito  |
 
 ## 7. Premium complement strategy
 
@@ -155,17 +155,17 @@ Metas e regras:
 
 ## 10. Metrics baseline
 
-| Metric | Business question answered | Baseline source or collection approach | Review cadence | Decision threshold or expected use |
-|--------|----------------------------|----------------------------------------|----------------|------------------------------------|
-| Free link creations | O gratuito está crescendo? | Eventos de criação de URL | Semanal | Queda após anúncios exige revisão |
-| Creation completion rate | Usuários concluem a tarefa principal? | Form submit versus sucesso | Semanal | Queda relevante exige pausa/revisão |
-| Public page views | O SEO editorial atrai audiência? | Analytics por página pública | Semanal/mensal | Priorizar clusters com tráfego qualificado |
-| Ad-eligible page share | Quanto tráfego pode monetizar? | Page views em superfícies allowed/review | Mensal | Aumentar via conteúdo, não via rotas sensíveis |
-| Sharing actions | Links e QR Codes circulam? | Copiar link, abrir QR, templates | Semanal | Medir viralização gratuita |
-| Premium interest | Conteúdo gera demanda avançada? | Cliques Premium, leads, checkout iniciado | Semanal/mensal | Ajustar CTAs e conteúdo |
-| Trust signals | Há risco de reputação? | Erros, denúncias, suporte, links removidos | Semanal | Picos exigem revisão de abuso |
-| Performance signals | Monetização degradou UX? | Redirect p95, LCP, CLS, criação | Semanal | Regressão exige rollback ou redução de anúncios |
-| Decision throughput | O plano acelera decisões? | Tempo para go/revise/reject | Por proposta | Meta: decisão em até 15 minutos |
+| Metric                   | Business question answered            | Baseline source or collection approach     | Review cadence | Decision threshold or expected use              |
+| ------------------------ | ------------------------------------- | ------------------------------------------ | -------------- | ----------------------------------------------- |
+| Free link creations      | O gratuito está crescendo?            | Eventos de criação de URL                  | Semanal        | Queda após anúncios exige revisão               |
+| Creation completion rate | Usuários concluem a tarefa principal? | Form submit versus sucesso                 | Semanal        | Queda relevante exige pausa/revisão             |
+| Public page views        | O SEO editorial atrai audiência?      | Analytics por página pública               | Semanal/mensal | Priorizar clusters com tráfego qualificado      |
+| Ad-eligible page share   | Quanto tráfego pode monetizar?        | Page views em superfícies allowed/review   | Mensal         | Aumentar via conteúdo, não via rotas sensíveis  |
+| Sharing actions          | Links e QR Codes circulam?            | Copiar link, abrir QR, templates           | Semanal        | Medir viralização gratuita                      |
+| Premium interest         | Conteúdo gera demanda avançada?       | Cliques Premium, leads, checkout iniciado  | Semanal/mensal | Ajustar CTAs e conteúdo                         |
+| Trust signals            | Há risco de reputação?                | Erros, denúncias, suporte, links removidos | Semanal        | Picos exigem revisão de abuso                   |
+| Performance signals      | Monetização degradou UX?              | Redirect p95, LCP, CLS, criação            | Semanal        | Regressão exige rollback ou redução de anúncios |
+| Decision throughput      | O plano acelera decisões?             | Tempo para go/revise/reject                | Por proposta   | Meta: decisão em até 15 minutos                 |
 
 ## 11. Decision workflow
 

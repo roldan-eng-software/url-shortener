@@ -15,7 +15,7 @@ export interface AdminUser extends AuthUser {
  */
 export async function getAdminUserFromRequest(request: NextRequest): Promise<AdminUser | null> {
   const authUser = await getAuthUserFromRequest(request);
-  
+
   if (!authUser) {
     return null;
   }
@@ -64,7 +64,7 @@ export async function isUserAdmin(request: NextRequest): Promise<boolean> {
  */
 export async function requireAdmin(request: NextRequest): Promise<AdminUser> {
   const adminUser = await getAdminUserFromRequest(request);
-  
+
   if (!adminUser) {
     throw new Error('Unauthorized: Admin access required');
   }
@@ -76,18 +76,12 @@ export async function requireAdmin(request: NextRequest): Promise<AdminUser> {
  * Create unauthorized response
  */
 export function createUnauthorizedResponse(message = 'Unauthorized'): NextResponse {
-  return NextResponse.json(
-    { error: message, code: 'UNAUTHORIZED' },
-    { status: 401 }
-  );
+  return NextResponse.json({ error: message, code: 'UNAUTHORIZED' }, { status: 401 });
 }
 
 /**
  * Create forbidden response
  */
 export function createForbiddenResponse(message = 'Access denied'): NextResponse {
-  return NextResponse.json(
-    { error: message, code: 'FORBIDDEN' },
-    { status: 403 }
-  );
+  return NextResponse.json({ error: message, code: 'FORBIDDEN' }, { status: 403 });
 }

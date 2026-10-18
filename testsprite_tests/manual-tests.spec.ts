@@ -20,7 +20,10 @@ test.describe('URL Shortening', () => {
     await page.goto(`${BASE_URL}/this-short-code-should-not-exist-999999`);
     await expect(page.locator('body')).toBeVisible({ timeout: 10000 });
     const content = await page.content();
-    const has404 = content.includes('404') || content.includes('Não encontrado') || content.includes('Not Found');
+    const has404 =
+      content.includes('404') ||
+      content.includes('Não encontrado') ||
+      content.includes('Not Found');
     expect(has404).toBeTruthy();
   });
 });
@@ -40,12 +43,16 @@ test.describe('Navigation', () => {
 
   test('Login page loads', async ({ page }) => {
     await page.goto(`${BASE_URL}/login`);
-    await expect(page.locator('input[type="email"], input[name="email"]')).toBeVisible({ timeout: 10000 });
+    await expect(page.locator('input[type="email"], input[name="email"]')).toBeVisible({
+      timeout: 10000,
+    });
   });
 
   test('Register page loads', async ({ page }) => {
     await page.goto(`${BASE_URL}/register`);
-    await expect(page.locator('input[type="email"], input[name="email"]')).toBeVisible({ timeout: 10000 });
+    await expect(page.locator('input[type="email"], input[name="email"]')).toBeVisible({
+      timeout: 10000,
+    });
   });
 });
 

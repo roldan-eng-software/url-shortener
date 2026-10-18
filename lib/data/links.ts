@@ -70,11 +70,13 @@ export async function incrementLinkClicks(shortCode: string) {
   }
 
   if (link.type === 'anonymous') {
-    await db.update(urls)
+    await db
+      .update(urls)
       .set({ clicks: sql`${urls.clicks} + 1` })
       .where(eq(urls.id, link.id));
   } else {
-    await db.update(userLinks)
+    await db
+      .update(userLinks)
       .set({ clicksTotal: sql`${userLinks.clicksTotal} + 1` })
       .where(eq(userLinks.id, link.id));
   }

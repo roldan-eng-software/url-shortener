@@ -22,7 +22,7 @@ export function PaymentStatus({ connected, loading }: PaymentStatusProps) {
   return (
     <div className="bg-white rounded-lg shadow-md p-6">
       <h3 className="text-lg font-semibold text-gray-900 mb-4">Status do Stripe</h3>
-      
+
       <div className="flex items-center gap-4">
         {connected ? (
           <>
@@ -56,7 +56,8 @@ export function PaymentStatus({ connected, loading }: PaymentStatusProps) {
             <div>
               <p className="text-sm font-medium text-yellow-800">Configuração Necessária</p>
               <p className="text-sm text-yellow-700 mt-1">
-                Para habilitar os pagamentos, configure as variáveis de ambiente do Stripe no arquivo 
+                Para habilitar os pagamentos, configure as variáveis de ambiente do Stripe no
+                arquivo
                 <code className="mx-1 px-1 bg-yellow-100 rounded">.env.local</code>
               </p>
             </div>

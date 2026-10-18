@@ -30,7 +30,7 @@ on eligible editorial pages.
 
 ## Constitution Check
 
-*GATE: Must pass before Phase 0 research. Re-check after Phase 1 design.*
+_GATE: Must pass before Phase 0 research. Re-check after Phase 1 design._
 
 - **Free Utility Gate**: PASS. The plan preserves the no-signup free shortening
   path and forbids Adsterra on link creation blockers, redirects, and user

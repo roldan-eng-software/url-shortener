@@ -15,7 +15,10 @@ export const authSchema = z.object({
 
 export const loginSchema = z.object({
   email: emailSchema.transform((email) => email.toLowerCase()),
-  password: z.string().min(1, 'Senha é obrigatória').max(128, 'Senha deve ter no máximo 128 caracteres'),
+  password: z
+    .string()
+    .min(1, 'Senha é obrigatória')
+    .max(128, 'Senha deve ter no máximo 128 caracteres'),
 });
 
 export const createUrlSchema = z.object({
@@ -61,11 +64,7 @@ export const updateUserLinkSchema = z.object({
 });
 
 export const marketingLeadSchema = z.object({
-  name: z
-    .string('Informe seu nome')
-    .trim()
-    .min(2, 'Informe seu nome')
-    .max(120, 'Nome muito longo'),
+  name: z.string('Informe seu nome').trim().min(2, 'Informe seu nome').max(120, 'Nome muito longo'),
   email: z
     .string('Informe seu email')
     .trim()
@@ -84,9 +83,7 @@ export const marketingLeadSchema = z.object({
     .max(40, 'Telefone muito longo')
     .optional()
     .transform((value) => value || undefined),
-  interest: z
-    .enum(['premium', 'analytics', 'campaigns', 'agency'])
-    .default('premium'),
+  interest: z.enum(['premium', 'analytics', 'campaigns', 'agency']).default('premium'),
   source: z
     .string()
     .trim()

@@ -4,10 +4,7 @@ import { getDb, schema } from '@/lib/db';
 
 const { bioLinks } = schema;
 
-export async function GET(
-  request: Request,
-  { params }: { params: Promise<{ id: string }> }
-) {
+export async function GET(request: Request, { params }: { params: Promise<{ id: string }> }) {
   try {
     const { id } = await params;
     const db = getDb();

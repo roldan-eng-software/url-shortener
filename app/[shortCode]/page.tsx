@@ -3,7 +3,16 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'next/navigation';
 import Link from 'next/link';
-import { Shield, Clock, AlertTriangle, CheckCircle, Info, Lock, Globe, FileText } from 'lucide-react';
+import {
+  Shield,
+  Clock,
+  AlertTriangle,
+  CheckCircle,
+  Info,
+  Lock,
+  Globe,
+  FileText,
+} from 'lucide-react';
 import { PublicBioPage } from '@/components/bio/PublicBioPage';
 
 interface UrlData {
@@ -16,7 +25,7 @@ export default function RedirectPage() {
   const rawShortCode = params.shortCode as string;
   const shortCode = decodeURIComponent(rawShortCode || '');
   const isBioPage = shortCode?.startsWith('@');
-  
+
   const [countdown, setCountdown] = useState(8);
   const [urlData, setUrlData] = useState<UrlData | null>(null);
   const [error, setError] = useState<string | null>(null);
@@ -29,12 +38,12 @@ export default function RedirectPage() {
         const response = await fetch(`/api/redirect/${shortCode}`, {
           method: 'POST',
         });
-        
+
         if (!response.ok) {
           const errorData = await response.json();
           throw new Error(errorData.error || 'URL not found');
         }
-        
+
         const data = await response.json();
         setUrlData({
           originalUrl: data.originalUrl,
@@ -129,12 +138,10 @@ export default function RedirectPage() {
             Link não encontrado
           </h1>
           <p className="text-red-600 dark:text-red-300 mb-4">
-            {error === 'URL not found' 
-              ? 'Este link encurtado não existe ou foi removido.' 
-              : error}
+            {error === 'URL not found' ? 'Este link encurtado não existe ou foi removido.' : error}
           </p>
-          <Link 
-            href="/" 
+          <Link
+            href="/"
             className="inline-block px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
           >
             Criar novo link
@@ -160,7 +167,9 @@ export default function RedirectPage() {
           Você está sendo redirecionado para:
         </h1>
         <p className="text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
-          <span className="font-semibold text-blue-600 dark:text-blue-400">{destinationDomain}</span>
+          <span className="font-semibold text-blue-600 dark:text-blue-400">
+            {destinationDomain}
+          </span>
         </p>
       </div>
 
@@ -170,8 +179,12 @@ export default function RedirectPage() {
           {/* Destination Card */}
           <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700 p-6">
             <div className="flex items-start gap-4 mb-4">
-              <div className={`flex-shrink-0 w-14 h-14 rounded-xl flex items-center justify-center ${isHttps ? 'bg-green-100 dark:bg-green-900/30' : 'bg-yellow-100 dark:bg-yellow-900/30'}`}>
-                <Lock className={`w-7 h-7 ${isHttps ? 'text-green-600 dark:text-green-400' : 'text-yellow-600 dark:text-yellow-400'}`} />
+              <div
+                className={`flex-shrink-0 w-14 h-14 rounded-xl flex items-center justify-center ${isHttps ? 'bg-green-100 dark:bg-green-900/30' : 'bg-yellow-100 dark:bg-yellow-900/30'}`}
+              >
+                <Lock
+                  className={`w-7 h-7 ${isHttps ? 'text-green-600 dark:text-green-400' : 'text-yellow-600 dark:text-yellow-400'}`}
+                />
               </div>
               <div className="flex-1 min-w-0">
                 <h2 className="text-lg font-semibold text-gray-900 dark:text-white mb-1">
@@ -181,7 +194,9 @@ export default function RedirectPage() {
                   URL: <span className="font-mono text-xs break-all">{urlData?.originalUrl}</span>
                 </p>
                 <div className="flex flex-wrap items-center gap-3">
-                  <span className={`inline-flex items-center gap-1 px-3 py-1 rounded-full text-xs font-medium ${isHttps ? 'bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-300' : 'bg-yellow-100 text-yellow-700 dark:bg-yellow-900/30 dark:text-yellow-300'}`}>
+                  <span
+                    className={`inline-flex items-center gap-1 px-3 py-1 rounded-full text-xs font-medium ${isHttps ? 'bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-300' : 'bg-yellow-100 text-yellow-700 dark:bg-yellow-900/30 dark:text-yellow-300'}`}
+                  >
                     <CheckCircle className="w-3 h-3" />
                     {isHttps ? 'HTTPS Seguro' : 'HTTP Não Seguro'}
                   </span>
@@ -205,9 +220,9 @@ export default function RedirectPage() {
                   {countdown}s
                 </span>
               </div>
-              
+
               <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-3 mb-6 overflow-hidden">
-                <div 
+                <div
                   className="bg-gradient-to-r from-blue-500 to-blue-600 h-3 rounded-full transition-all duration-1000"
                   style={{ width: `${countdownProgress}%` }}
                 />
@@ -221,7 +236,10 @@ export default function RedirectPage() {
                 >
                   {canSkip ? 'Acessar agora' : `Aguarde ${countdown}s`}
                 </button>
-                <Link href="/" className="px-6 py-3 bg-gray-100 text-gray-700 rounded-lg font-medium hover:bg-gray-200">
+                <Link
+                  href="/"
+                  className="px-6 py-3 bg-gray-100 text-gray-700 rounded-lg font-medium hover:bg-gray-200"
+                >
                   Voltar
                 </Link>
               </div>
@@ -236,31 +254,47 @@ export default function RedirectPage() {
             </h3>
             <div className="grid sm:grid-cols-2 gap-4">
               <div className="flex gap-3">
-                <div className="flex-shrink-0 w-8 h-8 bg-white rounded-lg flex items-center justify-center text-sm font-bold text-indigo-600">1</div>
+                <div className="flex-shrink-0 w-8 h-8 bg-white rounded-lg flex items-center justify-center text-sm font-bold text-indigo-600">
+                  1
+                </div>
                 <div>
                   <h4 className="font-medium text-sm">Verifique o domínio</h4>
-                  <p className="text-xs text-gray-600 mt-1">Confirme se o site é conhecido e confiável.</p>
+                  <p className="text-xs text-gray-600 mt-1">
+                    Confirme se o site é conhecido e confiável.
+                  </p>
                 </div>
               </div>
               <div className="flex gap-3">
-                <div className="flex-shrink-0 w-8 h-8 bg-white rounded-lg flex items-center justify-center text-sm font-bold text-indigo-600">2</div>
+                <div className="flex-shrink-0 w-8 h-8 bg-white rounded-lg flex items-center justify-center text-sm font-bold text-indigo-600">
+                  2
+                </div>
                 <div>
                   <h4 className="font-medium text-sm">Procure por HTTPS</h4>
-                  <p className="text-xs text-gray-600 mt-1">Sites seguros exibem um cadeado no navegador.</p>
+                  <p className="text-xs text-gray-600 mt-1">
+                    Sites seguros exibem um cadeado no navegador.
+                  </p>
                 </div>
               </div>
               <div className="flex gap-3">
-                <div className="flex-shrink-0 w-8 h-8 bg-white rounded-lg flex items-center justify-center text-sm font-bold text-indigo-600">3</div>
+                <div className="flex-shrink-0 w-8 h-8 bg-white rounded-lg flex items-center justify-center text-sm font-bold text-indigo-600">
+                  3
+                </div>
                 <div>
                   <h4 className="font-medium text-sm">Desconfie de ofertas</h4>
-                  <p className="text-xs text-gray-600 mt-1">Promessas de ganhos fáceis são golpes.</p>
+                  <p className="text-xs text-gray-600 mt-1">
+                    Promessas de ganhos fáceis são golpes.
+                  </p>
                 </div>
               </div>
               <div className="flex gap-3">
-                <div className="flex-shrink-0 w-8 h-8 bg-white rounded-lg flex items-center justify-center text-sm font-bold text-indigo-600">4</div>
+                <div className="flex-shrink-0 w-8 h-8 bg-white rounded-lg flex items-center justify-center text-sm font-bold text-indigo-600">
+                  4
+                </div>
                 <div>
                   <h4 className="font-medium text-sm">Use antivírus</h4>
-                  <p className="text-xs text-gray-600 mt-1">Mantenha seu software sempre atualizado.</p>
+                  <p className="text-xs text-gray-600 mt-1">
+                    Mantenha seu software sempre atualizado.
+                  </p>
                 </div>
               </div>
             </div>
@@ -269,16 +303,17 @@ export default function RedirectPage() {
           {/* About URL Shortener */}
           <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 p-6">
             <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4 flex items-center gap-2">
-              <FileText className="w-5 h-5 text-blue-600" />
-              O que é um encurtador de URL?
+              <FileText className="w-5 h-5 text-blue-600" />O que é um encurtador de URL?
             </h3>
             <p className="text-sm text-gray-600 dark:text-gray-400 mb-3">
-              Um encurtador de URL transforma links longos em endereços curtos e fáceis de compartilhar. 
-              Por exemplo: <code className="bg-gray-100 px-1 rounded text-xs">loja.com/produto/12345</code> vira <code className="bg-gray-100 px-1 rounded text-xs">urle.io/Ab3x9</code>.
+              Um encurtador de URL transforma links longos em endereços curtos e fáceis de
+              compartilhar. Por exemplo:{' '}
+              <code className="bg-gray-100 px-1 rounded text-xs">loja.com/produto/12345</code> vira{' '}
+              <code className="bg-gray-100 px-1 rounded text-xs">urle.io/Ab3x9</code>.
             </p>
             <p className="text-sm text-gray-600 dark:text-gray-400">
-              <strong>Benefícios:</strong> Links mais fáceis de compartilhar, estatísticas de cliques, 
-              QR Codes automáticos e personalização para campanhas de marketing.
+              <strong>Benefícios:</strong> Links mais fáceis de compartilhar, estatísticas de
+              cliques, QR Codes automáticos e personalização para campanhas de marketing.
             </p>
           </div>
         </div>
@@ -295,11 +330,15 @@ export default function RedirectPage() {
               </div>
               <div className="flex justify-between py-2 border-b border-white/20">
                 <span className="text-blue-100">Destino:</span>
-                <span className="flex items-center gap-1"><CheckCircle className="w-4 h-4" /> Visível</span>
+                <span className="flex items-center gap-1">
+                  <CheckCircle className="w-4 h-4" /> Visível
+                </span>
               </div>
               <div className="flex justify-between py-2">
                 <span className="text-blue-100">Protocolo:</span>
-                <span className="uppercase">{getUrlProtocol(urlData?.originalUrl || '').replace(':', '')}</span>
+                <span className="uppercase">
+                  {getUrlProtocol(urlData?.originalUrl || '').replace(':', '')}
+                </span>
               </div>
             </div>
           </div>
@@ -314,7 +353,8 @@ export default function RedirectPage() {
                   <span className="group-open:rotate-180 transition">▼</span>
                 </summary>
                 <p className="mt-2 text-xs text-gray-600">
-                  A pausa mostra o destino antes do acesso e evita redirecionamentos automáticos sem contexto.
+                  A pausa mostra o destino antes do acesso e evita redirecionamentos automáticos sem
+                  contexto.
                 </p>
               </details>
               <details className="group">
@@ -332,7 +372,10 @@ export default function RedirectPage() {
                   <span className="group-open:rotate-180 transition">▼</span>
                 </summary>
                 <p className="mt-2 text-xs text-gray-600">
-                  <Link href="/" className="text-blue-600 hover:underline">Clique aqui</Link> para criar links gratuitos!
+                  <Link href="/" className="text-blue-600 hover:underline">
+                    Clique aqui
+                  </Link>{' '}
+                  para criar links gratuitos!
                 </p>
               </details>
             </div>
@@ -345,10 +388,18 @@ export default function RedirectPage() {
               Antes de continuar:
             </h4>
             <ul className="space-y-2 text-sm text-green-800">
-              <li className="flex items-center gap-2"><CheckCircle className="w-4 h-4" /> Confira o domínio</li>
-              <li className="flex items-center gap-2"><CheckCircle className="w-4 h-4" /> Verifique se usa HTTPS</li>
-              <li className="flex items-center gap-2"><CheckCircle className="w-4 h-4" /> Desconfie de pedidos de senha</li>
-              <li className="flex items-center gap-2"><CheckCircle className="w-4 h-4" /> Continue apenas se reconhecer o destino</li>
+              <li className="flex items-center gap-2">
+                <CheckCircle className="w-4 h-4" /> Confira o domínio
+              </li>
+              <li className="flex items-center gap-2">
+                <CheckCircle className="w-4 h-4" /> Verifique se usa HTTPS
+              </li>
+              <li className="flex items-center gap-2">
+                <CheckCircle className="w-4 h-4" /> Desconfie de pedidos de senha
+              </li>
+              <li className="flex items-center gap-2">
+                <CheckCircle className="w-4 h-4" /> Continue apenas se reconhecer o destino
+              </li>
             </ul>
           </div>
         </div>
@@ -357,14 +408,23 @@ export default function RedirectPage() {
       {/* Footer */}
       <div className="mt-12 pt-8 border-t border-gray-200 text-center">
         <p className="text-sm text-gray-500">
-          Protegido pelo <Link href="/" className="text-blue-600 hover:underline font-medium">URLEncurta</Link>
+          Protegido pelo{' '}
+          <Link href="/" className="text-blue-600 hover:underline font-medium">
+            URLEncurta
+          </Link>
         </p>
         <div className="flex justify-center gap-4 mt-4 text-xs text-gray-400">
-          <Link href="/termos" className="hover:text-gray-600">Termos</Link>
+          <Link href="/termos" className="hover:text-gray-600">
+            Termos
+          </Link>
           <span>•</span>
-          <Link href="/privacidade" className="hover:text-gray-600">Privacidade</Link>
+          <Link href="/privacidade" className="hover:text-gray-600">
+            Privacidade
+          </Link>
           <span>•</span>
-          <Link href="/" className="hover:text-gray-600">Criar link</Link>
+          <Link href="/" className="hover:text-gray-600">
+            Criar link
+          </Link>
         </div>
       </div>
     </div>

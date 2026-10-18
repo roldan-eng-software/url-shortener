@@ -24,10 +24,7 @@ export async function POST(request: NextRequest) {
     const db = getDb();
     const parsed = loginSchema.safeParse(await request.json());
     if (!parsed.success) {
-      return NextResponse.json(
-        { error: getZodErrorMessage(parsed.error) },
-        { status: 400 }
-      );
+      return NextResponse.json({ error: getZodErrorMessage(parsed.error) }, { status: 400 });
     }
     const { email, password } = parsed.data;
 
@@ -36,28 +33,23 @@ export async function POST(request: NextRequest) {
     });
 
     if (!user) {
-      return NextResponse.json(
-        { error: 'Credenciais inválidas' },
-        { status: 401 }
-      );
+      return NextResponse.json({ error: 'Credenciais inválidas' }, { status: 401 });
     }
 
     const isValidPassword = await verifyPassword(password, user.passwordHash);
     if (!isValidPassword) {
-      return NextResponse.json(
-        { error: 'Credenciais inválidas' },
-        { status: 401 }
-      );
+      return NextResponse.json({ error: 'Credenciais inválidas' }, { status: 401 });
     }
 
     if (needsPasswordRehash(user.passwordHash)) {
-      await db.update(usersTable)
+      await db
+        .update(usersTable)
         .set({ passwordHash: await hashPassword(password), updatedAt: new Date() })
         .where(eq(usersTable.id, user.id));
     }
 
-    const isPremium = user.isPremium && 
-      (!user.premiumExpiresAt || new Date(user.premiumExpiresAt) > new Date());
+    const isPremium =
+      user.isPremium && (!user.premiumExpiresAt || new Date(user.premiumExpiresAt) > new Date());
 
     const response = NextResponse.json({
       user: {
@@ -72,9 +64,6 @@ export async function POST(request: NextRequest) {
     return response;
   } catch (error) {
     console.error('Error logging in:', error);
-    return NextResponse.json(
-      { error: 'Erro interno do servidor' },
-      { status: 500 }
-    );
+    return NextResponse.json({ error: 'Erro interno do servidor' }, { status: 500 });
   }
 }

@@ -110,9 +110,7 @@ export function ShareTemplates({ shortUrl }: ShareTemplatesProps) {
                 <span
                   className={cn(
                     'rounded-full px-2.5 py-1 text-xs font-bold',
-                    template.recommended
-                      ? 'bg-primary/10 text-primary'
-                      : 'bg-border/50 text-text'
+                    template.recommended ? 'bg-primary/10 text-primary' : 'bg-border/50 text-text'
                   )}
                 >
                   {template.label}

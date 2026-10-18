@@ -3,7 +3,17 @@
 import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
 import { Suspense } from 'react';
-import { ArrowRight, BarChart3, CheckCircle2, Clock3, Crown, Link2, QrCode, ShieldCheck, AlertTriangle } from 'lucide-react';
+import {
+  ArrowRight,
+  BarChart3,
+  CheckCircle2,
+  Clock3,
+  Crown,
+  Link2,
+  QrCode,
+  ShieldCheck,
+  AlertTriangle,
+} from 'lucide-react';
 
 const nextSteps = [
   {
@@ -40,7 +50,8 @@ function SuccessContent() {
               Sessão inválida
             </h1>
             <p className="mx-auto mt-5 max-w-2xl text-lg leading-8 text-text">
-              Não foi possível confirmar sua sessão de pagamento. Se você completou o checkout, aguarde alguns segundos e atualize a página.
+              Não foi possível confirmar sua sessão de pagamento. Se você completou o checkout,
+              aguarde alguns segundos e atualize a página.
             </p>
 
             <div className="mt-8 flex flex-col justify-center gap-3 sm:flex-row">
@@ -80,7 +91,8 @@ function SuccessContent() {
             Parabéns, sua compra foi concluída.
           </h1>
           <p className="mx-auto mt-5 max-w-2xl text-lg leading-8 text-text">
-            Seu acesso Premium está sendo liberado. Em alguns casos, a confirmação do Stripe pode levar alguns segundos enquanto o webhook atualiza sua conta.
+            Seu acesso Premium está sendo liberado. Em alguns casos, a confirmação do Stripe pode
+            levar alguns segundos enquanto o webhook atualiza sua conta.
           </p>
 
           <div className="mt-8 flex flex-col justify-center gap-3 sm:flex-row">
@@ -127,7 +139,8 @@ function SuccessContent() {
             <div>
               <h2 className="font-bold text-title">Confirmação e recibo</h2>
               <p className="mt-1 text-sm leading-6 text-text">
-                A Stripe envia os detalhes do pagamento para o email usado no checkout. A assinatura também fica registrada na sua conta assim que o webhook for processado.
+                A Stripe envia os detalhes do pagamento para o email usado no checkout. A assinatura
+                também fica registrada na sua conta assim que o webhook for processado.
               </p>
             </div>
           </div>
@@ -139,18 +152,20 @@ function SuccessContent() {
 
 export default function PremiumSuccessPage() {
   return (
-    <Suspense fallback={
-      <div className="min-h-screen bg-background py-12">
-        <div className="container mx-auto max-w-5xl px-4">
-          <section className="rounded-3xl border border-border bg-surface p-6 text-center md:p-10">
-            <div className="mx-auto mb-6 flex h-16 w-16 items-center justify-center rounded-2xl bg-primary/10 text-primary">
-              <Clock3 className="h-9 w-9 animate-pulse" />
-            </div>
-            <h1 className="text-2xl font-bold text-title">Carregando...</h1>
-          </section>
+    <Suspense
+      fallback={
+        <div className="min-h-screen bg-background py-12">
+          <div className="container mx-auto max-w-5xl px-4">
+            <section className="rounded-3xl border border-border bg-surface p-6 text-center md:p-10">
+              <div className="mx-auto mb-6 flex h-16 w-16 items-center justify-center rounded-2xl bg-primary/10 text-primary">
+                <Clock3 className="h-9 w-9 animate-pulse" />
+              </div>
+              <h1 className="text-2xl font-bold text-title">Carregando...</h1>
+            </section>
+          </div>
         </div>
-      </div>
-    }>
+      }
+    >
       <SuccessContent />
     </Suspense>
   );

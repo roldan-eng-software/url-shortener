@@ -6,7 +6,10 @@ import { upsertBioPageSchema, getZodErrorMessage } from '@/lib/validation';
 
 const { bioPages, bioLinks } = schema;
 
-function serializeBioPage(page: typeof bioPages.$inferSelect, links: Array<typeof bioLinks.$inferSelect>) {
+function serializeBioPage(
+  page: typeof bioPages.$inferSelect,
+  links: Array<typeof bioLinks.$inferSelect>
+) {
   return {
     id: page.id,
     handle: page.handle,
@@ -68,7 +71,10 @@ export async function PUT(request: NextRequest) {
     }
 
     if (!authUser.isPremium) {
-      return NextResponse.json({ error: 'Link na bio é exclusivo para usuários Premium' }, { status: 403 });
+      return NextResponse.json(
+        { error: 'Link na bio é exclusivo para usuários Premium' },
+        { status: 403 }
+      );
     }
 
     const parsed = upsertBioPageSchema.safeParse(await request.json());

@@ -31,7 +31,11 @@ export default function DashboardPage() {
   const [links, setLinks] = useState<UserLink[]>([]);
   const [loading, setLoading] = useState(true);
   const [editModalOpen, setEditModalOpen] = useState(false);
-  const [editingLink, setEditingLink] = useState<{ id: string; originalUrl: string; customAlias: string } | null>(null);
+  const [editingLink, setEditingLink] = useState<{
+    id: string;
+    originalUrl: string;
+    customAlias: string;
+  } | null>(null);
   const [searchQuery, setSearchQuery] = useState('');
   const [toast, setToast] = useState<{ type: 'success' | 'error'; message: string } | null>(null);
 
@@ -69,24 +73,26 @@ export default function DashboardPage() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ originalUrl, customAlias }),
       });
-      
+
       const data = await res.json();
-      
+
       if (data.error) {
         throw new Error(data.error);
       }
-      
-      setLinks(links.map(link => 
-        link.id === id 
-          ? {
-              ...link,
-              original_url: originalUrl,
-              custom_alias: customAlias || null,
-              ...(customAlias && { short_code: customAlias }),
-            }
-          : link
-      ));
-      
+
+      setLinks(
+        links.map((link) =>
+          link.id === id
+            ? {
+                ...link,
+                original_url: originalUrl,
+                custom_alias: customAlias || null,
+                ...(customAlias && { short_code: customAlias }),
+              }
+            : link
+        )
+      );
+
       showToast('success', 'Link atualizado com sucesso');
     } catch (err) {
       throw err;
@@ -98,26 +104,26 @@ export default function DashboardPage() {
       const res = await fetch(`/api/user/links/${id}`, {
         method: 'DELETE',
       });
-      
+
       const data = await res.json();
-      
+
       if (data.error) {
         throw new Error(data.error);
       }
-      
-      setLinks(links.filter(link => link.id !== id));
+
+      setLinks(links.filter((link) => link.id !== id));
       showToast('success', 'Link excluído com sucesso');
     } catch {
       showToast('error', 'Erro ao excluir link');
     }
   };
 
-  const filteredLinks = links.filter(link => {
+  const filteredLinks = links.filter((link) => {
     const originalUrl = link.original_url || '';
     const shortCode = link.short_code || '';
     const customAlias = link.custom_alias || '';
     const query = searchQuery.toLowerCase();
-    
+
     return (
       originalUrl.toLowerCase().includes(query) ||
       shortCode.toLowerCase().includes(query) ||
@@ -174,9 +180,11 @@ export default function DashboardPage() {
             Dashboard Premium
           </div>
           <h1 className="text-3xl font-bold text-title">Central de performance</h1>
-          <p className="text-text">Gerencie, copie, analise e priorize os links que trazem clientes.</p>
+          <p className="text-text">
+            Gerencie, copie, analise e priorize os links que trazem clientes.
+          </p>
         </div>
-        
+
         <Link
           href="/dashboard/new"
           className="inline-flex items-center justify-center gap-2 rounded-xl bg-primary px-5 py-3 font-semibold text-white transition-all hover:scale-[1.02] hover:bg-primary-hover"
@@ -198,7 +206,9 @@ export default function DashboardPage() {
                   <p className="mt-1 text-3xl font-bold text-title">{card.value}</p>
                   <p className="mt-1 text-xs font-medium text-text-secondary">{card.helper}</p>
                 </div>
-                <div className={`flex h-11 w-11 items-center justify-center rounded-xl ${card.tone}`}>
+                <div
+                  className={`flex h-11 w-11 items-center justify-center rounded-xl ${card.tone}`}
+                >
                   <Icon className="h-5 w-5" />
                 </div>
               </div>
@@ -217,15 +227,18 @@ export default function DashboardPage() {
               <h2 className="text-lg font-bold text-title">Próxima melhor ação</h2>
               {links.length === 0 ? (
                 <p className="mt-1 text-sm text-text">
-                  Crie um link com alias de campanha e compartilhe no WhatsApp, Instagram e anúncios.
+                  Crie um link com alias de campanha e compartilhe no WhatsApp, Instagram e
+                  anúncios.
                 </p>
               ) : linksWithoutClicks > 0 ? (
                 <p className="mt-1 text-sm text-text">
-                  Existem {linksWithoutClicks} links sem clique. Reposte os principais canais e troque o texto da chamada.
+                  Existem {linksWithoutClicks} links sem clique. Reposte os principais canais e
+                  troque o texto da chamada.
                 </p>
               ) : (
                 <p className="mt-1 text-sm text-text">
-                  Seus links já têm tração. Abra as estatísticas do melhor link e replique o canal que mais converte.
+                  Seus links já têm tração. Abra as estatísticas do melhor link e replique o canal
+                  que mais converte.
                 </p>
               )}
               <div className="mt-4 flex flex-wrap gap-2">
@@ -264,7 +277,8 @@ export default function DashboardPage() {
             </div>
           </div>
           <p className="mt-4 break-all text-sm text-text">
-            {newestLink?.original_url || 'Crie seu primeiro link para iniciar o histórico de campanhas.'}
+            {newestLink?.original_url ||
+              'Crie seu primeiro link para iniciar o histórico de campanhas.'}
           </p>
         </div>
       </div>
@@ -315,10 +329,14 @@ export default function DashboardPage() {
         <div>
           <h2 className="text-lg font-bold text-title">Links da conta</h2>
           <p className="text-sm text-text">
-            {filteredLinks.length.toLocaleString('pt-BR')} de {links.length.toLocaleString('pt-BR')} links exibidos
+            {filteredLinks.length.toLocaleString('pt-BR')} de {links.length.toLocaleString('pt-BR')}{' '}
+            links exibidos
           </p>
         </div>
-        <Link href="/dashboard/new" className="hidden text-sm font-bold text-primary hover:text-primary-hover sm:inline-flex">
+        <Link
+          href="/dashboard/new"
+          className="hidden text-sm font-bold text-primary hover:text-primary-hover sm:inline-flex"
+        >
           Criar novo
         </Link>
       </div>
@@ -330,8 +348,18 @@ export default function DashboardPage() {
       ) : filteredLinks.length === 0 ? (
         <div className="text-center py-12">
           <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-border/50 flex items-center justify-center">
-            <svg className="w-8 h-8 text-text/50" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1" />
+            <svg
+              className="w-8 h-8 text-text/50"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"
+              />
             </svg>
           </div>
           <h3 className="text-lg font-semibold text-title mb-2">Nenhum link encontrado</h3>
@@ -380,19 +408,29 @@ export default function DashboardPage() {
       )}
 
       {toast && (
-        <div className={`fixed bottom-6 right-6 px-5 py-3 rounded-xl shadow-lg z-50 ${
-          toast.type === 'success' 
-            ? 'bg-green-500 text-white' 
-            : 'bg-red-500 text-white'
-        }`}>
+        <div
+          className={`fixed bottom-6 right-6 px-5 py-3 rounded-xl shadow-lg z-50 ${
+            toast.type === 'success' ? 'bg-green-500 text-white' : 'bg-red-500 text-white'
+          }`}
+        >
           <div className="flex items-center gap-2">
             {toast.type === 'success' ? (
               <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M5 13l4 4L19 7"
+                />
               </svg>
             ) : (
               <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M6 18L18 6M6 6l12 12"
+                />
               </svg>
             )}
             <span className="font-medium">{toast.message}</span>

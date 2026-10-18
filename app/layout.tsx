@@ -17,8 +17,17 @@ export const metadata: Metadata = {
     default: 'URLEncurta - Encurtador de URLs Grátis | Links Curtos e Seguros',
     template: '%s | URLEncurta',
   },
-  description: 'Encurte suas URLs gratuitamente com URLEncurta. Links curtos, seguros e com estatísticas detalhadas. Comece agora mesmo - rápido, simples e gratuito.',
-  keywords: ['encurtar url', 'url shortener', 'link curto', 'encurtador de links', 'bitly gratis', 'encurtador de url brasileiro', 'urls curtas'],
+  description:
+    'Encurte suas URLs gratuitamente com URLEncurta. Links curtos, seguros e com estatísticas detalhadas. Comece agora mesmo - rápido, simples e gratuito.',
+  keywords: [
+    'encurtar url',
+    'url shortener',
+    'link curto',
+    'encurtador de links',
+    'bitly gratis',
+    'encurtador de url brasileiro',
+    'urls curtas',
+  ],
   authors: [{ name: 'URLEncurta' }],
   creator: 'URLEncurta',
   publisher: 'URLEncurta',
@@ -30,7 +39,8 @@ export const metadata: Metadata = {
   },
   openGraph: {
     title: 'URLEncurta - Encurte suas URLs em segundos',
-    description: 'Transforme URLs longas em links curtos e fáceis de compartilhar. 100% grátis e seguro.',
+    description:
+      'Transforme URLs longas em links curtos e fáceis de compartilhar. 100% grátis e seguro.',
     url: siteUrl,
     type: 'website',
     locale: 'pt_BR',
@@ -70,11 +80,7 @@ export const metadata: Metadata = {
   },
 };
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="pt-BR" suppressHydrationWarning>
       <head>
@@ -105,9 +111,7 @@ export default function RootLayout({
         <AuthProvider>
           <Navbar />
           <ConversionTracker />
-          <main className="container mx-auto px-4 py-8 max-w-6xl flex-1">
-            {children}
-          </main>
+          <main className="container mx-auto px-4 py-8 max-w-6xl flex-1">{children}</main>
           <Footer />
           <CookieBanner />
         </AuthProvider>

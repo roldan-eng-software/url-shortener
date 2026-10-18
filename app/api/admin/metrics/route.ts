@@ -43,7 +43,15 @@ export async function GET(request: NextRequest) {
       privacyRequests,
       bioPages,
       bioLinks,
-      totalRecords: users + userLinks + anonLinks + urls + marketingLeads + privacyRequests + bioPages + bioLinks,
+      totalRecords:
+        users +
+        userLinks +
+        anonLinks +
+        urls +
+        marketingLeads +
+        privacyRequests +
+        bioPages +
+        bioLinks,
     };
 
     return NextResponse.json(metrics);

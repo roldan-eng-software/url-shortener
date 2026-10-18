@@ -25,30 +25,30 @@ The final business plan must include these sections in order:
 
 Each surface row must include:
 
-| Field | Required | Description |
-|-------|----------|-------------|
-| Surface | Yes | Route, page group, or experience name |
-| User intent | Yes | Primary reason the user is there |
-| Ad status | Yes | Allowed, forbidden, or review-required |
-| Business role | Yes | Traffic, trust, conversion, retention, or revenue |
-| Policy risk | Yes | AdSense, invalid traffic, accidental click, or content risk |
-| Privacy/trust note | Yes | LGPD, disclosure, destination clarity, or reputation concern |
-| Performance note | Yes | Impact on core action, page loading, or layout stability |
-| Decision owner | Yes | Who can approve or reject changes |
+| Field              | Required | Description                                                  |
+| ------------------ | -------- | ------------------------------------------------------------ |
+| Surface            | Yes      | Route, page group, or experience name                        |
+| User intent        | Yes      | Primary reason the user is there                             |
+| Ad status          | Yes      | Allowed, forbidden, or review-required                       |
+| Business role      | Yes      | Traffic, trust, conversion, retention, or revenue            |
+| Policy risk        | Yes      | AdSense, invalid traffic, accidental click, or content risk  |
+| Privacy/trust note | Yes      | LGPD, disclosure, destination clarity, or reputation concern |
+| Performance note   | Yes      | Impact on core action, page loading, or layout stability     |
+| Decision owner     | Yes      | Who can approve or reject changes                            |
 
 ## Content Roadmap Contract
 
 Each content opportunity must include:
 
-| Field | Required | Description |
-|-------|----------|-------------|
-| Topic | Yes | Proposed page or cluster title |
-| Audience | Yes | User segment served |
-| Search intent | Yes | Search need or question addressed |
-| Product connection | Yes | Link to shortening, QR Code, sharing, safety, bio, or Premium use |
-| User action | Yes | Desired post-reading action |
-| Ad eligibility | Yes | Allowed or review-required |
-| Success metric | Yes | How the opportunity will be evaluated |
+| Field              | Required | Description                                                       |
+| ------------------ | -------- | ----------------------------------------------------------------- |
+| Topic              | Yes      | Proposed page or cluster title                                    |
+| Audience           | Yes      | User segment served                                               |
+| Search intent      | Yes      | Search need or question addressed                                 |
+| Product connection | Yes      | Link to shortening, QR Code, sharing, safety, bio, or Premium use |
+| User action        | Yes      | Desired post-reading action                                       |
+| Ad eligibility     | Yes      | Allowed or review-required                                        |
+| Success metric     | Yes      | How the opportunity will be evaluated                             |
 
 The roadmap must contain at least 10 opportunities before implementation
 planning continues.

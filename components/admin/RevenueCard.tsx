@@ -17,7 +17,13 @@ const colorClasses = {
   gray: 'bg-gray-50 text-gray-600',
 };
 
-export function RevenueCard({ label, value, icon: Icon, format = 'number', color = 'green' }: RevenueCardProps) {
+export function RevenueCard({
+  label,
+  value,
+  icon: Icon,
+  format = 'number',
+  color = 'green',
+}: RevenueCardProps) {
   const formatValue = (val: number) => {
     if (format === 'currency') {
       // Convert from centavos to reais

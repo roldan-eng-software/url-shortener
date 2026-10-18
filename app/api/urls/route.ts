@@ -12,10 +12,7 @@ export async function POST(request: NextRequest) {
   try {
     const parsed = createUrlSchema.safeParse(await request.json());
     if (!parsed.success) {
-      return NextResponse.json(
-        { error: getZodErrorMessage(parsed.error) },
-        { status: 400 }
-      );
+      return NextResponse.json({ error: getZodErrorMessage(parsed.error) }, { status: 400 });
     }
     const { originalUrl, customCode } = parsed.data;
     const authUser = await getAuthUserFromRequest(request);
@@ -32,10 +29,7 @@ export async function POST(request: NextRequest) {
 
       const validation = isValidShortCode(customCode);
       if (!validation.valid) {
-        return NextResponse.json(
-          { error: validation.error },
-          { status: 400 }
-        );
+        return NextResponse.json({ error: validation.error }, { status: 400 });
       }
 
       if (await shortCodeExists(customCode)) {
@@ -69,14 +63,17 @@ export async function POST(request: NextRequest) {
     const db = getDb();
 
     if (isPremiumLink && authUser) {
-      const [link] = await db.insert(userLinks).values({
-        userId: authUser.id,
-        originalUrl,
-        shortCode,
-        customAlias: customCode || null,
-        qrCode: await generateQrCodeDataUrl(shortUrl),
-        isPremium: true,
-      }).returning();
+      const [link] = await db
+        .insert(userLinks)
+        .values({
+          userId: authUser.id,
+          originalUrl,
+          shortCode,
+          customAlias: customCode || null,
+          qrCode: await generateQrCodeDataUrl(shortUrl),
+          isPremium: true,
+        })
+        .returning();
 
       return NextResponse.json({
         id: link.id,
@@ -87,10 +84,13 @@ export async function POST(request: NextRequest) {
       });
     }
 
-    const [urlRecord] = await db.insert(urls).values({
-      originalUrl,
-      shortCode,
-    }).returning();
+    const [urlRecord] = await db
+      .insert(urls)
+      .values({
+        originalUrl,
+        shortCode,
+      })
+      .returning();
 
     return NextResponse.json({
       shortCode: urlRecord.shortCode,
@@ -100,9 +100,6 @@ export async function POST(request: NextRequest) {
     });
   } catch (error) {
     console.error('Error creating short URL:', error);
-    return NextResponse.json(
-      { error: 'Erro interno do servidor' },
-      { status: 500 }
-    );
+    return NextResponse.json({ error: 'Erro interno do servidor' }, { status: 500 });
   }
 }

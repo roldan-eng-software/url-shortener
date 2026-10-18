@@ -7,26 +7,23 @@ import { findLinkByShortCode } from '@/lib/data/links';
 
 const { userLinks: userLinksTable } = schema;
 
-export async function PUT(
-  request: NextRequest,
-  { params }: { params: Promise<{ id: string }> }
-) {
+export async function PUT(request: NextRequest, { params }: { params: Promise<{ id: string }> }) {
   try {
     if (!assertSameOrigin(request)) {
       return NextResponse.json({ error: 'Origem inválida' }, { status: 403 });
     }
 
     const authUser = await getAuthUserFromRequest(request);
-    
+
     if (!authUser) {
-      return NextResponse.json(
-        { error: 'Unauthorized' },
-        { status: 401 }
-      );
+      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
     if (!authUser.isPremium) {
-      return NextResponse.json({ error: 'Recurso exclusivo para usuários Premium' }, { status: 403 });
+      return NextResponse.json(
+        { error: 'Recurso exclusivo para usuários Premium' },
+        { status: 403 }
+      );
     }
 
     const db = getDb();
@@ -34,10 +31,7 @@ export async function PUT(
     const parsed = updateUserLinkSchema.safeParse(await request.json());
 
     if (!parsed.success) {
-      return NextResponse.json(
-        { error: getZodErrorMessage(parsed.error) },
-        { status: 400 }
-      );
+      return NextResponse.json({ error: getZodErrorMessage(parsed.error) }, { status: 400 });
     }
 
     const { originalUrl, customAlias } = parsed.data;
@@ -47,17 +41,11 @@ export async function PUT(
     });
 
     if (!existingLink) {
-      return NextResponse.json(
-        { error: 'Link não encontrado' },
-        { status: 404 }
-      );
+      return NextResponse.json({ error: 'Link não encontrado' }, { status: 404 });
     }
 
     if (existingLink.userId !== authUser.id) {
-      return NextResponse.json(
-        { error: 'Acesso negado' },
-        { status: 403 }
-      );
+      return NextResponse.json({ error: 'Acesso negado' }, { status: 403 });
     }
 
     if (customAlias) {
@@ -71,7 +59,8 @@ export async function PUT(
       }
     }
 
-    const [updatedLink] = await db.update(userLinksTable)
+    const [updatedLink] = await db
+      .update(userLinksTable)
       .set({
         ...(originalUrl && { originalUrl }),
         ...(customAlias !== undefined && { customAlias }),
@@ -92,10 +81,7 @@ export async function PUT(
     });
   } catch (error) {
     console.error('Error updating link:', error);
-    return NextResponse.json(
-      { error: 'Erro interno do servidor' },
-      { status: 500 }
-    );
+    return NextResponse.json({ error: 'Erro interno do servidor' }, { status: 500 });
   }
 }
 
@@ -109,16 +95,16 @@ export async function DELETE(
     }
 
     const authUser = await getAuthUserFromRequest(request);
-    
+
     if (!authUser) {
-      return NextResponse.json(
-        { error: 'Unauthorized' },
-        { status: 401 }
-      );
+      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
     if (!authUser.isPremium) {
-      return NextResponse.json({ error: 'Recurso exclusivo para usuários Premium' }, { status: 403 });
+      return NextResponse.json(
+        { error: 'Recurso exclusivo para usuários Premium' },
+        { status: 403 }
+      );
     }
 
     const db = getDb();
@@ -129,28 +115,18 @@ export async function DELETE(
     });
 
     if (!existingLink) {
-      return NextResponse.json(
-        { error: 'Link não encontrado' },
-        { status: 404 }
-      );
+      return NextResponse.json({ error: 'Link não encontrado' }, { status: 404 });
     }
 
     if (existingLink.userId !== authUser.id) {
-      return NextResponse.json(
-        { error: 'Acesso negado' },
-        { status: 403 }
-      );
+      return NextResponse.json({ error: 'Acesso negado' }, { status: 403 });
     }
 
-    await db.delete(userLinksTable)
-      .where(eq(userLinksTable.id, id));
+    await db.delete(userLinksTable).where(eq(userLinksTable.id, id));
 
     return NextResponse.json({ success: true });
   } catch (error) {
     console.error('Error deleting link:', error);
-    return NextResponse.json(
-      { error: 'Erro interno do servidor' },
-      { status: 500 }
-    );
+    return NextResponse.json({ error: 'Erro interno do servidor' }, { status: 500 });
   }
 }

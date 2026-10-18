@@ -84,9 +84,7 @@ export default function LeadsPage() {
 
       // Update local state
       setLeads((prevLeads) =>
-        prevLeads.map((lead) =>
-          lead.id === leadId ? { ...lead, status: newStatus } : lead
-        )
+        prevLeads.map((lead) => (lead.id === leadId ? { ...lead, status: newStatus } : lead))
       );
     } catch (err) {
       console.error('Error updating lead status:', err);
@@ -132,11 +130,7 @@ export default function LeadsPage() {
         onSourceChange={setSourceFilter}
       />
 
-      <LeadsTable
-        leads={leads}
-        loading={loading}
-        onStatusUpdate={handleStatusUpdate}
-      />
+      <LeadsTable leads={leads} loading={loading} onStatusUpdate={handleStatusUpdate} />
 
       {pagination && pagination.totalPages > 1 && (
         <div className="flex items-center justify-between">

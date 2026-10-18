@@ -2,15 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import Image from 'next/image';
-import {
-  Check,
-  Clipboard,
-  Copy,
-  Download,
-  ExternalLink,
-  QrCode,
-  X,
-} from 'lucide-react';
+import { Check, Clipboard, Copy, Download, ExternalLink, QrCode, X } from 'lucide-react';
 import { generateQrCodeDataUrl } from '@/lib/qr';
 import { cn } from '@/lib/utils';
 
@@ -53,27 +45,25 @@ export function QrCodeModal({ isOpen, onClose, url }: QrCodeModalProps) {
 
   const handleDownload = async () => {
     if (!qrCodeUrl) return;
-    
+
     const link = document.createElement('a');
     link.href = qrCodeUrl;
     link.download = `qrcode-${getQrFileName(url)}.png`;
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
-    
+
     setDownloaded(true);
     setTimeout(() => setDownloaded(false), 2000);
   };
 
   const handleCopyImage = async () => {
     if (!qrCodeUrl) return;
-    
+
     try {
       const response = await fetch(qrCodeUrl);
       const blob = await response.blob();
-      await navigator.clipboard.write([
-        new ClipboardItem({ [blob.type]: blob })
-      ]);
+      await navigator.clipboard.write([new ClipboardItem({ [blob.type]: blob })]);
       setCopied(true);
       setTimeout(() => setCopied(false), 2000);
     } catch {
@@ -108,11 +98,8 @@ export function QrCodeModal({ isOpen, onClose, url }: QrCodeModalProps) {
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
-      <div 
-        className="absolute inset-0 bg-black/60 backdrop-blur-sm"
-        onClick={onClose}
-      />
-      
+      <div className="absolute inset-0 bg-black/60 backdrop-blur-sm" onClick={onClose} />
+
       <div className="relative w-full max-w-md animate-in rounded-2xl bg-white shadow-2xl duration-200 fade-in zoom-in-95 dark:bg-slate-900">
         <button
           onClick={onClose}
@@ -156,7 +143,9 @@ export function QrCodeModal({ isOpen, onClose, url }: QrCodeModalProps) {
             <p className="mb-1 text-center text-xs font-bold uppercase tracking-[0.08em] text-gray-500 dark:text-gray-400">
               Link do QR Code
             </p>
-            <p className="break-all text-center text-sm font-medium text-gray-900 dark:text-gray-100">{url}</p>
+            <p className="break-all text-center text-sm font-medium text-gray-900 dark:text-gray-100">
+              {url}
+            </p>
           </div>
 
           <div className="grid gap-3 sm:grid-cols-2">

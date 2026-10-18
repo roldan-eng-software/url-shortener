@@ -2,14 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
-import {
-  AlertTriangle,
-  ArrowUpRight,
-  Eye,
-  Link2,
-  Loader2,
-  MousePointerClick,
-} from 'lucide-react';
+import { AlertTriangle, ArrowUpRight, Eye, Link2, Loader2, MousePointerClick } from 'lucide-react';
 
 interface PublicBioLink {
   id: string;
@@ -80,7 +73,9 @@ export function PublicBioPage({ handle }: { handle: string }) {
       <div className="mx-auto flex min-h-[70vh] max-w-md items-center justify-center px-4">
         <div className="w-full rounded-2xl border border-red-200 bg-red-50 p-6 text-center dark:border-red-800 dark:bg-red-900/20">
           <AlertTriangle className="mx-auto mb-4 h-10 w-10 text-red-500" />
-          <h1 className="text-xl font-bold text-red-800 dark:text-red-200">Página não encontrada</h1>
+          <h1 className="text-xl font-bold text-red-800 dark:text-red-200">
+            Página não encontrada
+          </h1>
           <p className="mt-2 text-sm text-red-700 dark:text-red-300">
             Esta bio ainda não existe ou está desativada.
           </p>
@@ -141,7 +136,10 @@ export function PublicBioPage({ handle }: { handle: string }) {
       </section>
 
       <footer className="mt-8 text-center">
-        <Link href="/" className="inline-flex items-center gap-1.5 text-xs font-bold text-primary hover:underline">
+        <Link
+          href="/"
+          className="inline-flex items-center gap-1.5 text-xs font-bold text-primary hover:underline"
+        >
           <Link2 className="h-3.5 w-3.5" />
           Feito com URLencurta
         </Link>

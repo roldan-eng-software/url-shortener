@@ -27,7 +27,7 @@ function getPaymentStatus(user: typeof users.$inferSelect): PaymentStatus {
     // Check if in trial period (7 days from creation)
     const createdDate = new Date(user.createdAt || new Date());
     const trialEndDate = new Date(createdDate.getTime() + 7 * 24 * 60 * 60 * 1000);
-    
+
     if (now < trialEndDate) {
       return { status: 'trialing', label: 'Trial', color: 'yellow' };
     }

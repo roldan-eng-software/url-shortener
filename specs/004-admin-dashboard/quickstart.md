@@ -55,6 +55,7 @@ http://localhost:3000/admin
 ```
 
 **Fluxo de Autenticação**:
+
 1. Faça login com conta de admin
 2. Sistema verifica campo `isAdmin`
 3. Se `true`, acesso liberado
@@ -63,21 +64,25 @@ http://localhost:3000/admin
 ### 5. Verificar Funcionalidades
 
 #### Métricas do Banco
+
 - Acesse `/admin`
 - Verifique cards com contagem de registros
 - Dados devem aparecer em menos de 3 segundos
 
 #### Clientes Premium
+
 - Acesse `/admin/clients`
 - Lista de usuários premium deve aparecer
 - Botão WhatsApp deve abrir nova aba
 
 #### Status Pagamentos
+
 - Acesse `/admin/payments`
 - Status Stripe deve mostrar "Conectado"
 - MRR deve ser exibido
 
 #### Gestão de Leads
+
 - Acesse `/admin/leads`
 - Lista de leads deve aparecer
 - Filtros devem funcionar
@@ -144,6 +149,7 @@ npx tsc --noEmit
 **Causa**: Usuário não tem `isAdmin = true`
 
 **Solução**:
+
 ```sql
 -- Verificar se usuário é admin
 SELECT email, is_admin FROM users WHERE email = 'seu-email@exemplo.com';
@@ -157,6 +163,7 @@ UPDATE users SET is_admin = TRUE WHERE email = 'seu-email@exemplo.com';
 **Causa**: Erro de conexão com banco
 
 **Solução**:
+
 1. Verificar se `DATABASE_URL` está configurada
 2. Testar conexão com Neon
 3. Verificar logs do servidor
@@ -166,6 +173,7 @@ UPDATE users SET is_admin = TRUE WHERE email = 'seu-email@exemplo.com';
 **Causa**: Chaves Stripe não configuradas
 
 **Solução**:
+
 1. Verificar variáveis de ambiente:
    - `STRIPE_SECRET_KEY`
    - `STRIPE_WEBHOOK_SECRET`
@@ -176,6 +184,7 @@ UPDATE users SET is_admin = TRUE WHERE email = 'seu-email@exemplo.com';
 **Causa**: Número de telefone não está no banco
 
 **Solução**:
+
 1. Verificar se telefone está preenchido no lead
 2. Formato deve ser: `5511999999999` (código país + DDD + número)
 
@@ -189,6 +198,7 @@ UPDATE users SET is_admin = TRUE WHERE email = 'seu-email@exemplo.com';
 ## Contato
 
 Em caso de problemas, consulte:
+
 - Documentação do projeto: `README.md`
 - Especificação: `specs/004-admin-dashboard/spec.md`
 - Plano de implementação: `specs/004-admin-dashboard/plan.md`

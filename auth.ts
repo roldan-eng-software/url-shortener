@@ -48,7 +48,8 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
         }
 
         if (needsPasswordRehash(user.passwordHash)) {
-          await db.update(users)
+          await db
+            .update(users)
             .set({ passwordHash: await hashPassword(password), updatedAt: new Date() })
             .where(eq(users.id, user.id));
         }

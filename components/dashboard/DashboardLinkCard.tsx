@@ -43,7 +43,7 @@ export function DashboardLinkCard({
   const [showStatsModal, setShowStatsModal] = useState(false);
   const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
 
-  const shortUrl = customAlias 
+  const shortUrl = customAlias
     ? `${typeof window !== 'undefined' ? window.location.origin : ''}/${customAlias}`
     : `${typeof window !== 'undefined' ? window.location.origin : ''}/${shortCode}`;
   const previewUrl = `${typeof window !== 'undefined' ? window.location.origin : ''}/preview/${customAlias || shortCode}`;
@@ -81,8 +81,7 @@ export function DashboardLinkCard({
             <div className="min-w-0 flex-1">
               <div className="mb-2 flex flex-wrap items-center gap-2">
                 <span className="inline-flex items-center gap-1.5 rounded-full bg-primary/10 px-3 py-1 text-xs font-bold text-primary">
-                  <Link2 className="h-3.5 w-3.5" />
-                  /{customAlias || shortCode}
+                  <Link2 className="h-3.5 w-3.5" />/{customAlias || shortCode}
                 </span>
                 {displayClicks === 0 && (
                   <span className="rounded-full bg-amber-500/10 px-3 py-1 text-xs font-bold text-amber-700 dark:text-amber-300">
@@ -90,7 +89,9 @@ export function DashboardLinkCard({
                   </span>
                 )}
               </div>
-              <p className="text-xs font-medium uppercase tracking-[0.08em] text-text-secondary">Destino</p>
+              <p className="text-xs font-medium uppercase tracking-[0.08em] text-text-secondary">
+                Destino
+              </p>
               <p className="mt-1 break-all text-sm text-title" title={originalUrl}>
                 {truncate(originalUrl, 60)}
               </p>
@@ -100,9 +101,7 @@ export function DashboardLinkCard({
                 onClick={handleCopy}
                 className={cn(
                   'inline-flex items-center gap-2 rounded-xl px-3 py-2 text-sm font-bold transition-all duration-300',
-                  copied
-                    ? 'bg-success text-white'
-                    : 'bg-primary text-white hover:bg-primary-hover'
+                  copied ? 'bg-success text-white' : 'bg-primary text-white hover:bg-primary-hover'
                 )}
                 title="Copiar link curto"
               >
@@ -120,15 +119,19 @@ export function DashboardLinkCard({
               </a>
             </div>
           </div>
-          
+
           <div className="rounded-xl border border-border/70 bg-background px-4 py-3">
             <div className="grid gap-3 md:grid-cols-2">
               <div>
-                <p className="text-xs font-medium uppercase tracking-[0.08em] text-text-secondary">Link curto</p>
+                <p className="text-xs font-medium uppercase tracking-[0.08em] text-text-secondary">
+                  Link curto
+                </p>
                 <p className="mt-1 break-all text-sm font-bold text-primary">{shortUrl}</p>
               </div>
               <div>
-                <p className="text-xs font-medium uppercase tracking-[0.08em] text-text-secondary">Prévia pública</p>
+                <p className="text-xs font-medium uppercase tracking-[0.08em] text-text-secondary">
+                  Prévia pública
+                </p>
                 <p className="mt-1 break-all text-sm font-bold text-title">{previewUrl}</p>
               </div>
             </div>
@@ -142,7 +145,7 @@ export function DashboardLinkCard({
               </div>
               <p className="text-xs font-medium text-text">Criado em {createdLabel}</p>
             </div>
-            
+
             <div className="flex items-center gap-1.5">
               <button
                 onClick={() => setShowStatsModal(true)}
@@ -186,25 +189,27 @@ export function DashboardLinkCard({
         </div>
       </div>
 
-      <QrCodeModal
-        isOpen={showQrModal}
-        onClose={() => setShowQrModal(false)}
-        url={shortUrl}
-      />
+      <QrCodeModal isOpen={showQrModal} onClose={() => setShowQrModal(false)} url={shortUrl} />
 
-      <StatsModal
-        isOpen={showStatsModal}
-        onClose={() => setShowStatsModal(false)}
-        linkId={id}
-      />
+      <StatsModal isOpen={showStatsModal} onClose={() => setShowStatsModal(false)} linkId={id} />
 
       {showDeleteConfirm && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50">
           <div className="bg-surface border border-border rounded-2xl p-6 max-w-md w-full shadow-2xl">
             <div className="text-center">
               <div className="w-12 h-12 mx-auto mb-4 rounded-full bg-red-100 dark:bg-red-900/30 flex items-center justify-center">
-                <svg className="w-6 h-6 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+                <svg
+                  className="w-6 h-6 text-red-500"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"
+                  />
                 </svg>
               </div>
               <h3 className="text-lg font-bold text-title mb-2">Confirmar exclusão</h3>

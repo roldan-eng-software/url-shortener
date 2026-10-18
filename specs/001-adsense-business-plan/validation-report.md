@@ -7,18 +7,18 @@
 
 ## Checklist status
 
-| Checklist | Total | Completed | Incomplete | Status |
-|-----------|-------|-----------|------------|--------|
-| requirements.md | 19 | 19 | 0 | PASS |
+| Checklist       | Total | Completed | Incomplete | Status |
+| --------------- | ----- | --------- | ---------- | ------ |
+| requirements.md | 19    | 19        | 0          | PASS   |
 
 ## Ignore file verification
 
-| Area | Result | Evidence |
-|------|--------|----------|
-| Git repository | PASS | `git rev-parse --git-dir` returns `.git` |
-| `.gitignore` | PASS | Covers Node/Next, env files, logs, build outputs, coverage and temp files |
-| ESLint ignores | PASS | `eslint.config.mjs` uses `globalIgnores` for `node_modules`, `.next`, `out`, `build`, `next-env.d.ts`, `tsconfig.tsbuildinfo`, and testsprite tmp |
-| Docker/Prettier/Terraform/Helm ignores | PASS | No Dockerfile, Prettier config, Terraform files, or Helm charts detected |
+| Area                                   | Result | Evidence                                                                                                                                          |
+| -------------------------------------- | ------ | ------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Git repository                         | PASS   | `git rev-parse --git-dir` returns `.git`                                                                                                          |
+| `.gitignore`                           | PASS   | Covers Node/Next, env files, logs, build outputs, coverage and temp files                                                                         |
+| ESLint ignores                         | PASS   | `eslint.config.mjs` uses `globalIgnores` for `node_modules`, `.next`, `out`, `build`, `next-env.d.ts`, `tsconfig.tsbuildinfo`, and testsprite tmp |
+| Docker/Prettier/Terraform/Helm ignores | PASS   | No Dockerfile, Prettier config, Terraform files, or Helm charts detected                                                                          |
 
 ## Surface inventory
 
@@ -76,66 +76,66 @@ dedicated cleanup spec before scaling paid or advertising traffic.
 
 ## Constitution gates
 
-| Gate | Status | Evidence |
-|------|--------|----------|
-| Free Utility Gate | PASS | `business-plan.md` protects no-signup shortening, copy and QR Code as the free promise |
-| Adsterra Surface Gate | PASS | Surface matrix classifies allowed, forbidden and review-required areas |
-| Organic Growth Gate | PASS | Roadmap includes 12 content opportunities and 6 growth loops |
-| Trust and LGPD Gate | PASS WITH IMPLEMENTATION FOLLOW-UP | Guardrails include privacy, cookies, third parties, unsafe destinations and policy risks. Runtime LGPD gaps found after this plan are handled by `specs/002-lgpd-compliance/`. |
-| Performance Gate | PASS | Guardrails include redirect p95, LCP, CLS, layout stability and creation completion |
+| Gate                  | Status                             | Evidence                                                                                                                                                                       |
+| --------------------- | ---------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| Free Utility Gate     | PASS                               | `business-plan.md` protects no-signup shortening, copy and QR Code as the free promise                                                                                         |
+| Adsterra Surface Gate | PASS                               | Surface matrix classifies allowed, forbidden and review-required areas                                                                                                         |
+| Organic Growth Gate   | PASS                               | Roadmap includes 12 content opportunities and 6 growth loops                                                                                                                   |
+| Trust and LGPD Gate   | PASS WITH IMPLEMENTATION FOLLOW-UP | Guardrails include privacy, cookies, third parties, unsafe destinations and policy risks. Runtime LGPD gaps found after this plan are handled by `specs/002-lgpd-compliance/`. |
+| Performance Gate      | PASS                               | Guardrails include redirect p95, LCP, CLS, layout stability and creation completion                                                                                            |
 
 ## Surface matrix review
 
-| Check | Result |
-|-------|--------|
-| Allowed surfaces are public/editorial | PASS |
-| Forbidden surfaces include API, dashboard, login, register, premium success, preview, redirects and legal pages | PASS |
-| Home is review-required rather than automatically monetized | PASS |
-| Bio pages are review-required because they mix user content and product value | PASS |
-| No forbidden route category is marked ad-eligible | PASS |
+| Check                                                                                                           | Result |
+| --------------------------------------------------------------------------------------------------------------- | ------ |
+| Allowed surfaces are public/editorial                                                                           | PASS   |
+| Forbidden surfaces include API, dashboard, login, register, premium success, preview, redirects and legal pages | PASS   |
+| Home is review-required rather than automatically monetized                                                     | PASS   |
+| Bio pages are review-required because they mix user content and product value                                   | PASS   |
+| No forbidden route category is marked ad-eligible                                                               | PASS   |
 
 ## Roadmap review
 
-| Check | Result |
-|-------|--------|
-| At least 10 content opportunities documented | PASS: 12 opportunities |
-| Every opportunity includes audience | PASS |
-| Every opportunity includes search intent | PASS |
-| Every opportunity includes product connection | PASS |
-| Every opportunity includes user action | PASS |
-| Every opportunity includes ad eligibility | PASS |
-| Every opportunity includes success metric | PASS |
+| Check                                         | Result                 |
+| --------------------------------------------- | ---------------------- |
+| At least 10 content opportunities documented  | PASS: 12 opportunities |
+| Every opportunity includes audience           | PASS                   |
+| Every opportunity includes search intent      | PASS                   |
+| Every opportunity includes product connection | PASS                   |
+| Every opportunity includes user action        | PASS                   |
+| Every opportunity includes ad eligibility     | PASS                   |
+| Every opportunity includes success metric     | PASS                   |
 
 ## Compliance review
 
-| Check | Result |
-|-------|--------|
-| Google AdSense policy risk documented | PASS |
-| Invalid traffic and accidental click risk documented | PASS |
-| Better Ads/readability risk documented | PASS |
+| Check                                                                     | Result              |
+| ------------------------------------------------------------------------- | ------------------- |
+| Google AdSense policy risk documented                                     | PASS                |
+| Invalid traffic and accidental click risk documented                      | PASS                |
+| Better Ads/readability risk documented                                    | PASS                |
 | Privacy, cookies, analytics, advertising, Stripe and lead capture covered | PASS WITH FOLLOW-UP | Covered as planning requirements; runtime implementation corrected in `specs/002-lgpd-compliance/`. |
-| Legal/privacy update triggers defined | PASS |
-| Unsafe destination and domain reputation risk documented | PASS |
+| Legal/privacy update triggers defined                                     | PASS                |
+| Unsafe destination and domain reputation risk documented                  | PASS                |
 
 ## Metrics review
 
-| Check | Result |
-|-------|--------|
-| At least 8 metrics documented | PASS: 9 metrics |
-| Business question included | PASS |
-| Baseline source or collection approach included | PASS |
-| Review cadence included | PASS |
-| Decision threshold or expected use included | PASS |
+| Check                                           | Result          |
+| ----------------------------------------------- | --------------- |
+| At least 8 metrics documented                   | PASS: 9 metrics |
+| Business question included                      | PASS            |
+| Baseline source or collection approach included | PASS            |
+| Review cadence included                         | PASS            |
+| Decision threshold or expected use included     | PASS            |
 
 ## Performance review
 
-| Check | Result |
-|-------|--------|
-| Redirect hot path protected | PASS |
-| Public page LCP and CLS considered | PASS |
-| Ad layout stability considered | PASS |
-| Link creation completion protected | PASS |
-| Tracking/ad scripts require impact review | PASS |
+| Check                                     | Result |
+| ----------------------------------------- | ------ |
+| Redirect hot path protected               | PASS   |
+| Public page LCP and CLS considered        | PASS   |
+| Ad layout stability considered            | PASS   |
+| Link creation completion protected        | PASS   |
+| Tracking/ad scripts require impact review | PASS   |
 
 ## User story acceptance validation
 
@@ -188,11 +188,11 @@ Evidence:
 
 ## Final acceptance
 
-| Contract item | Status |
-|---------------|--------|
-| All required sections present | PASS |
-| Surface categories classified | PASS |
-| At least 10 eligible/review-qualified opportunities documented | PASS |
-| At least 8 metrics documented | PASS |
-| No forbidden route category marked ad-eligible | PASS |
-| Decision workflow usable in under 15 minutes | PASS |
+| Contract item                                                  | Status |
+| -------------------------------------------------------------- | ------ |
+| All required sections present                                  | PASS   |
+| Surface categories classified                                  | PASS   |
+| At least 10 eligible/review-qualified opportunities documented | PASS   |
+| At least 8 metrics documented                                  | PASS   |
+| No forbidden route category marked ad-eligible                 | PASS   |
+| Decision workflow usable in under 15 minutes                   | PASS   |

@@ -5,7 +5,7 @@
 **Status**: Draft  
 **Input**: User description: "Dashboard admin para gerenciar todo o sistema com monitoramento de banco de dados, gestão de clientes premium, status de pagamentos e gestão de leads"
 
-## User Scenarios & Testing *(mandatory)*
+## User Scenarios & Testing _(mandatory)_
 
 ### User Story 1 - Database Monitoring (Priority: P1)
 
@@ -95,7 +95,7 @@ Como proprietário do sistema, eu quero garantir que apenas usuários autorizado
 - O que acontece se o Stripe retornar erro ao calcular MRR? → Exibe "N/A" com tooltip explicativo
 - Como lidar com leads duplicados (mesmo email)? → Permite visualizar duplicatas, mas não auto-filtra
 
-## Requirements *(mandatory)*
+## Requirements _(mandatory)_
 
 ### Functional Requirements
 
@@ -110,7 +110,7 @@ Como proprietário do sistema, eu quero garantir que apenas usuários autorizado
 - **FR-009**: Sistema DEVE proteger todas as rotas admin com middleware de verificação de role
 - **FR-010**: Sistema DEVE exibir status da conexão Stripe (verificando se as chaves estão configuradas)
 
-### Monetization, Growth & Compliance Requirements *(mandatory when affected)*
+### Monetization, Growth & Compliance Requirements _(mandatory when affected)_
 
 - **MG-001**: Feature NÃO afeta fluxo gratuito de encurtamento, Adsterra, SEO pages, compartilhamento, QR Codes ou Premium conversion
 - **MG-002**: Feature NÃO adiciona anúncios Adsterra - dashboard admin é superfície privada
@@ -126,7 +126,7 @@ Como proprietário do sistema, eu quero garantir que apenas usuários autorizado
 - **PaymentMetrics**: Receita total e MRR calculados via Stripe API
 - **Lead**: Entidade existente (marketingLeads) com status gerenciável
 
-## Success Criteria *(mandatory)*
+## Success Criteria _(mandatory)_
 
 ### Measurable Outcomes
 

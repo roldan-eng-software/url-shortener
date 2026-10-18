@@ -24,10 +24,10 @@ export function WhatsAppButton({ phone, clientName, disabled }: WhatsAppButtonPr
 
   // Clean phone number (remove spaces, dashes, parentheses)
   const cleanPhone = phone.replace(/[\s\-\(\)]/g, '');
-  
+
   // Ensure it starts with country code (55 for Brazil)
   const phoneWithCountryCode = cleanPhone.startsWith('55') ? cleanPhone : `55${cleanPhone}`;
-  
+
   // Create WhatsApp Web link
   const whatsappUrl = `https://wa.me/${phoneWithCountryCode}`;
 

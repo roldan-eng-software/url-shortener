@@ -5,10 +5,7 @@ import { bioHandleSchema } from '@/lib/validation';
 
 const { bioPages, bioLinks } = schema;
 
-export async function GET(
-  request: Request,
-  { params }: { params: Promise<{ handle: string }> }
-) {
+export async function GET(request: Request, { params }: { params: Promise<{ handle: string }> }) {
   try {
     const { handle: rawHandle } = await params;
     const parsedHandle = bioHandleSchema.safeParse(rawHandle.replace(/^@/, ''));

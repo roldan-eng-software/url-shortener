@@ -1,6 +1,15 @@
 'use client';
 
-import { Database, Link2, Users, FileText, Shield, Globe, Layout, MousePointer } from 'lucide-react';
+import {
+  Database,
+  Link2,
+  Users,
+  FileText,
+  Shield,
+  Globe,
+  Layout,
+  MousePointer,
+} from 'lucide-react';
 import { MetricsCard } from './MetricsCard';
 
 interface DatabaseMetrics {

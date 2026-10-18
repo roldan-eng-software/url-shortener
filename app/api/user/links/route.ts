@@ -48,10 +48,7 @@ export async function GET(request: NextRequest) {
     return NextResponse.json({ links: links.map(serializeUserLink) });
   } catch (error) {
     console.error('Error fetching user links:', error);
-    return NextResponse.json(
-      { error: 'Erro interno do servidor' },
-      { status: 500 }
-    );
+    return NextResponse.json({ error: 'Erro interno do servidor' }, { status: 500 });
   }
 }
 
@@ -68,7 +65,10 @@ export async function POST(request: NextRequest) {
     }
 
     if (!authUser.isPremium) {
-      return NextResponse.json({ error: 'Dashboard é exclusivo para usuários Premium' }, { status: 403 });
+      return NextResponse.json(
+        { error: 'Dashboard é exclusivo para usuários Premium' },
+        { status: 403 }
+      );
     }
 
     const db = getDb();
@@ -87,7 +87,10 @@ export async function POST(request: NextRequest) {
       }
 
       if (await shortCodeExists(customAlias)) {
-        return NextResponse.json({ error: 'Este alias já está em uso. Escolha outro.' }, { status: 409 });
+        return NextResponse.json(
+          { error: 'Este alias já está em uso. Escolha outro.' },
+          { status: 409 }
+        );
       }
 
       shortCode = customAlias;
@@ -102,7 +105,10 @@ export async function POST(request: NextRequest) {
       } while (attempts < maxAttempts);
 
       if (attempts >= maxAttempts) {
-        return NextResponse.json({ error: 'Erro ao gerar código. Tente novamente.' }, { status: 500 });
+        return NextResponse.json(
+          { error: 'Erro ao gerar código. Tente novamente.' },
+          { status: 500 }
+        );
       }
     }
 
@@ -110,14 +116,17 @@ export async function POST(request: NextRequest) {
     const shortUrl = `${baseUrl}/${shortCode}`;
     const qrCode = await generateQrCodeDataUrl(shortUrl);
 
-    const [link] = await db.insert(userLinksTable).values({
-      userId: authUser.id,
-      originalUrl,
-      shortCode,
-      customAlias: customAlias || null,
-      qrCode,
-      isPremium: true,
-    }).returning();
+    const [link] = await db
+      .insert(userLinksTable)
+      .values({
+        userId: authUser.id,
+        originalUrl,
+        shortCode,
+        customAlias: customAlias || null,
+        qrCode,
+        isPremium: true,
+      })
+      .returning();
 
     return NextResponse.json({
       id: link.id,

@@ -46,11 +46,9 @@ function getAliasSeeds(url: string) {
     const cleanHost = normalizeAlias(host);
     const cleanPath = normalizeAlias(path);
 
-    return [
-      `${cleanHost}-${cleanPath}`,
-      `${cleanHost}-whatsapp`,
-      `${cleanHost}-promo`,
-    ].filter((alias, index, aliases) => alias.length >= 3 && aliases.indexOf(alias) === index);
+    return [`${cleanHost}-${cleanPath}`, `${cleanHost}-whatsapp`, `${cleanHost}-promo`].filter(
+      (alias, index, aliases) => alias.length >= 3 && aliases.indexOf(alias) === index
+    );
   } catch {
     return campaignExamples;
   }
@@ -141,7 +139,8 @@ export default function NewLinkPage() {
             </div>
             <h1 className="text-3xl font-bold text-title">Criar link de campanha</h1>
             <p className="mt-2 max-w-2xl text-text">
-              Monte um link curto com alias de marca, pronto para copiar, divulgar e acompanhar no dashboard.
+              Monte um link curto com alias de marca, pronto para copiar, divulgar e acompanhar no
+              dashboard.
             </p>
           </div>
 
@@ -153,7 +152,9 @@ export default function NewLinkPage() {
                     <Check className="h-5 w-5" />
                     <span className="font-bold">Link criado com sucesso</span>
                   </div>
-                  <p className="break-all font-mono text-sm text-green-900 dark:text-green-100">{createdUrl}</p>
+                  <p className="break-all font-mono text-sm text-green-900 dark:text-green-100">
+                    {createdUrl}
+                  </p>
                 </div>
                 <div className="flex flex-wrap gap-2">
                   <button
@@ -161,7 +162,11 @@ export default function NewLinkPage() {
                     onClick={() => copyToClipboard(createdUrl)}
                     className="inline-flex items-center gap-2 rounded-xl bg-green-600 px-4 py-2 text-sm font-bold text-white transition hover:bg-green-700"
                   >
-                    {copiedValue === createdUrl ? <Check className="h-4 w-4" /> : <Copy className="h-4 w-4" />}
+                    {copiedValue === createdUrl ? (
+                      <Check className="h-4 w-4" />
+                    ) : (
+                      <Copy className="h-4 w-4" />
+                    )}
                     {copiedValue === createdUrl ? 'Copiado' : 'Copiar'}
                   </button>
                   <button
@@ -184,7 +189,10 @@ export default function NewLinkPage() {
             </div>
           )}
 
-          <form onSubmit={handleSubmit} className="rounded-2xl border border-border bg-surface p-5 md:p-6">
+          <form
+            onSubmit={handleSubmit}
+            className="rounded-2xl border border-border bg-surface p-5 md:p-6"
+          >
             {error && (
               <div className="mb-5 rounded-xl border border-red-200 bg-red-50 p-4 text-red-600 dark:border-red-800 dark:bg-red-900/20 dark:text-red-400">
                 {error}
@@ -209,7 +217,8 @@ export default function NewLinkPage() {
 
               <div>
                 <label className="mb-2 block text-sm font-bold text-title">
-                  Alias da campanha <span className="font-medium text-text-secondary">(opcional)</span>
+                  Alias da campanha{' '}
+                  <span className="font-medium text-text-secondary">(opcional)</span>
                 </label>
                 <div className="flex flex-col sm:flex-row">
                   <span className="rounded-t-xl border border-border bg-border/30 px-4 py-3 text-sm text-text sm:rounded-l-xl sm:rounded-tr-none sm:border-r-0">
@@ -242,7 +251,11 @@ export default function NewLinkPage() {
                   ))}
                   <button
                     type="button"
-                    onClick={() => setCustomAlias(aliasSuggestions[Math.floor(Math.random() * aliasSuggestions.length)] || '')}
+                    onClick={() =>
+                      setCustomAlias(
+                        aliasSuggestions[Math.floor(Math.random() * aliasSuggestions.length)] || ''
+                      )
+                    }
                     className="inline-flex items-center gap-1.5 rounded-lg bg-border/50 px-3 py-1.5 text-xs font-bold text-text transition hover:text-title"
                   >
                     <RefreshCw className="h-3.5 w-3.5" />
@@ -256,7 +269,11 @@ export default function NewLinkPage() {
                 disabled={loading}
                 className="inline-flex w-full items-center justify-center gap-2 rounded-xl bg-primary px-5 py-3.5 font-bold text-white transition-all hover:scale-[1.01] hover:bg-primary-hover disabled:cursor-not-allowed disabled:opacity-60"
               >
-                {loading ? <Loader2 className="h-5 w-5 animate-spin" /> : <Megaphone className="h-5 w-5" />}
+                {loading ? (
+                  <Loader2 className="h-5 w-5 animate-spin" />
+                ) : (
+                  <Megaphone className="h-5 w-5" />
+                )}
                 {loading ? 'Criando link...' : 'Criar link de campanha'}
               </button>
             </div>
@@ -270,7 +287,9 @@ export default function NewLinkPage() {
               Preview
             </h2>
             <div className="mt-4 rounded-xl border border-border bg-background p-4">
-              <p className="text-xs font-bold uppercase tracking-[0.1em] text-text-secondary">Link curto</p>
+              <p className="text-xs font-bold uppercase tracking-[0.1em] text-text-secondary">
+                Link curto
+              </p>
               <p className="mt-2 break-all text-lg font-bold text-primary">{previewUrl}</p>
             </div>
             <div className="mt-4 grid gap-2 text-sm text-text">
@@ -305,7 +324,11 @@ export default function NewLinkPage() {
               onClick={() => copyToClipboard(shareCopy)}
               className="mt-3 inline-flex w-full items-center justify-center gap-2 rounded-xl border border-border px-4 py-2.5 text-sm font-bold text-title transition hover:border-primary/50 hover:text-primary"
             >
-              {copiedValue === shareCopy ? <Check className="h-4 w-4" /> : <Copy className="h-4 w-4" />}
+              {copiedValue === shareCopy ? (
+                <Check className="h-4 w-4" />
+              ) : (
+                <Copy className="h-4 w-4" />
+              )}
               {copiedValue === shareCopy ? 'Copy copiada' : 'Copiar copy'}
             </button>
           </div>
@@ -313,11 +336,7 @@ export default function NewLinkPage() {
       </div>
 
       {createdUrl && (
-        <QrCodeModal
-          isOpen={showQrModal}
-          onClose={() => setShowQrModal(false)}
-          url={createdUrl}
-        />
+        <QrCodeModal isOpen={showQrModal} onClose={() => setShowQrModal(false)} url={createdUrl} />
       )}
     </div>
   );

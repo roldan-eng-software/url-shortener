@@ -22,9 +22,9 @@ export async function POST(
       return NextResponse.json({ error: 'URL expired' }, { status: 410 });
     }
 
-    return NextResponse.json({ 
-      success: true, 
-      originalUrl: urlRecord.originalUrl 
+    return NextResponse.json({
+      success: true,
+      originalUrl: urlRecord.originalUrl,
     });
   } catch (error) {
     console.error('Error recording click:', error);

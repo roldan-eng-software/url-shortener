@@ -27,7 +27,9 @@ export function LeadFilters({
       </div>
 
       <div className="flex items-center gap-2">
-        <label htmlFor="status" className="text-sm text-gray-600">Status:</label>
+        <label htmlFor="status" className="text-sm text-gray-600">
+          Status:
+        </label>
         <select
           id="status"
           value={statusFilter}
@@ -43,7 +45,9 @@ export function LeadFilters({
       </div>
 
       <div className="flex items-center gap-2">
-        <label htmlFor="interest" className="text-sm text-gray-600">Interesse:</label>
+        <label htmlFor="interest" className="text-sm text-gray-600">
+          Interesse:
+        </label>
         <select
           id="interest"
           value={interestFilter}
@@ -59,7 +63,9 @@ export function LeadFilters({
       </div>
 
       <div className="flex items-center gap-2">
-        <label htmlFor="source" className="text-sm text-gray-600">Fonte:</label>
+        <label htmlFor="source" className="text-sm text-gray-600">
+          Fonte:
+        </label>
         <select
           id="source"
           value={sourceFilter}

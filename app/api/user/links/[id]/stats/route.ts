@@ -5,18 +5,12 @@ import { getAuthUserFromRequest } from '@/lib/auth';
 
 const { userLinks: userLinksTable } = schema;
 
-export async function GET(
-  request: NextRequest,
-  { params }: { params: Promise<{ id: string }> }
-) {
+export async function GET(request: NextRequest, { params }: { params: Promise<{ id: string }> }) {
   try {
     const authUser = await getAuthUserFromRequest(request);
-    
+
     if (!authUser) {
-      return NextResponse.json(
-        { error: 'Unauthorized' },
-        { status: 401 }
-      );
+      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
     const db = getDb();
@@ -27,22 +21,16 @@ export async function GET(
     });
 
     if (!link) {
-      return NextResponse.json(
-        { error: 'Link não encontrado' },
-        { status: 404 }
-      );
+      return NextResponse.json({ error: 'Link não encontrado' }, { status: 404 });
     }
 
     if (link.userId !== authUser.id) {
-      return NextResponse.json(
-        { error: 'Acesso negado' },
-        { status: 403 }
-      );
+      return NextResponse.json({ error: 'Acesso negado' }, { status: 403 });
     }
 
-    const geoData = link.clicksGeo as Record<string, number> || {};
-    const deviceData = link.clicksDevice as Record<string, number> || {};
-    const referrerData = link.clicksReferrers as Record<string, number> || {};
+    const geoData = (link.clicksGeo as Record<string, number>) || {};
+    const deviceData = (link.clicksDevice as Record<string, number>) || {};
+    const referrerData = (link.clicksReferrers as Record<string, number>) || {};
 
     const topCountries = Object.entries(geoData)
       .map(([country, clicks]) => ({ country, clicks }))
@@ -73,9 +61,6 @@ export async function GET(
     });
   } catch (error) {
     console.error('Error fetching link stats:', error);
-    return NextResponse.json(
-      { error: 'Erro interno do servidor' },
-      { status: 500 }
-    );
+    return NextResponse.json({ error: 'Erro interno do servidor' }, { status: 500 });
   }
 }

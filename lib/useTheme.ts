@@ -42,7 +42,7 @@ export function useTheme() {
     const root = document.documentElement;
     root.classList.remove('light', 'dark');
     root.classList.add(resolved);
-    
+
     localStorage.setItem('theme', theme);
   }, [theme, mounted]);
 
@@ -50,7 +50,7 @@ export function useTheme() {
     if (!mounted) return;
 
     const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
-    
+
     const handleChange = () => {
       if (theme === 'system') {
         const newTheme = getSystemTheme();

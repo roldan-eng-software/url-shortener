@@ -4,7 +4,18 @@ import { useMemo, useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { signIn } from 'next-auth/react';
-import { ArrowLeft, ArrowRight, BarChart3, Eye, EyeOff, Link2, Loader2, Lock, Mail, ShieldCheck } from 'lucide-react';
+import {
+  ArrowLeft,
+  ArrowRight,
+  BarChart3,
+  Eye,
+  EyeOff,
+  Link2,
+  Loader2,
+  Lock,
+  Mail,
+  ShieldCheck,
+} from 'lucide-react';
 import { useAuth } from '@/context/AuthContext';
 
 function getRedirectPath() {
@@ -71,7 +82,10 @@ export default function LoginPage() {
     <div className="min-h-screen bg-background px-4 py-10">
       <div className="mx-auto grid min-h-[calc(100vh-5rem)] max-w-6xl gap-8 lg:grid-cols-[1fr_440px] lg:items-center">
         <section className="hidden lg:block">
-          <Link href="/" className="mb-10 inline-flex items-center gap-2 text-sm font-semibold text-text hover:text-primary">
+          <Link
+            href="/"
+            className="mb-10 inline-flex items-center gap-2 text-sm font-semibold text-text hover:text-primary"
+          >
             <ArrowLeft className="h-4 w-4" />
             Voltar para a home
           </Link>
@@ -84,7 +98,8 @@ export default function LoginPage() {
               Entre e continue sua campanha.
             </h1>
             <p className="mt-5 text-lg leading-8 text-text">
-              Acesse seus links, métricas, QR Codes e checkout Premium sem perder o caminho de onde você veio.
+              Acesse seus links, métricas, QR Codes e checkout Premium sem perder o caminho de onde
+              você veio.
             </p>
 
             <div className="mt-8 grid gap-3">
@@ -96,7 +111,10 @@ export default function LoginPage() {
                 const Icon = item.icon;
 
                 return (
-                  <div key={item.text} className="flex items-center gap-3 rounded-2xl border border-border bg-surface p-4">
+                  <div
+                    key={item.text}
+                    className="flex items-center gap-3 rounded-2xl border border-border bg-surface p-4"
+                  >
                     <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-primary/10 text-primary">
                       <Icon className="h-5 w-5" />
                     </span>
@@ -110,7 +128,10 @@ export default function LoginPage() {
 
         <section className="mx-auto w-full max-w-md">
           <div className="mb-6 lg:hidden">
-            <Link href="/" className="inline-flex items-center gap-2 text-sm font-semibold text-text hover:text-primary">
+            <Link
+              href="/"
+              className="inline-flex items-center gap-2 text-sm font-semibold text-text hover:text-primary"
+            >
               <ArrowLeft className="h-4 w-4" />
               Voltar
             </Link>
@@ -179,7 +200,11 @@ export default function LoginPage() {
                 disabled={loading}
                 className="inline-flex w-full items-center justify-center gap-2 rounded-xl bg-primary px-4 py-3.5 font-bold text-white transition hover:bg-primary-hover disabled:cursor-not-allowed disabled:opacity-50"
               >
-                {loading ? <Loader2 className="h-5 w-5 animate-spin" /> : <ArrowRight className="h-5 w-5" />}
+                {loading ? (
+                  <Loader2 className="h-5 w-5 animate-spin" />
+                ) : (
+                  <ArrowRight className="h-5 w-5" />
+                )}
                 {loading ? 'Entrando...' : 'Entrar e continuar'}
               </button>
             </form>
@@ -187,7 +212,10 @@ export default function LoginPage() {
             <div className="mt-6 rounded-2xl bg-background p-4 text-center">
               <p className="text-sm text-text">
                 Ainda não tem conta?{' '}
-                <Link href={registerHref} className="font-bold text-primary hover:text-primary-hover">
+                <Link
+                  href={registerHref}
+                  className="font-bold text-primary hover:text-primary-hover"
+                >
                   Criar conta grátis
                 </Link>
               </p>

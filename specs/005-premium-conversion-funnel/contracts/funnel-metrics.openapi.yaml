@@ -1,0 +1,156 @@
+openapi: 3.0.3
+info:
+  title: URLEncurta — Funnel Metrics API
+  version: 1.0.0
+  description: |
+    Endpoint de leitura do funil anônimo → Premium para o painel admin.
+    Consome apenas agregados de `funnel_events`; nunca retorna identidade de
+    visitante. Protegido pelo mesmo padrão `is_admin` dos demais endpoints
+    `app/api/admin/*`.
+
+servers:
+  - url: https://urlencurta.com.br
+    description: Produção
+  - url: http://localhost:3000
+    description: Desenvolvimento local
+
+paths:
+  /api/admin/funnel:
+    get:
+      summary: Agregados do funil por período e dimensão
+      operationId: getFunnelMetrics
+      security:
+        - sessionCookie: []
+      parameters:
+        - name: from
+          in: query
+          required: false
+          description: Início do período (ISO 8601). Padrão -30 dias.
+          schema:
+            type: string
+            format: date
+        - name: to
+          in: query
+          required: false
+          description: Fim do período (ISO 8601). Padrão hoje.
+          schema:
+            type: string
+            format: date
+        - name: groupBy
+          in: query
+          required: false
+          description: Dimensão de agrupamento adicional das etapas.
+          schema:
+            type: string
+            enum: [none, source]
+            default: none
+      responses:
+        '200':
+          description: Agregados do funil
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FunnelMetrics'
+        '401':
+          description: Não autenticado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Autenticado, mas sem `is_admin`
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+components:
+  securitySchemes:
+    sessionCookie:
+      type: apiKey
+      in: cookie
+      name: session
+
+  schemas:
+    FunnelMetrics:
+      type: object
+      required: [period, steps]
+      properties:
+        period:
+          type: object
+          required: [from, to]
+          properties:
+            from:
+              type: string
+              format: date
+            to:
+              type: string
+              format: date
+        totals:
+          type: object
+          description: Totais do período, sem agrupamento.
+          properties:
+            steps:
+              type: integer
+            users:
+              type: integer
+        steps:
+          type: array
+          description: Uma entrada por etapa (e por origem, se groupBy=source).
+          items:
+            $ref: '#/components/schemas/FunnelStep'
+        conversionRates:
+          type: object
+          description: |
+            Taxas de transição do funil (SC-001). Chaves fixas conforme o enum
+            de etapas.
+          properties:
+            visitorToAccount:
+              type: number
+              format: float
+            accountToTrial:
+              type: number
+              format: float
+            trialToPaid:
+              type: number
+              format: float
+            paidToCanceled:
+              type: number
+              format: float
+        unknownSourceShare:
+          type: number
+          format: float
+          description: |
+            Fração dos avanços sem origem atribuída (SC-003 permite até 10%).
+
+    FunnelStep:
+      type: object
+      required: [step, count]
+      properties:
+        step:
+          type: string
+          enum:
+            - result_viewed
+            - offer_viewed
+            - account_creation_started
+            - account_created
+            - trial_started
+            - subscription_active
+            - payment_failed
+            - subscription_canceled
+        source:
+          type: string
+          description: Presente apenas quando `groupBy=source`.
+        count:
+          type: integer
+        uniqueUsers:
+          type: integer
+          description: Contagem distinta por `user_id` quando aplicável.
+
+    Error:
+      type: object
+      required: [error]
+      properties:
+        error:
+          type: string
+          example: Não autorizado

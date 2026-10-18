@@ -408,7 +408,7 @@ components:
         phone:
           type: string
           nullable: true
-          description: Telefone do lead (formato: 5511999999999)
+          description: 'Telefone do lead (formato: 5511999999999)'
         interest:
           type: string
           enum: [premium, enterprise, partnership, other]

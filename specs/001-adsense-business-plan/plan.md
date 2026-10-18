@@ -1,5 +1,8 @@
 # Implementation Plan: AdSense Business Plan
 
+> **Superseded por [`003-adsterra-monetization-plan`](../003-adsterra-monetization-plan/plan.md).**
+> Plano original baseado em AdSense; a monetização atual usa **Adsterra**.
+
 **Branch**: `001-adsense-business-plan` | **Date**: 2026-05-14 | **Spec**: [spec.md](./spec.md)
 **Input**: Feature specification from `/specs/001-adsense-business-plan/spec.md`
 **Last Updated**: 2026-06-30
@@ -29,7 +32,7 @@ validation workflow for future features.
 
 ## Constitution Check
 
-*GATE: Must pass before Phase 0 research. Re-check after Phase 1 design.*
+_GATE: Must pass before Phase 0 research. Re-check after Phase 1 design._
 
 Answer every gate below with PASS, FAIL, or N/A and include concise evidence.
 Any FAIL must be listed in Complexity Tracking with a mitigation plan.

@@ -12,17 +12,17 @@ intake.
 ## Technical Context
 
 **Language/Version**: Next.js App Router, React, TypeScript, Drizzle/Postgres  
-**Primary Dependencies**: Existing constitution, AdSense business plan, ANPD cookie guidance, LGPD principles  
+**Primary Dependencies**: Existing constitution, AdSense business plan (001), ANPD cookie guidance, LGPD principles  
 **Storage**: Browser localStorage for cookie preferences; Postgres table for privacy requests  
 **Testing**: `npm run lint`, `npm run build`, manual/browser verification of script gating  
 **Target Platform**: `urlencurta.com.br` production deployment  
-**Constraints**: Preserve free shortening flow, preserve forbidden AdSense surfaces, do not block necessary auth/security cookies  
-**Scope**: Cookie preferences, Google Analytics/AdSense gating, legal pages, privacy request intake, spec status updates
+**Constraints**: Preserve free shortening flow, preserve forbidden Adsterra surfaces, do not block necessary auth/security cookies  
+**Scope**: Cookie preferences, Google Analytics/Adsterra gating, legal pages, privacy request intake, spec status updates
 
 ## Constitution Check
 
 - **Free Utility Gate**: PASS. The shortening flow remains unchanged.
-- **AdSense Surface Gate**: PASS. Advertising consent is additive and route restrictions remain enforced.
+- **Monetization Surface Gate**: PASS. Advertising consent is additive and route restrictions remain enforced.
 - **Organic Growth Gate**: PASS. Editorial pages remain available; ads require preference and eligible route.
 - **Trust and LGPD Gate**: PASS. This feature directly improves transparency, consent choices and rights handling.
 - **Performance Gate**: PASS. Blocking non-essential scripts by default reduces third-party load until accepted.
@@ -35,7 +35,7 @@ app/privacidade/page.tsx
 app/termos/page.tsx
 components/CookieBanner.tsx
 components/GoogleAnalytics.tsx
-components/Adsense.tsx
+components/Adsterra.tsx
 components/PrivacyRequestForm.tsx
 lib/cookie-consent.ts
 lib/db/schema.ts

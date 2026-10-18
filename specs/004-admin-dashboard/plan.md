@@ -12,7 +12,7 @@ Dashboard admin integrado ao app Next.js existente para gerenciamento completo d
 **Language/Version**: TypeScript 5.9, React 19  
 **Primary Dependencies**: Next.js 16 (App Router), Drizzle ORM 0.45, Stripe 17.5  
 **Storage**: Neon PostgreSQL (serverless)  
-**Testing**: Vitest (configurado no projeto)  
+**Testing**: Playwright (E2E) — ver `playwright.config.ts`  
 **Target Platform**: Web (Vercel deployment)  
 **Project Type**: Web application (Next.js monolith)  
 **Performance Goals**: Dashboard load < 3s, API responses < 500ms  
@@ -21,10 +21,10 @@ Dashboard admin integrado ao app Next.js existente para gerenciamento completo d
 
 ## Constitution Check
 
-*GATE: Must pass before Phase 0 research. Re-check after Phase 1 design.*
+_GATE: Must pass before Phase 0 research. Re-check after Phase 1 design._
 
 - **Free Utility Gate**: ✅ PASS - Feature não afeta fluxo gratuito de encurtamento. Dashboard admin é superfície privada separada.
-- **AdSense Surface Gate**: ✅ PASS - Feature não adiciona anúncios. Rotas admin são bloqueadas de monetização.
+- **Monetization Surface Gate**: ✅ PASS - Feature não adiciona anúncios. Rotas admin são bloqueadas de monetização.
 - **Organic Growth Gate**: ✅ PASS - Feature não contribui diretamente para crescimento orgânico, mas não prejudica alavancas existentes.
 - **Trust and LGPD Gate**: ✅ PASS - Feature não coleta dados novos. Apenas exibe dados existentes. LGPD não afetada.
 - **Performance Gate**: ✅ PASS - Operações admin são independentes do hot path de redirecionamento. Queries de contagem são leves.
@@ -89,6 +89,14 @@ migrations/
 
 **Structure Decision**: Estrutura integrada ao app Next.js existente (Opção A do usuário). Rotas admin em `app/admin/`, API em `app/api/admin/`, componentes em `components/admin/`, utilitários em `lib/admin/`. Mantém consistência com a arquitetura atual do projeto.
 
+> **Nota de implementação:** o código foi implementado com pequenas diferenças em
+> relação ao desenho abaixo. As migrations ficaram em `migrations/005_add_isAdmin.sql`
+> e `migrations/005b_set_first_admin.sql` (não `004_*`). O `AdminGuard.tsx` não foi
+> criado — a proteção acontece em `app/admin/layout.tsx` (verificação via
+> `/api/auth/check-premium`) e na revalidação de `is_admin` nos endpoints
+> `/api/admin/*`. As queries admin ficam nos próprios route handlers (não há
+> `lib/admin/metrics.ts`, `stripe.ts` ou `whatsapp.ts`).
+
 ## Complexity Tracking
 
 > **Fill ONLY if Constitution Check has violations that must be justified**
@@ -98,17 +106,20 @@ Nenhuma violação identificada. Feature é aditiva e não conflita com princíp
 ## Implementation Strategy
 
 ### Fase 1: Fundação (Auth + Schema)
+
 - Adicionar campo `isAdmin` à tabela users
 - Criar middleware de verificação de admin
 - Criar utilitário `lib/admin/auth.ts`
 
 ### Fase 2: APIs Admin
+
 - Endpoint de métricas do banco
 - Endpoint de listagem de clientes premium
 - Endpoint de status Stripe e MRR
 - Endpoint de gestão de leads
 
 ### Fase 3: Interface Admin
+
 - Layout admin com sidebar
 - Dashboard principal com cards de métricas
 - Página de gestão de clientes premium
@@ -116,18 +127,19 @@ Nenhuma violação identificada. Feature é aditiva e não conflita com princíp
 - Página de gestão de leads
 
 ### Fase 4: Integração e Segurança
+
 - Proteção de todas as rotas admin
 - Validação de permissões em cada endpoint
 - Testes de integração
 
 ## Risk Assessment
 
-| Risco | Impacto | Mitigação |
-|-------|---------|-----------|
-| Acesso admin não autorizado | Alto | Middleware robusto + verificação em cada endpoint |
-| Performance de queries de contagem | Baixo | Usar COUNT() otimizado, cache em memória |
-| Erro de conexão Stripe | Médio | Tratamento de erro graceful + fallback |
-| Dados sensíveis expostos | Alto | Apenas dados necessários são retornados |
+| Risco                              | Impacto | Mitigação                                         |
+| ---------------------------------- | ------- | ------------------------------------------------- |
+| Acesso admin não autorizado        | Alto    | Middleware robusto + verificação em cada endpoint |
+| Performance de queries de contagem | Baixo   | Usar COUNT() otimizado, cache em memória          |
+| Erro de conexão Stripe             | Médio   | Tratamento de erro graceful + fallback            |
+| Dados sensíveis expostos           | Alto    | Apenas dados necessários são retornados           |
 
 ## Next Steps
 

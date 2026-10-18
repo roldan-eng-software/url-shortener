@@ -12,8 +12,8 @@
 ## Phase 2: Third-Party Script Gating
 
 - [x] T004 Gate Google Analytics loading by analytics preference in `components/GoogleAnalytics.tsx`
-- [x] T005 Gate AdSense script and ad slots by advertising preference in `components/Adsense.tsx`
-- [x] T006 Preserve existing forbidden AdSense route categories
+- [x] T005 Gate Adsterra script and ad slots by advertising preference in `components/Adsterra.tsx`
+- [x] T006 Preserve existing forbidden Adsterra route categories
 
 ## Phase 3: Rights Request Intake
 
@@ -27,7 +27,7 @@
 
 - [x] T012 Rewrite `app/privacidade/page.tsx` for current runtime data flows
 - [x] T013 Rewrite `app/termos/page.tsx` to reference privacy choices and ad restrictions
-- [x] T014 Update legacy LGPD plan and AdSense business-plan validation notes
+- [x] T014 Update legacy LGPD plan and AdSense business-plan (001) validation notes
 
 ## Phase 5: Validation
 

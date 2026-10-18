@@ -1,9 +1,16 @@
 # Sistema de URL Shortener (Encurtador de URLs)
 
+> **Status:** documento original de concepção do projeto. Para o estado atual da
+> stack, das rotas e do banco, consulte [`README.md`](README.md),
+> [`docs/architecture.md`](docs/architecture.md) e
+> [`specs/README.md`](specs/README.md). O schema definitivo de dados é
+> [`lib/db/schema.ts`](lib/db/schema.ts).
+
 ## 1. Visão Geral do Projeto
 
 Desenvolver um sistema de encurtamento de URLs (URL Shortener) como MicroSaaS, utilizando as seguintes tecnologias:
-- **Frontend e Backend**: Next.js 14 com App Router
+
+- **Frontend e Backend**: Next.js 16 com App Router
 - **Hospedagem**: Vercel
 - **Banco de Dados**: Neon (PostgreSQL serverless)
 - **ORM**: Drizzle ORM
@@ -17,7 +24,7 @@ O sistema deve permitir que usuários encurtem URLs longas em códigos curtos e 
 A direção futura do produto é definida pela constituição em
 `.specify/memory/constitution.md`: o encurtador gratuito é o motor de
 viralização e aquisição; páginas editoriais e informativas podem monetizar via
-Google AdSense; rotas privadas, legais, transacionais, APIs, preview e
+Adsterra; rotas privadas, legais, transacionais, APIs, preview e
 redirecionamentos não devem exibir anúncios. Qualquer planejamento futuro deve
 preservar o fluxo gratuito, validar LGPD/segurança, proteger performance e
 explicitar como contribui para SEO, compartilhamento, retenção ou receita.
@@ -87,10 +94,12 @@ table.urls {
 
 /components
   /UrlForm.tsx           (Formulário de encurtamento)
-  /UrlResult.tsx         (Exibição do resultado)
-  /UrlCard.tsx           (Card para listagem)
-  /Stats.tsx             (Estatísticas globais)
+  /UrlResult.tsx         (Exibição do resultado + cópia)
+  /QrCodeModal.tsx       (Modal de QR Code)
+  /ShareTemplates.tsx    (Modelos de mensagem para compartilhamento)
   /Navbar.tsx            (Navegação)
+  /Adsterra.tsx          (Slots de anúncio com classificação de rota)
+  /admin/ /bio/ /dashboard/  (componentes por área)
 
 /lib
   /db.ts                 (Configuração do banco)
@@ -147,9 +156,9 @@ Body: font-weight 400
 Tamanhos: h1 (2.5rem), h2 (1.875rem), body (1rem), small (0.875rem)
 5.3. Componentes UI
 UrlForm: Input grande e destacado com botão de submit
-UrlResult: Card mostrando URL curta com botão de copiar
-UrlCard: Item de lista com URL original (truncada), URL curta, cliques
-Stats: Cards com números grandes para estatísticas
+UrlResult: Card mostrando URL curta com botões de copiar, QR Code e compartilhar
+QrCodeModal: Modal com o QR Code gerado para o link
+ShareTemplates: Sugestões de mensagem para WhatsApp/redes
 6. Configuração de Ambiente
 6.1. Variáveis de Ambiente (.env.local)
 # Banco de dados Neon
@@ -161,22 +170,29 @@ NEXT_PUBLIC_APP_URL="http://localhost:3000"
 6.2. Dependencies Principais
 {
   "dependencies": {
-    "next": "14.x",
-    "react": "18.x",
-    "react-dom": "18.x",
-    "drizzle-orm": "^0.29.x",
-    "@neondatabase/serverless": "^0.9.x",
-    "nanoid": "^5.x",
-    "clsx": "^2.x",
-    "tailwind-merge": "^2.x"
+    "next": "^16.2.4",
+    "react": "^19.2.5",
+    "react-dom": "^19.2.5",
+    "next-auth": "^5.0.0-beta.31",
+    "drizzle-orm": "^0.45.1",
+    "@neondatabase/serverless": "^1.0.2",
+    "stripe": "^17.5.0",
+    "zod": "^4.4.1",
+    "nanoid": "^5.1.6",
+    "qrcode": "^1.5.4",
+    "lucide-react": "^0.576.0",
+    "clsx": "^2.1.1",
+    "tailwind-merge": "^3.5.0"
   },
   "devDependencies": {
-    "drizzle-kit": "^0.20.x",
-    "typescript": "5.x",
-    "@types/node": "20.x",
-    "autoprefixer": "10.x",
-    "postcss": "8.x",
-    "tailwindcss": "3.x"
+    "drizzle-kit": "^0.31.10",
+    "typescript": "^5.9.3",
+    "@types/node": "^25.3.3",
+    "@playwright/test": "^1.58.2",
+    "eslint": "^9.39.4",
+    "autoprefixer": "^10.4.27",
+    "postcss": "^8.5.12",
+    "tailwindcss": "^3.4.19"
   }
 }
 
@@ -201,7 +217,7 @@ NEXT_PUBLIC_APP_URL="http://localhost:3000"
 8. Observações Importantes
 Este é um MVP (Minimum Viable Product) focado em simplicidade
 O código deve ser limpo, modularizado e bem comentado
-Usar Server Actions do Next.js 14 em vez de API routes onde apropriado
+Usar Server Actions do App Router (Next.js 16) em vez de API routes onde apropriado
 Implementar tratamento de erros adequado em todas as operações
 O projeto deve estar pronto para扩展 (escalabilidade) futuras
 
@@ -240,3 +256,4 @@ Deploy na Vercel:
 Conectar repositório GitHub
 Adicionar variáveis de ambiente
 Fazer deploy automático
+```

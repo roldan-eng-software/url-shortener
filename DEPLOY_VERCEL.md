@@ -26,6 +26,10 @@ DATABASE_URL=<postgres ssl connection string>
 STRIPE_SECRET_KEY=<stripe secret key>
 STRIPE_WEBHOOK_SECRET=<stripe webhook secret>
 STRIPE_PREMIUM_PRICE_ID=<stripe price id>
+# Adsterra (opcional; anúncios só carregam quando configurado e habilitado)
+NEXT_PUBLIC_ADSTERRA_ENABLED=true
+NEXT_PUBLIC_ADSTERRA_NATIVE_SCRIPT_URL=<url do script gerado no Adsterra>
+NEXT_PUBLIC_ADSTERRA_NATIVE_CONTAINER_ID=<id do container do Adsterra>
 ```
 
 Use sempre o domínio canônico de produção nessas variáveis. Se a Vercel redireciona
@@ -91,7 +95,11 @@ Eventos necessários:
 checkout.session.completed
 customer.subscription.updated
 customer.subscription.deleted
+invoice.payment_failed
+customer.subscription.trial_will_end
 ```
+
+Os cinco eventos são tratados em `app/api/stripe/webhook/route.ts`.
 
 Copie o Signing secret para `STRIPE_WEBHOOK_SECRET` no Vercel.
 

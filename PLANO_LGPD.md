@@ -1,6 +1,6 @@
 # Plano LGPD do URLEncurta
 
-**Atualizado em**: 2026-05-14  
+**Atualizado em**: 2026-10-18  
 **Status**: baseline técnico implementado; revisão jurídica formal ainda recomendada.
 
 ## Objetivo
@@ -22,15 +22,15 @@ O sistema trata:
 
 ## Bases legais por finalidade
 
-| Finalidade | Base legal operacional |
-|------------|------------------------|
-| Encurtamento, redirecionamento, QR Code e conta | Execução de contrato/procedimentos preliminares |
-| Segurança, antifraude, antiabuso e reputação do domínio | Legítimo interesse e prevenção a fraudes |
-| Analytics | Consentimento por preferência granular |
-| Publicidade/AdSense | Consentimento por preferência granular e rota elegível |
-| Premium e pagamentos | Execução de contrato e obrigação legal |
-| Leads e comunicações comerciais | Consentimento ou solicitação do titular |
-| Solicitações LGPD | Cumprimento de obrigação legal/regulatória |
+| Finalidade                                              | Base legal operacional                                 |
+| ------------------------------------------------------- | ------------------------------------------------------ |
+| Encurtamento, redirecionamento, QR Code e conta         | Execução de contrato/procedimentos preliminares        |
+| Segurança, antifraude, antiabuso e reputação do domínio | Legítimo interesse e prevenção a fraudes               |
+| Analytics                                               | Consentimento por preferência granular                 |
+| Publicidade/Adsterra                                    | Consentimento por preferência granular e rota elegível |
+| Premium e pagamentos                                    | Execução de contrato e obrigação legal                 |
+| Leads e comunicações comerciais                         | Consentimento ou solicitação do titular                |
+| Solicitações LGPD                                       | Cumprimento de obrigação legal/regulatória             |
 
 ## Cookies
 
@@ -45,7 +45,7 @@ Categorias:
 
 - **Necessários**: autenticação, segurança, tema e operação básica. Sempre ativos.
 - **Analytics**: Google Analytics e eventos de conversão. Desativados por padrão.
-- **Publicidade**: Google AdSense em superfícies editoriais elegíveis. Desativados por padrão.
+- **Publicidade**: Adsterra em superfícies editoriais elegíveis. Desativados por padrão.
 
 O sistema não deve tratar navegação contínua como consentimento para cookies não
 necessários.
@@ -53,7 +53,7 @@ necessários.
 ## Terceiros
 
 - **Google Analytics**: carregado apenas após aceite de analytics.
-- **Google AdSense**: carregado apenas após aceite de publicidade e somente em
+- **Adsterra**: carregado apenas após aceite de publicidade e somente em
   páginas autorizadas pela política de superfícies.
 - **Stripe**: checkout e assinatura Premium.
 - **Neon/Vercel**: banco de dados, hospedagem e execução da aplicação.
@@ -90,7 +90,7 @@ O atendimento operacional deve ocorrer pelo email informado pelo titular.
 - [x] Termos não tratam navegação contínua como consentimento para cookies.
 - [x] Banner possui rejeição e granularidade.
 - [x] Google Analytics é bloqueado antes do aceite.
-- [x] Google AdSense é bloqueado antes do aceite e segue restrições de rota.
+- [x] Adsterra é bloqueado antes do aceite e segue restrições de rota.
 - [x] Solicitações LGPD podem ser registradas.
 - [ ] Revisão jurídica formal.
 - [ ] Processo interno documentado para responder e concluir solicitações.

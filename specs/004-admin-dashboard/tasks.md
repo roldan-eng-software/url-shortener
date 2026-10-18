@@ -1,6 +1,5 @@
 ---
-
-description: "Task list for Admin Dashboard implementation"
+description: 'Task list for Admin Dashboard implementation'
 ---
 
 # Tasks: Admin Dashboard
@@ -9,6 +8,13 @@ description: "Task list for Admin Dashboard implementation"
 **Prerequisites**: plan.md (required), spec.md (required for user stories)
 
 **Tests**: Testes incluídos para validação de segurança e integração.
+
+> **Status:** implementado. As rotas, componentes e endpoints do dashboard admin
+> existem no repositório. Os checkboxes abaixo não foram atualizados durante a
+> implementação; use-os como referência de escopo, não como estado. Desvios
+> conhecidos: as migrations ficaram em `migrations/005_add_isAdmin.sql` e
+> `migrations/005b_set_first_admin.sql`; não há `components/admin/AdminGuard.tsx`
+> nem `middleware.ts` de raiz (a proteção é feita no layout + endpoints).
 
 **Organization**: Tasks são agrupadas por user story para implementação e teste independentes.
 
@@ -24,8 +30,8 @@ description: "Task list for Admin Dashboard implementation"
 
 **Purpose**: Migração do banco e infraestrutura de autenticação admin
 
-- [ ] T001 Criar migration SQL para adicionar campo `isAdmin` na tabela users em `migrations/004_add_isAdmin.sql`
-- [ ] T002 Criar migration para definir primeiro admin (email do proprietário) em `migrations/004_set_first_admin.sql`
+- [ ] T001 Criar migration SQL para adicionar campo `isAdmin` na tabela users em `migrations/005_add_isAdmin.sql`
+- [ ] T002 Criar migration para definir primeiro admin (email do proprietário) em `migrations/005b_set_first_admin.sql`
 - [ ] T003 [P] Criar utilitário de verificação admin em `lib/admin/auth.ts`
 - [ ] T004 [P] Criar middleware de proteção de rotas admin em `lib/admin/middleware.ts`
 

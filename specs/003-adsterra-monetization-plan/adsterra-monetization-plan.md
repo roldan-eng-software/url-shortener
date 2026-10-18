@@ -67,22 +67,23 @@ Manual review is required for:
 
 ## Format Policy
 
-| Format Type | Default Decision | Reason |
-|-------------|------------------|--------|
-| Standard display/content placement | Preferred candidate | Easier to separate from product UI and reserve stable space |
-| Native-like content unit | Review-required | Must avoid confusing ads with editorial or product recommendations |
-| Social Bar / notification-like widget | Review-required | May resemble UI notifications or interactive product elements |
-| Interstitial / overlay-like format | Review-required with high scrutiny | Can interrupt reading or primary actions |
-| Direct Link / Smartlink | Forbidden for short-code redirects | Can damage trust in destination expectations |
-| Any unknown account-specific format | Review-required | Must be classified before launch |
+| Format Type                           | Default Decision                   | Reason                                                             |
+| ------------------------------------- | ---------------------------------- | ------------------------------------------------------------------ |
+| Standard display/content placement    | Preferred candidate                | Easier to separate from product UI and reserve stable space        |
+| Native-like content unit              | Review-required                    | Must avoid confusing ads with editorial or product recommendations |
+| Social Bar / notification-like widget | Review-required                    | May resemble UI notifications or interactive product elements      |
+| Interstitial / overlay-like format    | Review-required with high scrutiny | Can interrupt reading or primary actions                           |
+| Direct Link / Smartlink               | Forbidden for short-code redirects | Can damage trust in destination expectations                       |
+| Any unknown account-specific format   | Review-required                    | Must be classified before launch                                   |
 
 ## AdSense Coexistence Rule
 
-The current constitution is AdSense-oriented. Adsterra must inherit the same
-blocked-route policy and must not silently expand ad eligibility. A page may not
-run AdSense and Adsterra together unless a future implementation spec documents
-why the combined stack is needed, how ad density is controlled, how consent is
-handled, and what performance thresholds trigger rollback.
+The constitution was AdSense-oriented when this plan was written and is now
+Adsterra-oriented (v1.1.0). Adsterra must inherit the same blocked-route policy
+and must not silently expand ad eligibility. A page may not run AdSense and
+Adsterra together unless a future implementation spec documents why the combined
+stack is needed, how ad density is controlled, how consent is handled, and what
+performance thresholds trigger rollback.
 
 ## Compliance Requirements
 

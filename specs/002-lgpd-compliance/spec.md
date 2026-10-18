@@ -5,7 +5,7 @@
 **Status**: Implemented  
 **Input**: User request to implement the LGPD correction plan after reviewing `/specs` and runtime code.
 
-## User Scenarios & Testing *(mandatory)*
+## User Scenarios & Testing _(mandatory)_
 
 ### User Story 1 - Manage cookie preferences (Priority: P1)
 
@@ -13,7 +13,7 @@ As a visitor, I need to accept, reject, or manage analytics and advertising
 cookies separately, so non-essential tracking respects my choice.
 
 **Independent Test**: A new visitor can reject non-essential cookies and no
-Google Analytics or Google AdSense script loads before that choice allows it.
+Google Analytics or Adsterra script loads before that choice allows it.
 
 **Acceptance Scenarios**:
 
@@ -63,12 +63,12 @@ page and the system records it for operational handling.
 
 - A user rejects all non-essential cookies and later wants to enable only
   analytics.
-- A user accepts ads on a page where AdSense is forbidden by the business plan.
+- A user accepts ads on a page where Adsterra is forbidden by the business plan.
 - A user submits an invalid email or excessive request details.
 - A previous legacy cookie notice value exists without granular preferences.
 - A future third party is added without updating privacy disclosures.
 
-## Requirements *(mandatory)*
+## Requirements _(mandatory)_
 
 ### Functional Requirements
 
@@ -88,7 +88,7 @@ page and the system records it for operational handling.
 - **FR-007**: The system MUST provide a way to submit LGPD rights requests.
 - **FR-008**: LGPD rights requests MUST be rate-limited and validate email,
   request type and detail length.
-- **FR-009**: The existing AdSense surface restrictions MUST remain in force
+- **FR-009**: The existing Adsterra surface restrictions MUST remain in force
   even when advertising cookies are accepted.
 - **FR-010**: Spec and planning documents MUST identify LGPD implementation
   status accurately.
@@ -111,12 +111,12 @@ page and the system records it for operational handling.
   ads, payments, hosting or database.
 - **Privacy Disclosure**: Public explanation of data processing.
 
-## Success Criteria *(mandatory)*
+## Success Criteria _(mandatory)_
 
 ### Measurable Outcomes
 
 - **SC-001**: Before cookie choice, browser checks show no Google Analytics or
-  Google AdSense scripts loaded by the application.
+  Adsterra scripts loaded by the application.
 - **SC-002**: Rejecting non-essential cookies keeps analytics and advertising
   disabled on subsequent page loads.
 - **SC-003**: Accepting advertising cookies does not enable ads on forbidden

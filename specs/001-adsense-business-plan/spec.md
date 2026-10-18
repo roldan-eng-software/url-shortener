@@ -1,12 +1,17 @@
 # Feature Specification: AdSense Business Plan
 
+> **Superseded por [`003-adsterra-monetization-plan`](../003-adsterra-monetization-plan/spec.md).**
+> Plano de negócio original baseado em Google AdSense. A monetização de runtime
+> migrou para **Adsterra** na spec 003; este conteúdo é histórico e cita AdSense
+> de propósito.
+
 **Feature Branch**: `001-adsense-business-plan`  
 **Created**: 2026-05-14  
 **Status**: Implemented (Adsterra)  
 **Last Updated**: 2026-06-30  
 **Input**: User description: "Agora que já tem uma Constituição fundamentada, crie o Specify deste plano de negocios"
 
-## User Scenarios & Testing *(mandatory)*
+## User Scenarios & Testing _(mandatory)_
 
 ### User Story 1 - Define monetization strategy (Priority: P1)
 
@@ -95,7 +100,7 @@ not mislead users about link destinations or sponsored content.
 - How does the plan distinguish free viral growth from Premium upsell pressure
   that could reduce free usage?
 
-## Requirements *(mandatory)*
+## Requirements _(mandatory)_
 
 ### Functional Requirements
 
@@ -130,7 +135,7 @@ not mislead users about link destinations or sponsored content.
   or rejecting ad placements that harm free usage, trust, readability, privacy,
   or performance.
 
-### Monetization, Growth & Compliance Requirements *(mandatory when affected)*
+### Monetization, Growth & Compliance Requirements _(mandatory when affected)_
 
 - **MG-001**: The plan MUST state that it affects the free shortening flow,
   AdSense surfaces, SEO pages, sharing loops, QR Codes, bio links, Premium
@@ -148,7 +153,7 @@ not mislead users about link destinations or sponsored content.
   redirect speed, public page loading, layout stability, and uninterrupted link
   creation.
 
-### Key Entities *(include if feature involves data)*
+### Key Entities _(include if feature involves data)_
 
 - **Business Plan**: The canonical description of the monetization model, target
   audiences, growth loops, revenue layers, guardrails, metrics, and decision
@@ -168,7 +173,7 @@ not mislead users about link destinations or sponsored content.
 - **Business Metric Baseline**: The starting measurement for traffic, usage,
   revenue potential, conversion, and trust indicators before future changes.
 
-## Success Criteria *(mandatory)*
+## Success Criteria _(mandatory)_
 
 ### Measurable Outcomes
 

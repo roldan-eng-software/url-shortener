@@ -10,6 +10,9 @@
 - [ ] Copiar o **Price ID** (`price_...`)
 - [ ] Configurar **Webhook Endpoint**:
   - URL: `https://urlencurta.com.br/api/stripe/webhook`
+  - Use o **mesmo domínio canônico** de `NEXT_PUBLIC_APP_URL` (veja
+    `DEPLOY_VERCEL.md`); se a Vercel redirecionar para `www`, cadastre a URL com
+    `www` para o Stripe receber `200` e não `307`.
   - Eventos:
     - `checkout.session.completed`
     - `customer.subscription.updated`
@@ -24,11 +27,11 @@
 
 Adicionar no Vercel Dashboard > Settings > Environment Variables:
 
-| Variável | Valor | Ambiente |
-|----------|-------|----------|
-| `STRIPE_SECRET_KEY` | `sk_live_...` | Production |
-| `STRIPE_WEBHOOK_SECRET` | `whsec_...` | Production |
-| `STRIPE_PREMIUM_PRICE_ID` | `price_...` | Production |
+| Variável                  | Valor         | Ambiente   |
+| ------------------------- | ------------- | ---------- |
+| `STRIPE_SECRET_KEY`       | `sk_live_...` | Production |
+| `STRIPE_WEBHOOK_SECRET`   | `whsec_...`   | Production |
+| `STRIPE_PREMIUM_PRICE_ID` | `price_...`   | Production |
 
 ### 3. Migration do Banco
 
@@ -45,6 +48,7 @@ CREATE INDEX IF NOT EXISTS idx_processed_events_processed_at ON processed_events
 ```
 
 Ou via CLI:
+
 ```bash
 # Se usando Drizzle Kit
 npx drizzle-kit push
@@ -95,15 +99,18 @@ UPDATE users SET is_admin = TRUE WHERE email = 'seu-email@exemplo.com';
 ### 7. Troubleshooting
 
 #### Problema: Webhook retorna 400
+
 - Verifique se `STRIPE_WEBHOOK_SECRET` está correto
 - Verifique se o body não está sendo modificado por proxy
 
 #### Problema: Premium não é ativado
+
 - Verifique os logs no Vercel para erros
 - Verifique se `metadata.userId` está correto no checkout
 - Verifique se a migration 006 foi executada
 
 #### Problema: `STRIPE_PREMIUM_PRICE_ID` não configurado
+
 - Verifique se a variável está definida no Vercel
 - Verifique se não está usando o fallback inválido
 

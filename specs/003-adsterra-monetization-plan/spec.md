@@ -12,6 +12,7 @@ This feature has been implemented as a documentation planning package AND a runt
 component. The Adsterra advertising integration is active in production:
 
 **Implemented Components:**
+
 - `components/Adsterra.tsx`: Adsterra ad slot component with route classification
 - `AdsterraSlot`, `AdsterraSlotTop`, `AdsterraSlotMiddle`, `AdsterraSlotBottom` variants
 - Cookie consent integration for advertising preferences
@@ -19,6 +20,7 @@ component. The Adsterra advertising integration is active in production:
 - Error handling and fallback states
 
 **Active Surfaces:**
+
 - `/como-funciona`: AdsterraSlotMiddle
 - `/boas-praticas-url-curta`: AdsterraSlotMiddle (via EditorialGuide)
 - `/links-para-whatsapp`: AdsterraSlotMiddle (via EditorialGuide)
@@ -27,10 +29,11 @@ component. The Adsterra advertising integration is active in production:
 - `/` (homepage): AdsterraSlotBottom
 
 **Configuration:**
+
 - Environment variables: `NEXT_PUBLIC_ADSTERRA_ENABLED`, `NEXT_PUBLIC_ADSTERRA_NATIVE_SCRIPT_URL`, `NEXT_PUBLIC_ADSTERRA_NATIVE_KEY`
 - Real Adsterra script configured in `.env.local`
 
-## User Scenarios & Testing *(mandatory)*
+## User Scenarios & Testing _(mandatory)_
 
 ### User Story 1 - Define Adsterra onboarding plan (Priority: P1)
 
@@ -121,7 +124,7 @@ Adsterra placements.
 - What happens if revenue improves but Core Web Vitals, redirect speed, or link
   creation completion gets worse?
 
-## Requirements *(mandatory)*
+## Requirements _(mandatory)_
 
 ### Functional Requirements
 
@@ -140,9 +143,10 @@ Adsterra placements.
   content-led surfaces with original useful content, clear search intent,
   product relevance, stable layout, consent coverage, and no interference with
   free link creation.
-- **FR-006**: The plan MUST define how Adsterra coexists with the existing
-  AdSense-oriented constitution, including a rule that no page runs competing
-  ad stacks unless a later implementation spec explicitly approves it.
+- **FR-006**: The plan MUST define how Adsterra coexists with the constitution
+  (AdSense-oriented at the time; Adsterra-oriented since v1.1.0), including a
+  rule that no page runs competing ad stacks unless a later implementation spec
+  explicitly approves it.
 - **FR-007**: The plan MUST define a format policy for Adsterra ad types,
   treating standard display/content placements as preferred, overlay-like or
   notification-like formats as review-required, and direct-link/Smartlink
@@ -162,7 +166,7 @@ Adsterra placements.
 - **FR-012**: The plan MUST produce a canonical planning artifact that future
   specs can reference before adding Adsterra code, configuration, or analytics.
 
-### Monetization, Growth & Compliance Requirements *(mandatory when affected)*
+### Monetization, Growth & Compliance Requirements _(mandatory when affected)_
 
 - **MG-001**: The feature MUST state that it affects advertising surfaces, SEO
   pages, third-party scripts, analytics, legal/privacy surfaces, performance,
@@ -177,7 +181,7 @@ Adsterra placements.
   public monetized pages MUST reserve ad space and avoid meaningful layout
   shift.
 
-### Key Entities *(include if feature involves data)*
+### Key Entities _(include if feature involves data)_
 
 - **Adsterra Onboarding Gate**: A documented checkpoint for publisher signup,
   email verification, website submission, moderation status, code retrieval, and
@@ -194,7 +198,7 @@ Adsterra placements.
 - **Launch Decision**: A go, revise, pause, or reject outcome for a proposed
   Adsterra placement.
 
-## Success Criteria *(mandatory)*
+## Success Criteria _(mandatory)_
 
 ### Measurable Outcomes
 

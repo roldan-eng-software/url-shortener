@@ -81,10 +81,11 @@ No page should run Adsterra and AdSense together unless a future implementation
 spec explicitly approves the combined stack with policy, performance, and
 revenue rationale.
 
-**Rationale**: The constitution is AdSense-oriented and already defines strict
-blocked surfaces. Introducing Adsterra changes the ad-network model, third-party
-script inventory, consent disclosure, and page-performance profile. A combined
-ad stack could also degrade readability and Core Web Vitals.
+**Rationale**: The constitution (AdSense-oriented at the time; Adsterra-oriented
+since v1.1.0) already defines strict blocked surfaces. Introducing Adsterra
+changes the ad-network model, third-party script inventory, consent disclosure,
+and page-performance profile. A combined ad stack could also degrade readability
+and Core Web Vitals.
 
 **Alternatives considered**:
 

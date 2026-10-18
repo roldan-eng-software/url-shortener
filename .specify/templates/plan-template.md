@@ -29,17 +29,17 @@
 
 ## Constitution Check
 
-*GATE: Must pass before Phase 0 research. Re-check after Phase 1 design.*
+_GATE: Must pass before Phase 0 research. Re-check after Phase 1 design._
 
 Answer every gate below with PASS, FAIL, or N/A and include concise evidence.
 Any FAIL must be listed in Complexity Tracking with a mitigation plan.
 
 - **Free Utility Gate**: The feature preserves the no-signup free URL
   shortening path, or explains why it is not touched.
-- **AdSense Surface Gate**: The feature states whether AdSense is allowed,
-  blocked, or unchanged for each affected route. Ads remain blocked on APIs,
-  dashboard, login, register, checkout, legal pages, preview, redirects, and
-  user short-code routes.
+- **Monetization Surface Gate**: The feature states whether advertising
+  (Adsterra) is allowed, blocked, or unchanged for each affected route. Ads
+  remain blocked on APIs, dashboard, login, register, checkout, legal pages,
+  preview, redirects, and user short-code routes.
 - **Organic Growth Gate**: The feature identifies its contribution to SEO,
   sharing, QR Codes, bio links, messaging templates, retention, or another
   organic growth loop.
@@ -63,6 +63,7 @@ specs/[###-feature]/
 ```
 
 ### Source Code (repository root)
+
 <!--
   ACTION REQUIRED: Replace the placeholder tree below with the concrete layout
   for this feature. Delete unused options and expand the chosen structure with
@@ -113,7 +114,7 @@ directories captured above]
 
 > **Fill ONLY if Constitution Check has violations that must be justified**
 
-| Violation | Why Needed | Simpler Alternative Rejected Because |
-|-----------|------------|-------------------------------------|
-| [e.g., 4th project] | [current need] | [why 3 projects insufficient] |
-| [e.g., Repository pattern] | [specific problem] | [why direct DB access insufficient] |
+| Violation                  | Why Needed         | Simpler Alternative Rejected Because |
+| -------------------------- | ------------------ | ------------------------------------ |
+| [e.g., 4th project]        | [current need]     | [why 3 projects insufficient]        |
+| [e.g., Repository pattern] | [specific problem] | [why direct DB access insufficient]  |

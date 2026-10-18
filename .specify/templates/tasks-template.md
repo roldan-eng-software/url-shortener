@@ -1,6 +1,5 @@
 ---
-
-description: "Task list template for feature implementation"
+description: 'Task list template for feature implementation'
 ---
 
 # Tasks: [FEATURE NAME]
@@ -25,21 +24,21 @@ description: "Task list template for feature implementation"
 - **Mobile**: `api/src/`, `ios/src/` or `android/src/`
 - Paths shown below assume single project - adjust based on plan.md structure
 
-<!-- 
+<!--
   ============================================================================
   IMPORTANT: The tasks below are SAMPLE TASKS for illustration purposes only.
-  
+
   The /speckit-tasks command MUST replace these with actual tasks based on:
   - User stories from spec.md (with their priorities P1, P2, P3...)
   - Feature requirements from plan.md
   - Entities from data-model.md
   - Endpoints from contracts/
-  
+
   Tasks MUST be organized by user story so each story can be:
   - Implemented independently
   - Tested independently
   - Delivered as an MVP increment
-  
+
   DO NOT keep these sample tasks in the generated tasks.md file.
   ============================================================================
 -->
@@ -68,7 +67,7 @@ Examples of foundational tasks (adjust based on your project):
 - [ ] T007 Create base models/entities that all stories depend on
 - [ ] T008 Configure error handling and logging infrastructure
 - [ ] T009 Setup environment configuration management
-- [ ] TXXX Validate AdSense route eligibility and blocked surfaces when the feature affects public routes
+- [ ] TXXX Validate Adsterra route eligibility and blocked surfaces when the feature affects public routes
 - [ ] TXXX Validate LGPD/privacy, consent, third-party scripts, and abuse-prevention impacts when applicable
 
 **Checkpoint**: Foundation ready - user story implementation can now begin in parallel
@@ -158,7 +157,7 @@ Examples of foundational tasks (adjust based on your project):
 - [ ] TXXX [P] Additional unit tests (if requested) in tests/unit/
 - [ ] TXXX Security hardening
 - [ ] TXXX Verify sitemap, robots, canonical metadata, and indexability for public monetizable pages
-- [ ] TXXX Verify AdSense slots use approved production IDs or remain disabled/placeholders outside production
+- [ ] TXXX Verify Adsterra slots use approved production IDs or remain disabled/placeholders outside production
 - [ ] TXXX Verify redirect hot path, LCP, CLS, and layout stability after ads, tracking, or content changes
 - [ ] TXXX Run quickstart.md validation
 

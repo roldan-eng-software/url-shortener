@@ -2,13 +2,18 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { LayoutDashboard, Users, CreditCard, FileText, LogOut } from 'lucide-react';
+import { LayoutDashboard, Users, CreditCard, FileText, LogOut, Filter } from 'lucide-react';
 
 const navItems = [
   {
     label: 'Dashboard',
     href: '/admin',
     icon: LayoutDashboard,
+  },
+  {
+    label: 'Funil',
+    href: '/admin/funnel',
+    icon: Filter,
   },
   {
     label: 'Clientes Premium',

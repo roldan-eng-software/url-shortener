@@ -2,8 +2,33 @@ import { NextRequest, NextResponse } from 'next/server';
 import { getDb, schema } from '@/lib/db';
 import { eq } from 'drizzle-orm';
 import Stripe from 'stripe';
+import { recordFunnelStep } from '@/lib/analytics/funnel';
 
 const { users: usersTable, processedEvents: processedEventsTable } = schema;
+
+type FunnelContext = {
+  userId: string;
+  source: string;
+  visitorId?: string;
+};
+
+function funnelContextFromSubscription(subscription: Stripe.Subscription): FunnelContext | null {
+  const userId = subscription.metadata?.userId;
+  if (!userId) {
+    return null;
+  }
+
+  return {
+    userId,
+    source: subscription.metadata?.source || 'unknown',
+    visitorId: subscription.metadata?.visitorId || undefined,
+  };
+}
+
+function subscriptionCycle(subscription: Stripe.Subscription): string {
+  const interval = subscription.items?.data?.[0]?.price?.recurring?.interval;
+  return interval === 'year' ? 'annual' : 'monthly';
+}
 
 // Lazy initialization - só cria o cliente quando necessário
 let stripeClient: Stripe | null = null;
@@ -63,10 +88,7 @@ export async function POST(request: NextRequest) {
     const signature = request.headers.get('stripe-signature');
 
     if (!signature) {
-      return NextResponse.json(
-        { error: 'Assinatura ausente' },
-        { status: 400 }
-      );
+      return NextResponse.json({ error: 'Assinatura ausente' }, { status: 400 });
     }
 
     let event: Stripe.Event;
@@ -75,19 +97,13 @@ export async function POST(request: NextRequest) {
       event = getStripe().webhooks.constructEvent(body, signature, WEBHOOK_SECRET);
     } catch (err) {
       console.error('[Stripe] Webhook signature verification failed:', err);
-      return NextResponse.json(
-        { error: 'Assinatura inválida' },
-        { status: 400 }
-      );
+      return NextResponse.json({ error: 'Assinatura inválida' }, { status: 400 });
     }
 
     return await handleEvent(event);
   } catch (error) {
     console.error('[Stripe] Webhook error:', error);
-    return NextResponse.json(
-      { error: 'Erro no webhook' },
-      { status: 500 }
-    );
+    return NextResponse.json({ error: 'Erro no webhook' }, { status: 500 });
   }
 }
 
@@ -120,7 +136,9 @@ async function handleEvent(event: Stripe.Event) {
           const customerUserId = customer.metadata?.userId;
 
           if (customerUserId !== userId) {
-            console.error(`[Stripe] userId mismatch: session.metadata.userId=${userId}, customer.metadata.userId=${customerUserId}`);
+            console.error(
+              `[Stripe] userId mismatch: session.metadata.userId=${userId}, customer.metadata.userId=${customerUserId}`
+            );
             break;
           }
         } catch (err) {
@@ -136,7 +154,8 @@ async function handleEvent(event: Stripe.Event) {
           ? new Date(subscription.trial_end * 1000)
           : new Date(Date.now() + 30 * 24 * 60 * 60 * 1000);
 
-        await db.update(usersTable)
+        await db
+          .update(usersTable)
           .set({
             isPremium: true,
             stripeSubscriptionId: subscription.id,
@@ -144,7 +163,22 @@ async function handleEvent(event: Stripe.Event) {
           })
           .where(eq(usersTable.id, userId));
 
-        console.log(`[Stripe] Premium ativado para user ${userId}, subscription ${subscription.id}`);
+        // Funil: trial iniciado (ou assinatura ativa, quando não há trial)
+        const trialActive = Boolean(
+          subscription.trial_end && subscription.trial_end * 1000 > Date.now()
+        );
+
+        await recordFunnelStep({
+          step: trialActive ? 'trial_started' : 'subscription_active',
+          source: subscription.metadata?.source ?? session.metadata?.source,
+          visitorId: subscription.metadata?.visitorId ?? session.metadata?.visitorId,
+          userId,
+          metadata: { cycle: subscriptionCycle(subscription) },
+        });
+
+        console.log(
+          `[Stripe] Premium ativado para user ${userId}, subscription ${subscription.id}`
+        );
       }
       break;
     }
@@ -157,14 +191,43 @@ async function handleEvent(event: Stripe.Event) {
         const isActive = subscription.status === 'active' || subscription.status === 'trialing';
         const premiumExpiresAt = new Date(subscription.current_period_end * 1000);
 
-        await db.update(usersTable)
+        await db
+          .update(usersTable)
           .set({
             isPremium: isActive,
             premiumExpiresAt,
           })
           .where(eq(usersTable.id, userId));
 
-        console.log(`[Stripe] Subscription atualizada para user ${userId}: status=${subscription.status}`);
+        // Funil: mapeia o estado da assinatura para a etapa correspondente
+        const context = funnelContextFromSubscription(subscription);
+
+        if (context) {
+          const cycle = subscriptionCycle(subscription);
+          const step =
+            subscription.status === 'trialing'
+              ? 'trial_started'
+              : subscription.status === 'active'
+                ? 'subscription_active'
+                : subscription.status === 'past_due' || subscription.status === 'unpaid'
+                  ? 'payment_failed'
+                  : null;
+
+          if (step) {
+            await recordFunnelStep({
+              step,
+              source: context.source,
+              visitorId: context.visitorId,
+              userId: context.userId,
+              metadata: { cycle },
+              dedupeSuffix: step === 'payment_failed' ? event.id : null,
+            });
+          }
+        }
+
+        console.log(
+          `[Stripe] Subscription atualizada para user ${userId}: status=${subscription.status}`
+        );
       }
       break;
     }
@@ -174,13 +237,26 @@ async function handleEvent(event: Stripe.Event) {
       const userId = subscription.metadata?.userId;
 
       if (userId) {
-        await db.update(usersTable)
+        await db
+          .update(usersTable)
           .set({
             isPremium: false,
             stripeSubscriptionId: null,
             premiumExpiresAt: new Date(),
           })
           .where(eq(usersTable.id, userId));
+
+        // Funil: cancelamento (pode ocorrer mais de uma vez por usuário)
+        const context = funnelContextFromSubscription(subscription);
+
+        await recordFunnelStep({
+          step: 'subscription_canceled',
+          source: context?.source,
+          visitorId: context?.visitorId,
+          userId,
+          metadata: { cycle: subscriptionCycle(subscription) },
+          dedupeSuffix: event.id,
+        });
 
         console.log(`[Stripe] Premium removido para user ${userId}`);
       }
@@ -197,7 +273,31 @@ async function handleEvent(event: Stripe.Event) {
         });
 
         if (user) {
-          console.warn(`[Stripe] Pagamento falhou para user ${user.id} (${user.email}), subscription ${invoice.subscription}`);
+          // Funil: falha de pagamento (recorrente -> usa o id do evento)
+          let source: string | undefined;
+          let visitorId: string | undefined;
+
+          try {
+            const subscription = await getStripe().subscriptions.retrieve(
+              invoice.subscription as string
+            );
+            source = subscription.metadata?.source;
+            visitorId = subscription.metadata?.visitorId;
+          } catch {
+            // Metadados indisponíveis: registra mesmo assim, com origem unknown
+          }
+
+          await recordFunnelStep({
+            step: 'payment_failed',
+            source,
+            visitorId,
+            userId: user.id,
+            dedupeSuffix: event.id,
+          });
+
+          console.warn(
+            `[Stripe] Pagamento falhou para user ${user.id} (${user.email}), subscription ${invoice.subscription}`
+          );
         }
       }
       break;
@@ -209,7 +309,9 @@ async function handleEvent(event: Stripe.Event) {
 
       if (userId && subscription.trial_end) {
         const trialEndDate = new Date(subscription.trial_end * 1000);
-        console.log(`[Stripe] Trial terminando em ${trialEndDate.toISOString()} para user ${userId}`);
+        console.log(
+          `[Stripe] Trial terminando em ${trialEndDate.toISOString()} para user ${userId}`
+        );
       }
       break;
     }

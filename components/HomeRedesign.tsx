@@ -17,6 +17,7 @@ import {
 import { UrlForm } from '@/components/UrlForm';
 import { QrCodeModal } from '@/components/QrCodeModal';
 import { AdsterraSlotBottom } from '@/components/Adsterra';
+import { trackFunnelStep } from '@/components/GoogleAnalytics';
 import { useAuth } from '@/context/AuthContext';
 import { cn, truncate } from '@/lib/utils';
 import { UrlHistoryItem } from '@/types';
@@ -27,11 +28,7 @@ interface UserLinkResponse {
   created_at: string;
 }
 
-const trustSignals = [
-  'Sem cadastro obrigatório',
-  'QR Code grátis',
-  'Histórico no navegador',
-];
+const trustSignals = ['Sem cadastro obrigatório', 'QR Code grátis', 'Histórico no navegador'];
 
 const benefits = [
   {
@@ -106,6 +103,10 @@ export function HomeRedesign() {
     loadHistory();
     window.addEventListener('urlHistoryUpdated', loadHistory);
     return () => window.removeEventListener('urlHistoryUpdated', loadHistory);
+  }, []);
+
+  useEffect(() => {
+    trackFunnelStep('offer_viewed', { surface: 'home' });
   }, []);
 
   useEffect(() => {
@@ -255,9 +256,7 @@ function HowItWorksCompact() {
     <section className="bg-surface py-10 md:py-14">
       <div className="mx-auto max-w-6xl px-4">
         <div className="mb-8 max-w-3xl">
-          <h2 className="text-2xl font-extrabold text-title md:text-3xl">
-            Como funciona
-          </h2>
+          <h2 className="text-2xl font-extrabold text-title md:text-3xl">Como funciona</h2>
           <p className="mt-3 text-text">Três passos curtos, sem telas intermediárias.</p>
         </div>
 
@@ -374,9 +373,7 @@ function CompactUrlCard({ item }: { item: UrlHistoryItem }) {
               onClick={handleCopy}
               className={cn(
                 'inline-flex h-10 items-center justify-center gap-2 rounded-lg px-3 text-sm font-bold transition-colors',
-                copied
-                  ? 'bg-success text-white'
-                  : 'bg-primary/10 text-primary hover:bg-primary/20'
+                copied ? 'bg-success text-white' : 'bg-primary/10 text-primary hover:bg-primary/20'
               )}
             >
               <Copy className="h-4 w-4" />
@@ -394,11 +391,7 @@ function CompactUrlCard({ item }: { item: UrlHistoryItem }) {
         </div>
       </article>
 
-      <QrCodeModal
-        isOpen={showQrModal}
-        onClose={() => setShowQrModal(false)}
-        url={item.shortUrl}
-      />
+      <QrCodeModal isOpen={showQrModal} onClose={() => setShowQrModal(false)} url={item.shortUrl} />
     </>
   );
 }
@@ -410,9 +403,7 @@ function FaqCompact() {
     <section className="py-10 md:py-16">
       <div className="mx-auto max-w-3xl px-4">
         <div className="mb-8 text-center">
-          <h2 className="text-2xl font-extrabold text-title md:text-3xl">
-            Dúvidas frequentes
-          </h2>
+          <h2 className="text-2xl font-extrabold text-title md:text-3xl">Dúvidas frequentes</h2>
           <p className="mt-3 text-text">O essencial antes de criar seu próximo link.</p>
         </div>
 
@@ -461,9 +452,7 @@ function PremiumMiniCta() {
               <ShieldCheck className="h-3.5 w-3.5" />
               Premium
             </div>
-            <h2 className="text-2xl font-extrabold text-title">
-              Quer links com sua marca?
-            </h2>
+            <h2 className="text-2xl font-extrabold text-title">Quer links com sua marca?</h2>
             <p className="mt-2 text-sm text-text md:text-base">
               No Premium você usa alias personalizado, histórico completo e estatísticas avançadas.
             </p>

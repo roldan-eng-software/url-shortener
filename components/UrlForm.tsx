@@ -5,7 +5,7 @@ import { UrlResult } from './UrlResult';
 import Link from 'next/link';
 import { useAuth } from '@/context/AuthContext';
 import { Clipboard, Crown, Link2, Loader2, Wand2 } from 'lucide-react';
-import { trackConversionEvent } from './GoogleAnalytics';
+import { trackConversionEvent, trackFunnelStep } from './GoogleAnalytics';
 
 const exampleUrls = [
   'https://wa.me/5511999999999',
@@ -71,6 +71,9 @@ export function UrlForm() {
       trackConversionEvent('short_link_created', {
         link_type: isPremium ? 'premium' : 'free',
         custom_alias: Boolean(payload.customCode),
+      });
+      trackFunnelStep('result_viewed', {
+        link_type: isPremium ? 'premium' : 'free',
       });
       setUrl('');
       setCustomCode('');
@@ -211,7 +214,9 @@ export function UrlForm() {
                   id="customCode"
                   type="text"
                   value={customCode}
-                  onChange={(e) => setCustomCode(e.target.value.replace(/[^a-zA-Z0-9-]/g, '').toLowerCase())}
+                  onChange={(e) =>
+                    setCustomCode(e.target.value.replace(/[^a-zA-Z0-9-]/g, '').toLowerCase())
+                  }
                   placeholder="seu-alias"
                   maxLength={50}
                   className="flex-1 px-2 sm:px-3 py-2.5 bg-surface text-title placeholder-text-secondary focus:outline-none focus:ring-2 focus:ring-primary/30 transition-all duration-300 text-xs min-w-0"
@@ -246,7 +251,14 @@ export function UrlForm() {
         </div>
       )}
 
-      {result && <UrlResult shortCode={result.shortCode} shortUrl={result.shortUrl} originalUrl={result.originalUrl} isPremium={isPremium} />}
+      {result && (
+        <UrlResult
+          shortCode={result.shortCode}
+          shortUrl={result.shortUrl}
+          originalUrl={result.originalUrl}
+          isPremium={isPremium}
+        />
+      )}
     </div>
   );
 }

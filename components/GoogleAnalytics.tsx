@@ -2,10 +2,9 @@
 
 import Script from 'next/script';
 import { useEffect, useState } from 'react';
-import {
-  COOKIE_CONSENT_UPDATED_EVENT,
-  getStoredCookieConsent,
-} from '@/lib/cookie-consent';
+import { COOKIE_CONSENT_UPDATED_EVENT, getStoredCookieConsent } from '@/lib/cookie-consent';
+import type { FunnelStep } from '@/lib/analytics/funnel';
+import { ensureVisitorId, getAttributionSource } from '@/lib/analytics/visitor';
 
 export const GA_MEASUREMENT_ID = process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID || 'G-ZRN8PG2KZX';
 
@@ -64,12 +63,15 @@ export function trackEvent(category: string, action: string, label?: string, val
     window.gtag('event', action, {
       event_category: category,
       event_label: label,
-      value: value
+      value: value,
     });
   }
 }
 
-export function trackConversionEvent(action: string, params?: Record<string, string | number | boolean | undefined>) {
+export function trackConversionEvent(
+  action: string,
+  params?: Record<string, string | number | boolean | undefined>
+) {
   if (typeof window !== 'undefined' && getStoredCookieConsent()?.analytics && window.gtag) {
     window.gtag('event', action, {
       event_category: 'conversion',
@@ -81,7 +83,32 @@ export function trackConversionEvent(action: string, params?: Record<string, str
 export function trackConversion(conversionId: string, conversionLabel: string) {
   if (typeof window !== 'undefined' && getStoredCookieConsent()?.analytics && window.gtag) {
     window.gtag('event', 'conversion', {
-      send_to: `${conversionId}/${conversionLabel}`
+      send_to: `${conversionId}/${conversionLabel}`,
     });
   }
+}
+
+/**
+ * Registra uma etapa do funil anônimo -> Premium no Google Analytics.
+ *
+ * Consentimento primeiro (FR-004): sem `analytics: true` é um no-op. Também
+ * garante o identificador anônimo e injeta a origem de primeiro toque (FR-003)
+ * para que o avanço possa ser atribuído a um canal.
+ */
+export function trackFunnelStep(
+  step: FunnelStep,
+  extras?: Record<string, string | number | boolean | undefined>
+) {
+  if (typeof window === 'undefined' || !getStoredCookieConsent()?.analytics) {
+    return;
+  }
+
+  const visitorId = ensureVisitorId();
+  const source = getAttributionSource();
+
+  trackConversionEvent(step, {
+    source,
+    ...(visitorId ? { visitor_id: visitorId } : {}),
+    ...extras,
+  });
 }

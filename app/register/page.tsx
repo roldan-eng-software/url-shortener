@@ -1,6 +1,6 @@
 'use client';
 
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { signIn } from 'next-auth/react';
@@ -20,6 +20,8 @@ import {
   UserPlus,
 } from 'lucide-react';
 import { useAuth } from '@/context/AuthContext';
+import { trackFunnelStep } from '@/components/GoogleAnalytics';
+import { ensureVisitorId, getAttributionSource } from '@/lib/analytics/visitor';
 
 function getRedirectPath() {
   if (typeof window === 'undefined') return '/';
@@ -46,6 +48,10 @@ export default function RegisterPage() {
     { label: '8 caracteres ou mais', valid: password.length >= 8 },
     { label: 'Senhas iguais', valid: Boolean(confirmPassword) && password === confirmPassword },
   ];
+
+  useEffect(() => {
+    trackFunnelStep('account_creation_started');
+  }, []);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -78,7 +84,12 @@ export default function RegisterPage() {
       const res = await fetch('/api/auth/register', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email, password }),
+        body: JSON.stringify({
+          email,
+          password,
+          visitorId: ensureVisitorId() ?? undefined,
+          source: getAttributionSource(),
+        }),
       });
 
       const data = await res.json();
@@ -107,7 +118,10 @@ export default function RegisterPage() {
     <div className="min-h-screen bg-background px-4 py-10">
       <div className="mx-auto grid min-h-[calc(100vh-5rem)] max-w-6xl gap-8 lg:grid-cols-[1fr_460px] lg:items-center">
         <section className="hidden lg:block">
-          <Link href="/" className="mb-10 inline-flex items-center gap-2 text-sm font-semibold text-text hover:text-primary">
+          <Link
+            href="/"
+            className="mb-10 inline-flex items-center gap-2 text-sm font-semibold text-text hover:text-primary"
+          >
             <ArrowLeft className="h-4 w-4" />
             Voltar para a home
           </Link>
@@ -120,7 +134,8 @@ export default function RegisterPage() {
               Crie sua conta e publique links com cara de campanha.
             </h1>
             <p className="mt-5 text-lg leading-8 text-text">
-              Salve histórico, acompanhe cliques e desbloqueie um fluxo direto para o Premium quando estiver pronto para vender melhor.
+              Salve histórico, acompanhe cliques e desbloqueie um fluxo direto para o Premium quando
+              estiver pronto para vender melhor.
             </p>
 
             <div className="mt-8 grid gap-3 sm:grid-cols-3">
@@ -144,7 +159,10 @@ export default function RegisterPage() {
 
         <section className="mx-auto w-full max-w-md">
           <div className="mb-6 lg:hidden">
-            <Link href="/" className="inline-flex items-center gap-2 text-sm font-semibold text-text hover:text-primary">
+            <Link
+              href="/"
+              className="inline-flex items-center gap-2 text-sm font-semibold text-text hover:text-primary"
+            >
               <ArrowLeft className="h-4 w-4" />
               Voltar
             </Link>
@@ -223,7 +241,9 @@ export default function RegisterPage() {
               <div className="grid gap-2 rounded-2xl bg-background p-3">
                 {passwordChecks.map((check) => (
                   <div key={check.label} className="flex items-center gap-2 text-sm">
-                    <span className={`flex h-5 w-5 items-center justify-center rounded-full ${check.valid ? 'bg-green-500 text-white' : 'bg-border text-text-secondary'}`}>
+                    <span
+                      className={`flex h-5 w-5 items-center justify-center rounded-full ${check.valid ? 'bg-green-500 text-white' : 'bg-border text-text-secondary'}`}
+                    >
                       <Check className="h-3.5 w-3.5" />
                     </span>
                     <span className={check.valid ? 'text-title' : 'text-text'}>{check.label}</span>
@@ -236,7 +256,11 @@ export default function RegisterPage() {
                 disabled={loading}
                 className="inline-flex w-full items-center justify-center gap-2 rounded-xl bg-primary px-4 py-3.5 font-bold text-white transition hover:bg-primary-hover disabled:cursor-not-allowed disabled:opacity-50"
               >
-                {loading ? <Loader2 className="h-5 w-5 animate-spin" /> : <ArrowRight className="h-5 w-5" />}
+                {loading ? (
+                  <Loader2 className="h-5 w-5 animate-spin" />
+                ) : (
+                  <ArrowRight className="h-5 w-5" />
+                )}
                 {loading ? 'Criando conta...' : 'Criar conta e continuar'}
               </button>
             </form>
@@ -253,9 +277,14 @@ export default function RegisterPage() {
 
           <p className="mt-5 text-center text-xs leading-5 text-text-secondary">
             Ao criar uma conta, você concorda com nossos{' '}
-            <Link href="/termos" className="text-primary hover:underline">Termos de Uso</Link>
-            {' '}e{' '}
-            <Link href="/privacidade" className="text-primary hover:underline">Política de Privacidade</Link>.
+            <Link href="/termos" className="text-primary hover:underline">
+              Termos de Uso
+            </Link>{' '}
+            e{' '}
+            <Link href="/privacidade" className="text-primary hover:underline">
+              Política de Privacidade
+            </Link>
+            .
           </p>
 
           <div className="mt-4 flex items-center justify-center gap-2 text-xs font-semibold text-text-secondary">

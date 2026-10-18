@@ -1,4 +1,13 @@
-import { pgTable, uuid, varchar, integer, timestamp, text, boolean, jsonb } from 'drizzle-orm/pg-core';
+import {
+  pgTable,
+  uuid,
+  varchar,
+  integer,
+  timestamp,
+  text,
+  boolean,
+  jsonb,
+} from 'drizzle-orm/pg-core';
 
 export const users = pgTable('users', {
   id: uuid('id').primaryKey().defaultRandom(),
@@ -77,7 +86,9 @@ export const privacyRequests = pgTable('privacy_requests', {
 
 export const bioPages = pgTable('bio_pages', {
   id: uuid('id').primaryKey().defaultRandom(),
-  userId: uuid('user_id').references(() => users.id, { onDelete: 'cascade' }).notNull(),
+  userId: uuid('user_id')
+    .references(() => users.id, { onDelete: 'cascade' })
+    .notNull(),
   handle: varchar('handle', { length: 40 }).notNull().unique(),
   title: varchar('title', { length: 120 }).notNull(),
   description: text('description'),
@@ -89,7 +100,9 @@ export const bioPages = pgTable('bio_pages', {
 
 export const bioLinks = pgTable('bio_links', {
   id: uuid('id').primaryKey().defaultRandom(),
-  bioPageId: uuid('bio_page_id').references(() => bioPages.id, { onDelete: 'cascade' }).notNull(),
+  bioPageId: uuid('bio_page_id')
+    .references(() => bioPages.id, { onDelete: 'cascade' })
+    .notNull(),
   title: varchar('title', { length: 120 }).notNull(),
   url: text('url').notNull(),
   position: integer('position').notNull().default(0),
@@ -102,6 +115,17 @@ export const bioLinks = pgTable('bio_links', {
 export const processedEvents = pgTable('processed_events', {
   id: varchar('id', { length: 100 }).primaryKey(),
   processedAt: timestamp('processed_at').defaultNow().notNull(),
+});
+
+export const funnelEvents = pgTable('funnel_events', {
+  id: uuid('id').primaryKey().defaultRandom(),
+  step: varchar('step', { length: 40 }).notNull(),
+  source: varchar('source', { length: 80 }).notNull().default('unknown'),
+  visitorId: varchar('visitor_id', { length: 64 }),
+  userId: uuid('user_id').references(() => users.id, { onDelete: 'set null' }),
+  dedupeKey: varchar('dedupe_key', { length: 180 }).notNull().unique(),
+  occurredAt: timestamp('occurred_at').defaultNow().notNull(),
+  metadata: jsonb('metadata').default({}).notNull(),
 });
 
 export type User = typeof users.$inferSelect;
@@ -122,3 +146,5 @@ export type BioLink = typeof bioLinks.$inferSelect;
 export type NewBioLink = typeof bioLinks.$inferInsert;
 export type ProcessedEvent = typeof processedEvents.$inferSelect;
 export type NewProcessedEvent = typeof processedEvents.$inferInsert;
+export type FunnelEvent = typeof funnelEvents.$inferSelect;
+export type NewFunnelEvent = typeof funnelEvents.$inferInsert;

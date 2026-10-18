@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import {
   ArrowRight,
@@ -21,7 +21,8 @@ import {
   X,
 } from 'lucide-react';
 import { useAuth } from '@/context/AuthContext';
-import { trackConversionEvent } from '@/components/GoogleAnalytics';
+import { trackConversionEvent, trackFunnelStep } from '@/components/GoogleAnalytics';
+import { ensureVisitorId, getAttributionSource } from '@/lib/analytics/visitor';
 
 const premiumFeatures = [
   { icon: Link2, text: 'Aliases personalizados para campanhas e marca' },
@@ -54,7 +55,8 @@ const faqs = [
   },
   {
     question: 'Meus links param se eu cancelar?',
-    answer: 'Não. Links já criados continuam redirecionando. Você perde apenas os recursos premium ativos.',
+    answer:
+      'Não. Links já criados continuam redirecionando. Você perde apenas os recursos premium ativos.',
   },
   {
     question: 'Preciso cadastrar cartão?',
@@ -71,6 +73,10 @@ export default function PremiumPage() {
 
   const canceled = searchParams.get('canceled');
 
+  useEffect(() => {
+    trackFunnelStep('offer_viewed', { surface: 'premium_page' });
+  }, []);
+
   const handleCheckout = async () => {
     setError('');
 
@@ -84,7 +90,14 @@ export default function PremiumPage() {
 
     setLoading(true);
     try {
-      const res = await fetch('/api/stripe/checkout', { method: 'POST' });
+      const res = await fetch('/api/stripe/checkout', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          visitorId: ensureVisitorId() ?? undefined,
+          source: getAttributionSource(),
+        }),
+      });
       const data = await res.json();
 
       if (!res.ok || !data.url) {
@@ -133,7 +146,8 @@ export default function PremiumPage() {
               Transforme cada link em uma campanha mensurável.
             </h1>
             <p className="mt-5 max-w-2xl text-lg leading-8 text-text">
-              Pare de compartilhar URLs genéricas. Use links curtos com alias de marca, QR Code e métricas para saber o que realmente gera cliques.
+              Pare de compartilhar URLs genéricas. Use links curtos com alias de marca, QR Code e
+              métricas para saber o que realmente gera cliques.
             </p>
 
             <div className="mt-8 flex flex-col gap-3 sm:flex-row">
@@ -145,7 +159,11 @@ export default function PremiumPage() {
                 data-track-label="hero_trial"
                 className="inline-flex items-center justify-center gap-2 rounded-xl bg-primary px-6 py-3.5 font-bold text-white transition hover:scale-[1.02] hover:bg-primary-hover disabled:cursor-not-allowed disabled:opacity-60"
               >
-                {loading ? <Loader2 className="h-5 w-5 animate-spin" /> : <Sparkles className="h-5 w-5" />}
+                {loading ? (
+                  <Loader2 className="h-5 w-5 animate-spin" />
+                ) : (
+                  <Sparkles className="h-5 w-5" />
+                )}
                 {loading ? 'Abrindo checkout...' : 'Começar 7 dias grátis'}
               </button>
               <a
@@ -162,8 +180,7 @@ export default function PremiumPage() {
 
             <div className="mt-6 flex flex-wrap gap-3 text-sm text-text">
               <span className="inline-flex items-center gap-2 rounded-full bg-surface px-3 py-2">
-                <Clock3 className="h-4 w-4 text-primary" />
-                7 dias grátis
+                <Clock3 className="h-4 w-4 text-primary" />7 dias grátis
               </span>
               <span className="inline-flex items-center gap-2 rounded-full bg-surface px-3 py-2">
                 <ShieldCheck className="h-4 w-4 text-green-600" />
@@ -179,7 +196,9 @@ export default function PremiumPage() {
           <div className="rounded-3xl border border-primary/20 bg-surface p-6 shadow-2xl shadow-primary/10">
             <div className="mb-5 flex items-center justify-between gap-3">
               <div>
-                <p className="text-sm font-bold uppercase tracking-[0.12em] text-primary">Plano recomendado</p>
+                <p className="text-sm font-bold uppercase tracking-[0.12em] text-primary">
+                  Plano recomendado
+                </p>
                 <h2 className="mt-2 text-3xl font-bold text-title">Premium</h2>
               </div>
               <span className="rounded-full bg-primary px-3 py-1 text-sm font-bold text-white">
@@ -218,7 +237,11 @@ export default function PremiumPage() {
               data-track-label="pricing_card"
               className="mt-7 inline-flex w-full items-center justify-center gap-2 rounded-xl bg-primary px-6 py-3.5 font-bold text-white transition hover:bg-primary-hover disabled:cursor-not-allowed disabled:opacity-60"
             >
-              {loading ? <Loader2 className="h-5 w-5 animate-spin" /> : <ArrowRight className="h-5 w-5" />}
+              {loading ? (
+                <Loader2 className="h-5 w-5 animate-spin" />
+              ) : (
+                <ArrowRight className="h-5 w-5" />
+              )}
               {loading ? 'Processando...' : 'Assinar Premium'}
             </button>
           </div>
@@ -230,7 +253,13 @@ export default function PremiumPage() {
           {outcomes.map((outcome, index) => (
             <div key={outcome} className="rounded-2xl border border-border bg-background p-5">
               <div className="mb-4 flex h-10 w-10 items-center justify-center rounded-xl bg-primary/10 text-primary">
-                {index === 0 ? <Link2 className="h-5 w-5" /> : index === 1 ? <Target className="h-5 w-5" /> : <MegaphoneIcon />}
+                {index === 0 ? (
+                  <Link2 className="h-5 w-5" />
+                ) : index === 1 ? (
+                  <Target className="h-5 w-5" />
+                ) : (
+                  <MegaphoneIcon />
+                )}
               </div>
               <p className="text-sm leading-6 text-text">{outcome}</p>
             </div>
@@ -242,7 +271,9 @@ export default function PremiumPage() {
         <div className="container mx-auto max-w-6xl px-4">
           <div className="mb-10 text-center">
             <h2 className="text-3xl font-bold text-title">Grátis ajuda. Premium vende melhor.</h2>
-            <p className="mt-3 text-text">A diferença aparece quando você precisa repetir campanhas e entender o resultado.</p>
+            <p className="mt-3 text-text">
+              A diferença aparece quando você precisa repetir campanhas e entender o resultado.
+            </p>
           </div>
 
           <div className="overflow-hidden rounded-2xl border border-border bg-surface">
@@ -252,7 +283,10 @@ export default function PremiumPage() {
               <span>Premium</span>
             </div>
             {comparisonRows.map((row) => (
-              <div key={row.label} className="grid grid-cols-[1.3fr_0.8fr_0.8fr] border-b border-border px-4 py-4 text-sm last:border-b-0">
+              <div
+                key={row.label}
+                className="grid grid-cols-[1.3fr_0.8fr_0.8fr] border-b border-border px-4 py-4 text-sm last:border-b-0"
+              >
                 <span className="font-semibold text-title">{row.label}</span>
                 <span className="text-text">{row.free}</span>
                 <span className="inline-flex items-center gap-2 font-bold text-primary">
@@ -268,7 +302,9 @@ export default function PremiumPage() {
       <section className="bg-title py-14 text-white md:py-16">
         <div className="container mx-auto grid max-w-6xl gap-8 px-4 lg:grid-cols-[1fr_auto] lg:items-center">
           <div>
-            <p className="text-sm font-bold uppercase tracking-[0.12em] text-primary-light">Próxima campanha</p>
+            <p className="text-sm font-bold uppercase tracking-[0.12em] text-primary-light">
+              Próxima campanha
+            </p>
             <h2 className="mt-3 max-w-3xl text-3xl font-bold md:text-4xl">
               Crie links curtos, rastreáveis e prontos para venda ainda hoje.
             </h2>
@@ -281,7 +317,11 @@ export default function PremiumPage() {
             data-track-label="bottom_band"
             className="inline-flex items-center justify-center gap-2 rounded-xl bg-white px-6 py-3.5 font-bold text-title transition hover:scale-[1.02] disabled:cursor-not-allowed disabled:opacity-60"
           >
-            {loading ? <Loader2 className="h-5 w-5 animate-spin" /> : <ArrowRight className="h-5 w-5" />}
+            {loading ? (
+              <Loader2 className="h-5 w-5 animate-spin" />
+            ) : (
+              <ArrowRight className="h-5 w-5" />
+            )}
             Começar agora
           </button>
         </div>
@@ -309,8 +349,19 @@ export default function PremiumPage() {
 
 function MegaphoneIcon() {
   return (
-    <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 15.5v3.25a1.25 1.25 0 0 1-2.4.49L6 15.5m4 0H6m4 0 7.5 3.5V5L10 8.5m0 7V8.5m0 0H5.75A2.75 2.75 0 0 0 3 11.25v1.5a2.75 2.75 0 0 0 2.75 2.75H6" />
+    <svg
+      className="h-5 w-5"
+      fill="none"
+      stroke="currentColor"
+      viewBox="0 0 24 24"
+      aria-hidden="true"
+    >
+      <path
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth={2}
+        d="M10 15.5v3.25a1.25 1.25 0 0 1-2.4.49L6 15.5m4 0H6m4 0 7.5 3.5V5L10 8.5m0 7V8.5m0 0H5.75A2.75 2.75 0 0 0 3 11.25v1.5a2.75 2.75 0 0 0 2.75 2.75H6"
+      />
     </svg>
   );
 }

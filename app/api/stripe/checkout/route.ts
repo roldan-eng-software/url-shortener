@@ -48,20 +48,33 @@ export async function POST(request: NextRequest) {
     // Fail-fast se configuração incompleta
     if (!PREMIUM_PRICE_ID) {
       console.error('[Stripe] Checkout rejeitado: STRIPE_PREMIUM_PRICE_ID não configurada');
-      return NextResponse.json(
-        { error: 'Configuração de pagamento incompleta' },
-        { status: 500 }
-      );
+      return NextResponse.json({ error: 'Configuração de pagamento incompleta' }, { status: 500 });
     }
 
     const authUser = await getAuthUserFromRequest(request);
 
     if (!authUser) {
-      return NextResponse.json(
-        { error: 'Usuário não autenticado' },
-        { status: 401 }
-      );
+      return NextResponse.json({ error: 'Usuário não autenticado' }, { status: 401 });
     }
+
+    // Vínculo do funil anônimo -> Premium (FR-005): origem e visitante são
+    // carregados para os metadados da assinatura, para que as etapas de cobrança
+    // registradas pelo webhook mantenham a atribuição.
+    const funnelBody = (await request.json().catch(() => ({}))) as Record<string, unknown>;
+    const funnelSource =
+      typeof funnelBody.source === 'string' && funnelBody.source.trim()
+        ? funnelBody.source.trim().slice(0, 80)
+        : 'unknown';
+    const funnelVisitorId =
+      typeof funnelBody.visitorId === 'string' && funnelBody.visitorId.trim()
+        ? funnelBody.visitorId.trim().slice(0, 64)
+        : undefined;
+
+    const funnelMetadata: Record<string, string> = {
+      userId: authUser.id,
+      source: funnelSource,
+      ...(funnelVisitorId ? { visitorId: funnelVisitorId } : {}),
+    };
 
     const db = getDb();
     const user = await db.query.users.findFirst({
@@ -69,17 +82,11 @@ export async function POST(request: NextRequest) {
     });
 
     if (!user) {
-      return NextResponse.json(
-        { error: 'Usuário não encontrado' },
-        { status: 404 }
-      );
+      return NextResponse.json({ error: 'Usuário não encontrado' }, { status: 404 });
     }
 
     if (user.isPremium && user.premiumExpiresAt && new Date(user.premiumExpiresAt) > new Date()) {
-      return NextResponse.json(
-        { error: 'Você já é premium' },
-        { status: 400 }
-      );
+      return NextResponse.json({ error: 'Você já é premium' }, { status: 400 });
     }
 
     let customerId = user.stripeCustomerId;
@@ -87,13 +94,12 @@ export async function POST(request: NextRequest) {
     if (!customerId) {
       const customer = await getStripe().customers.create({
         email: user.email,
-        metadata: {
-          userId: user.id,
-        },
+        metadata: funnelMetadata,
       });
       customerId = customer.id;
 
-      await db.update(usersTable)
+      await db
+        .update(usersTable)
         .set({ stripeCustomerId: customerId })
         .where(eq(usersTable.id, authUser.id));
     }
@@ -111,23 +117,16 @@ export async function POST(request: NextRequest) {
       ],
       success_url: `${appUrl}/premium/success?session_id={CHECKOUT_SESSION_ID}`,
       cancel_url: `${appUrl}/premium?canceled=true`,
-      metadata: {
-        userId: user.id,
-      },
+      metadata: funnelMetadata,
       subscription_data: {
         trial_period_days: 7,
-        metadata: {
-          userId: user.id,
-        },
+        metadata: funnelMetadata,
       },
     });
 
     return NextResponse.json({ url: session.url });
   } catch (error) {
     console.error('Error creating Stripe session:', error);
-    return NextResponse.json(
-      { error: 'Erro ao processar pagamento' },
-      { status: 500 }
-    );
+    return NextResponse.json({ error: 'Erro ao processar pagamento' }, { status: 500 });
   }
 }

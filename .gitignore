@@ -17,3 +17,7 @@ tsconfig.tsbuildinfo
 Thumbs.db
 .vercel
 .env*.local
+
+# Ferramentas locais de agente (skills de terceiros e comandos do Speckit)
+.agents/skills/
+.opencode/

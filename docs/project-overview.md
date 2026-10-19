@@ -49,7 +49,7 @@ receita por publicidade em páginas de conteúdo.
 - Monitoramento de banco (contagem por tabela), gestão de clientes Premium com
   status de pagamento e link de WhatsApp, status do Stripe com receita/MRR e
   gestão de leads.
-- Funil anônimo → Premium em `/admin/funil` (conversão por etapa e por origem).
+- Funil anônimo → Premium em `/admin/funnel` (conversão por etapa e por origem).
 
 ### Conteúdo (SEO) e monetização
 

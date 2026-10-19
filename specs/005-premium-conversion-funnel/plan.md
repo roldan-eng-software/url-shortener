@@ -21,7 +21,7 @@ aditiva**:
 - Um identificador anônimo (cookie de primeira parte, só criado após consentimento)
   permite unir os passos anônimos aos passos da conta no mesmo funil (FR-005).
 - A leitura do funil é exposta por um endpoint admin e por uma página em
-  `/admin/funil`.
+  `/admin/funnel`.
 
 Nenhuma dependência nova, nenhum fornecedor novo, nenhum impacto no caminho de
 redirecionamento.

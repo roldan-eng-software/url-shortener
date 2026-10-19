@@ -131,7 +131,7 @@ Checklist final:
 - [ ] Nenhuma PII no `metadata` (revisar `data-model.md`).
 - [ ] Reentrega do Stripe não duplica (Cenário 4).
 - [ ] Redirecionamento sem peso novo (Cenário 7).
-- [ ] Funil legível no `/admin/funil`.
+- [ ] Funil legível no `/admin/funnel`.
 
 ## Troubleshooting
 
@@ -173,4 +173,4 @@ porque exigem banco real e Stripe CLI.
 
 1. Aplicar `migrations/008_create_funnel_events.sql` no Neon.
 2. Rodar os Cenários 3–7 do quickstart em ambiente com banco e Stripe CLI.
-3. Monitorar `unknownSourceShare` no `/admin/funil` (SC-003 tolera até 10%).
+3. Monitorar `unknownSourceShare` no `/admin/funnel` (SC-003 tolera até 10%).

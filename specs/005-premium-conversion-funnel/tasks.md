@@ -53,7 +53,7 @@ independentes. Paths são relativos à raiz do repositório.
 
 **Goal**: Registrar cada etapa da jornada (resultado visto → oferta vista → conta iniciada → conta criada) e permitir visualizar o funil por período.
 
-**Independent Test**: Percorrer a jornada (anônimo, conta nova) com consentimento e confirmar que cada etapa aparece **uma única vez** em `/admin/funil`, com a taxa anônimo → conta calculável.
+**Independent Test**: Percorrer a jornada (anônimo, conta nova) com consentimento e confirmar que cada etapa aparece **uma única vez** em `/admin/funnel`, com a taxa anônimo → conta calculável.
 
 ### Tests for User Story 1 (OPTIONAL — convenção do projeto) ⚠️
 
@@ -199,7 +199,7 @@ Task: "account_creation_started em app/register/page.tsx"
 ### Incremental Delivery
 
 1. Setup + Foundational → fundação pronta.
-2. US1 → valida independente → **MVP**: funil anônimo → conta visível no `/admin/funil`.
+2. US1 → valida independente → **MVP**: funil anônimo → conta visível no `/admin/funnel`.
 3. US2 → valida independente → conversão por canal.
 4. US3 → valida independente → conversão e churn completos.
 5. Cada história agrega valor sem quebrar as anteriores.
